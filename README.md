@@ -1,4 +1,5 @@
-<img height="125" align="left" style="float: left;" alt="PowerCord logo" src="PowerCord.png">
+<img width="125" height="125" align="left" style="float: left;" alt="PowerCord logo" src="PowerCord.png">
+<!-- Extra padding in image because GitLab ignores margin styling -->
 
 # PowerCord
 
