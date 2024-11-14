@@ -1,70 +1,31 @@
-<img width="150" height="150" align="left" style="float: left; margin: 0 10px 0 0;" alt="PowerCord logo" src="src/assets/logo.png">
+<img width="125" height="125" align="left" style="float: left; margin: 0 10px 0 0;" alt="PowerCord logo" src="web/src/assets/logo.png">
 
 # PowerCord
 
-PowerCord is a Discord bot that displays data fetched from https://www.openpowerlifting.org/. Made using the [discord.js](https://discord.js.org/) library.
+PowerCord is a Discord bot that displays powerlifting meet data from https://www.openpowerlifting.org/.
 
 [![Node JS](https://img.shields.io/badge/node.js-23.2.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Discord JS](https://img.shields.io/badge/discord.js-14.16.3-orange.svg)](https://discord.js.org/)
+[![Invite to Discord server](https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white)](https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands)
 
 ## Setup
 
 Project requires [Node.js](https://nodejs.org/) to run. After installing, it is recommended to use [NVM](https://github.com/nvm-sh/nvm) ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)) to manage node versions and stay up to date.
 
-In the root directory of the project run:
+### Discord Bot
+
+In the `bot` directory of the project run:
 
 ```sh
 npm install
 npm run dev
 ```
 
-## React + TypeScript + Vite
+### Web Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+From the `web` directory run:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-### Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+npm install
+npm run dev
 ```
