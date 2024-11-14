@@ -1,4 +1,4 @@
-<img height="135" align="left" style="float: left;" alt="PowerCord logo" src="PowerCord.png">
+<img height="125" align="left" style="float: left;" alt="PowerCord logo" src="PowerCord.png">
 
 # PowerCord
 
