@@ -1,0 +1,13 @@
+{
+  "name": "powercord",
+  "version": "0.0.1",
+  "scripts": {
+    "dev:bot": "npm run dev --prefix bot",
+    "dev:web": "npm run dev --prefix web",
+    "dev": "concurrently \"npm run dev:bot\" \"npm run dev:web\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
