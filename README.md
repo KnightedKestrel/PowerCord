@@ -7,6 +7,7 @@ PowerCord is a Discord bot that displays powerlifting meet data from https://www
 
 [![Node JS](https://img.shields.io/badge/node.js-23.2.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Discord JS](https://img.shields.io/badge/discord.js-14.16.3-orange.svg)](https://discord.js.org/)
+[![Code style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4)](https://github.com/prettier/prettier)
 [![Invite to Discord server](https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white)](https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands)
 
 ## Setup
