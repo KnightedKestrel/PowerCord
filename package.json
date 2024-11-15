@@ -5,6 +5,9 @@
     "dev:bot": "npm run dev --prefix bot",
     "dev:web": "npm run dev --prefix web",
     "dev": "concurrently \"npm run dev:bot\" \"npm run dev:web\"",
+    "install:bot": "npm install --prefix bot",
+    "install:web": "npm install --prefix web",
+    "install:all": "npm run install:bot && npm run install:web",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

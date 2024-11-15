@@ -11,20 +11,24 @@ PowerCord is a Discord bot that displays powerlifting meet data from https://www
 
 ## Setup
 
-Project requires [Node.js](https://nodejs.org/) to run. After installing, it is recommended to use [NVM](https://github.com/nvm-sh/nvm) ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)) to manage node versions and stay up to date.
+Project requires [Node.js](https://nodejs.org/) to run. After installing, it is recommended to use [NVM](https://github.com/nvm-sh/nvm) ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)) to manage node versions and stay up to date. No other system level dependencies are needed.
 
-### Discord Bot
+### Environment
 
-In the `bot` directory of the project run:
+This project uses [dotenv](https://github.com/motdotla/dotenv#readme) to manage environment-specific settings. Rename the `.env.example` file in the `bot` directory to `.env` and enter in the necessary values listed inside the file. If you do not have a token yet, check out [this guide](https://discordjs.guide/preparations/setting-up-a-bot-application.html).
+
+⚠️ Keep the Discord token to yourself at all costs.
+
+### Project
+
+In the root directory of the project enter the following commands. This will install all dependencies and begin the dev instance.
 
 ```sh
-npm install
+npm install:all
 npm run dev
 ```
 
-### Web Client
-
-From the `web` directory run:
+To run the Discord bot or web client individually, enter either the `bot` or `web` directory and run:
 
 ```sh
 npm install
