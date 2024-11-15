@@ -1,8 +1,9 @@
 {
   "name": "powercord",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
+    "deploy-commands": "ts-node src/deploy-commands.ts",
     "dev": "nodemon",
     "start": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
