@@ -1,0 +1,25 @@
+# https://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{png,jpg,gif,ttf,woff,woff2,ico}]
+charset = unset
+
+[package.json]
+indent_size = 2
+
+[package-lock.json]
+indent_size = 2
+trim_trailing_whitespace = false
+insert_final_newline = false
