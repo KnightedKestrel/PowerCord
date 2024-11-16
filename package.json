@@ -5,10 +5,14 @@
     "dev:bot": "npm run dev --prefix bot",
     "dev:web": "npm run dev --prefix web",
     "dev": "concurrently \"npm run dev:bot\" \"npm run dev:web\"",
+    "format": "npm run prettier:fix && npm run lint:fix",
     "install:bot": "npm install --prefix bot",
     "install:web": "npm install --prefix web",
     "install:all": "npm run install:bot && npm run install:web",
     "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
