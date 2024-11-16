@@ -2,11 +2,21 @@ require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
+import SQLiteDatabaseManager from './data/database';
 import { Command } from './types/command';
 
 const token = process.env.DISCORD_TOKEN;
 
 console.log('Bot is starting...');
+
+const dbManager = new SQLiteDatabaseManager();
+try {
+    dbManager.createDB();
+} catch (error) {
+    console.error('Failed to initialize the database:', error);
+} finally {
+    dbManager.close();
+}
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
