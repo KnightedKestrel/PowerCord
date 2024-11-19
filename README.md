@@ -12,7 +12,9 @@ PowerCord is a Discord bot that displays powerlifting meet data from https://www
 
 ## Setup
 
-Project requires [Node.js](https://nodejs.org/) to run. After installing, it is recommended to use [NVM](https://github.com/nvm-sh/nvm) ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)) to manage node versions and stay up to date. No other system level dependencies are needed.
+Project requires [Node.js](https://nodejs.org/) to run. After installing, it is recommended to use [NVM](https://github.com/nvm-sh/nvm) ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)) to manage Node versions. To set the Node version used by the project, run `nvm use` from root and follow the prompts, especially if that version has not been installed yet.
+
+No other system level dependencies are needed.
 
 ### Environment
 
