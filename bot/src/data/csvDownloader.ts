@@ -10,7 +10,12 @@ const ZIP_URL =
 const DOWNLOAD_DIR = path.resolve(__dirname, './downloads');
 const ZIP_PATH = path.join(DOWNLOAD_DIR, 'openpowerlifting-latest.zip');
 
-export async function csvDownloader(): Promise<void> {
+export async function csvDownloader(): Promise<{
+    csvPath: string;
+    extractedDate: string;
+}> {
+    const db = DatabaseManager.getInstance().getDB();
+
     try {
         // Ensure the downloads directory exists
         await fsp.mkdir(DOWNLOAD_DIR, { recursive: true });
@@ -25,7 +30,6 @@ export async function csvDownloader(): Promise<void> {
         // Save the downloaded ZIP file
         await new Promise<void>((resolve, reject) => {
             const writer = fs.createWriteStream(ZIP_PATH);
-
             response.data.pipe(writer);
 
             writer.on('finish', () => {
@@ -39,7 +43,6 @@ export async function csvDownloader(): Promise<void> {
             });
         });
 
-        // Extract the ZIP file
         console.log('Extracting the ZIP file...');
         await new Promise<void>((resolve, reject) => {
             fs.createReadStream(ZIP_PATH)
@@ -48,11 +51,7 @@ export async function csvDownloader(): Promise<void> {
                 .on('error', reject);
         });
 
-        console.log(
-            'Extraction complete. Contents are in the downloads directory.',
-        );
-
-        // Get the unzipped folder name (assuming only one directory is created)
+        console.log('Extraction complete.');
         const files = await fsp.readdir(DOWNLOAD_DIR);
         const datedFolder = files.find(
             (file) =>
@@ -67,22 +66,16 @@ export async function csvDownloader(): Promise<void> {
         }
 
         console.log(`Found dated folder: ${datedFolder}`);
-
-        // Extract the date from the folder name
-        const dateMatch = datedFolder.match(
+        const extractedDate = datedFolder.match(
             /openpowerlifting-(\d{4}-\d{2}-\d{2})/,
-        );
-        if (!dateMatch) {
+        )?.[1];
+
+        if (!extractedDate) {
             throw new Error(
                 `Could not extract a date from folder name: ${datedFolder}`,
             );
         }
 
-        const extractedDate = dateMatch[1]; // e.g., '2024-11-16'
-        console.log(`Extracted date: ${extractedDate}`);
-
-        // Check the database for the current date
-        const db = DatabaseManager.getInstance().getDB();
         const currentDate = db
             .prepare('SELECT UpdatedDate FROM opl_data_version LIMIT 1')
             .pluck()
@@ -90,29 +83,31 @@ export async function csvDownloader(): Promise<void> {
 
         if (currentDate === extractedDate) {
             console.log(
-                'The CSV data is already up-to-date. No further action needed.',
+                'The CSV data is already up-to-date. Deleting downloaded files.',
             );
-            return;
-        }
 
-        // Update the database with the new date
-        db.prepare(
-            'INSERT OR REPLACE INTO opl_data_version (UpdatedDate) VALUES (?)',
-        ).run(extractedDate);
-        console.log(`Database updated with new date: ${extractedDate}`);
-    } catch (error) {
-        console.error(
-            'An error occurred during the CSV download or processing:',
-            error,
-        );
-    } finally {
-        // Clean up the temporary files
-        try {
-            console.log('Cleaning up temporary files...');
+            // Cleanup the extracted folder and the downloaded ZIP file
             await fsp.rm(DOWNLOAD_DIR, { recursive: true, force: true });
             console.log('Temporary files cleaned up.');
-        } catch (cleanupError) {
-            console.error('Error cleaning up temporary files:', cleanupError);
+            return { csvPath: '', extractedDate: '' };
         }
+
+        const csvPath = path.join(
+            DOWNLOAD_DIR,
+            datedFolder,
+            'openpowerlifting-latest.csv',
+        );
+        console.log(`CSV ready for processing: ${csvPath}`);
+        return { csvPath, extractedDate };
+    } catch (error) {
+        console.error(
+            'An error occurred during CSV download or processing:',
+            error,
+        );
+        throw error;
+    } finally {
+        await fsp.access(ZIP_PATH);
+        console.log('Deleting ZIP file...');
+        await fsp.unlink(ZIP_PATH);
     }
 }

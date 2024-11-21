@@ -11,7 +11,6 @@ export const schema = `
 
     CREATE TABLE IF NOT EXISTS meets (
         MeetID INTEGER PRIMARY KEY AUTOINCREMENT,
-        MeetPath TEXT UNIQUE NOT NULL,
         Federation TEXT NOT NULL,
         MeetDate DATE NOT NULL,
         MeetCountry TEXT NOT NULL,
@@ -28,7 +27,7 @@ export const schema = `
         LifterID INTEGER NOT NULL,
         Sex TEXT DEFAULT 'M' CHECK(Sex IN ('M', 'F', 'Mx')) NOT NULL,
         Event TEXT CHECK(Event IN ('SBD', 'BD', 'SD', 'SB', 'S', 'B', 'D')) NOT NULL,
-        Equipment INTEGER NOT NULL,
+        Equipment TEXT NOT NULL,
         Age FLOAT,
         AgeClass TEXT,
         BirthYearClass TEXT,

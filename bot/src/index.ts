@@ -4,6 +4,7 @@ import path from 'node:path';
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
 import DatabaseManager from './data/database';
 import { csvDownloader } from './data/csvDownloader';
+import { csvProcessor } from './data/csvProcessor';
 import { Command } from './types/command';
 
 const token = process.env.DISCORD_TOKEN;
@@ -26,15 +27,17 @@ async function initializeBot() {
 
     // Download the CSV data
     try {
-        console.log('Running the CSV downloader...');
-        await csvDownloader();
-        console.log('CSV downloader finished.');
+        const { csvPath, extractedDate } = await csvDownloader();
+
+        if (csvPath && extractedDate) {
+            console.log('Processing CSV...');
+            await csvProcessor(csvPath, extractedDate);
+            console.log('CSV processed successfully.');
+        } else {
+            console.log('No new data to process.');
+        }
     } catch (error) {
-        console.error(
-            'An error occurred while running the CSV downloader:',
-            error,
-        );
-        process.exit(1); // Exit if the CSV download fails
+        console.error('An error occurred during data collection:', error);
     }
 
     // Initialize the Discord client
