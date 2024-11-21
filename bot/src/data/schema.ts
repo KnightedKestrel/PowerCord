@@ -5,6 +5,10 @@
 // https://gitlab.com/openpowerlifting/opl-data/blob/main/scripts/compile-sqlite
 
 export const schema = `
+    CREATE TABLE IF NOT EXISTS opl_data_version (
+        UpdatedDate TEXT PRIMARY KEY UNIQUE
+    );
+
     CREATE TABLE IF NOT EXISTS meets (
         MeetID INTEGER PRIMARY KEY AUTOINCREMENT,
         MeetPath TEXT UNIQUE NOT NULL,

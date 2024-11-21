@@ -5,10 +5,10 @@ interface TopLifter {
     LifterID: number;
     Name: string;
     Sex: string;
-    Squat: number,
-    Bench: number,
-    Deadlift: number,
-    Total: number,
+    Squat: number;
+    Bench: number;
+    Deadlift: number;
+    Total: number;
     Dots: number;
 }
 

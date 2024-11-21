@@ -1,3 +1,6 @@
+require('dotenv').config();
+import path from 'path';
+import fs from 'fs';
 import Database from 'better-sqlite3';
 import { schema } from './schema';
 
@@ -6,9 +9,18 @@ class DatabaseManager {
     private db: Database.Database;
 
     constructor() {
-        const dbName = process.env.DB_NAME || 'opl.sqlite';
-        this.db = new Database(dbName, { verbose: console.log });
-        console.log(`Connected to database at ${dbName}`);
+        const dbDirectory = path.resolve(__dirname, 'sqlite');
+        const dbPath = path.resolve(
+            __dirname,
+            'sqlite',
+            process.env.DB_NAME || 'opl.sqlite',
+        );
+
+        // Ensure the downloads directory exists
+        fs.mkdirSync(dbDirectory, { recursive: true });
+
+        this.db = new Database(dbPath, { verbose: console.log });
+        console.log(`Connected to database at ${dbPath}`);
     }
 
     static getInstance(): DatabaseManager {
