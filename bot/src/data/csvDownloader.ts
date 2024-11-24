@@ -92,11 +92,16 @@ export async function csvDownloader(): Promise<{
             return { csvPath: '', extractedDate: '' };
         }
 
-        const csvPath = path.join(
-            DOWNLOAD_DIR,
-            datedFolder,
-            'openpowerlifting-latest.csv',
-        );
+        // Determine the CSV file name dynamically
+        const extractedPath = path.join(DOWNLOAD_DIR, datedFolder);
+        const extractedFiles = await fsp.readdir(extractedPath);
+        const csvFileName = extractedFiles.find((file) => file.endsWith('.csv'));
+
+        if (!csvFileName) {
+            throw new Error('No CSV file found in the extracted folder.');
+        }
+
+        const csvPath = path.join(extractedPath, csvFileName);
         console.log(`CSV ready for processing: ${csvPath}`);
         return { csvPath, extractedDate };
     } catch (error) {
