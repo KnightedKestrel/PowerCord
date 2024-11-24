@@ -20,13 +20,36 @@ export async function csvProcessor(csvPath: string, extractedDate: string): Prom
             'MeetState', 'MeetTown', 'MeetName', 'Sanctioned'
         ];
 
-        // Read and validate headers from the CSV
+        // Read the first row of the CSV to validate headers
         const stream = fs.createReadStream(csvPath);
         const parser = parse({ headers: true });
 
-        let headersValidated = false;
+        // Validate headers before trying to rewrite data
+        let headersMatch = false;
+        await new Promise<void>((resolve, reject) => {
+            stream
+                .pipe(parser)
+                .on('headers', (headers) => {
+                    headersMatch = JSON.stringify(headers) === JSON.stringify(expectedHeaders);
+                    if (!headersMatch) {
+                        reject(new Error(`CSV headers do not match the expected schema.`));
+                    }
+                    resolve();
+                })
+                .on('error', (error) => reject(error));
+        });
 
-        // Define the insert statement
+        if (!headersMatch) {
+            throw new Error('CSV headers do not match the expected schema.');
+        }
+
+        console.log('Headers validated successfully. Clearing the table.');
+
+        // Clear the `entries` table before inserting new data
+        db.prepare('DELETE FROM entries').run();
+
+        console.log('Table cleared. Inserting new data.');
+
         const insertStmt = db.prepare(`
             INSERT INTO entries (
                 Name, Sex, Event, Equipment, Age, AgeClass, BirthYearClass, Division, BodyweightKg, WeightClassKg,
@@ -43,41 +66,35 @@ export async function csvProcessor(csvPath: string, extractedDate: string): Prom
             )
         `);
 
+        const insertTransaction = db.transaction((rows: any[]) => {
+            for (const row of rows) {
+                insertStmt.run(row);
+            }
+        });
+
+        const rows: any[] = [];
         stream
             .pipe(parser)
-            .on('headers', (headers) => {
-                // Validate the headers
-                headersValidated = JSON.stringify(headers) === JSON.stringify(expectedHeaders);
-                if (!headersValidated) {
-                    stream.destroy(new Error('CSV headers do not match the expected schema.'));
-                } else {
-                    console.log('Headers validated successfully. Clearing the table.');
-                    // Clear the `entries` table before inserting new data
-                    db.prepare('DELETE FROM entries').run();
-                }
-            })
             .on('data', (row) => {
-                if (headersValidated) {
-                    try {
-                        // Insert each row into the database immediately
-                        insertStmt.run(row);
-                    } catch (error) {
-                        console.error('Error inserting row:', error);
-                    }
+                rows.push(row);
+                if (rows.length >= 100) {
+                    insertTransaction(rows);
+                    rows.length = 0;
                 }
             })
             .on('end', () => {
+                if (rows.length > 0) insertTransaction(rows);
                 console.log('CSV data successfully inserted into the database.');
-
-                // Update the opl_data_version table with the extracted date
-                db.prepare(
-                    `INSERT OR REPLACE INTO opl_data_version (UpdatedDate) VALUES (?)`
-                ).run(extractedDate);
-                console.log(`Database updated with new version date: ${extractedDate}`);
             })
             .on('error', (error) => {
-                console.error(`Error processing CSV data: ${error.message}`);
+                throw new Error(`Error processing CSV data: ${error.message}`);
             });
+
+            // Update the opl_data_version table with the extracted date
+            db.prepare(
+                `INSERT OR REPLACE INTO opl_data_version (UpdatedDate) VALUES (?)`
+            ).run(extractedDate);
+            console.log(`Database updated with new version date: ${extractedDate}`);
 
     } catch (error) {
         console.error('Error processing CSV:', error);
@@ -85,6 +102,7 @@ export async function csvProcessor(csvPath: string, extractedDate: string): Prom
     } finally {
         // Clean up the CSV file after processing
         try {
+            // await fs.promises.unlink(csvPath);
             console.log('CSV file deleted after processing.');
         } catch (unlinkError) {
             console.error('Error deleting CSV file:', unlinkError);

@@ -1,7 +1,7 @@
 require('dotenv').config();
-import path from 'path';
-import fs from 'fs';
-import Database from 'better-sqlite3';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as Database from 'better-sqlite3';
 import { schema } from './schema';
 
 class DatabaseManager {
