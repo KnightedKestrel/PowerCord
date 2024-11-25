@@ -13,6 +13,8 @@ dist-ssr
 *.local
 *.csv
 *.sqlite
+downloads/
+sqlite/
 
 # Editor directories and files
 .vscode/*
