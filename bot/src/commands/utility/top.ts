@@ -1,8 +1,8 @@
 import { ChatInputCommandInteraction } from 'discord.js';
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
+import DatabaseManager from '../../data/database';
 
 interface TopLifter {
-    LifterID: number;
     Name: string;
     Sex: string;
     Squat: number;
@@ -12,70 +12,67 @@ interface TopLifter {
     Dots: number;
 }
 
-//   export function getTopLifters(): TopLifter[] {
-//     const query = `
-//       SELECT lifters.LifterID, lifters.Name, lifters.Sex, entries.Dots
-//       FROM lifters
-//       JOIN entries ON lifters.LifterID = entries.LifterID
-//       ORDER BY entries.Dots DESC
-//       LIMIT 10;
-//     `;
-//   }
+export function getTopLifters(): TopLifter[] {
+    const db = DatabaseManager.getInstance().getDB();
 
-const topLifters: TopLifter[] = [
-    {
-        LifterID: 1,
-        Name: 'Kristy Hawkins',
-        Sex: 'F',
-        Squat: 310,
-        Bench: 152.5,
-        Deadlift: 262.5,
-        Total: 725,
-        Dots: 711.19,
-    },
-    {
-        LifterID: 2,
-        Name: 'Marianna Gasparyan',
-        Sex: 'F',
-        Squat: 260,
-        Bench: 132.5,
-        Deadlift: 220,
-        Total: 612.5,
-        Dots: 709.96,
-    },
-    {
-        LifterID: 3,
-        Name: 'Hunter Henderson',
-        Sex: 'F',
-        Squat: 295,
-        Bench: 147.5,
-        Deadlift: 260,
-        Total: 702.5,
-        Dots: 687.63,
-    },
-];
+    const query = `
+        SELECT
+            Name,
+            Sex,
+            Best3SquatKg AS Squat,
+            Best3BenchKg AS Bench,
+            Best3DeadliftKg AS Deadlift,
+            TotalKg AS Total,
+            Equipment,
+            Dots
+        FROM entries
+        WHERE
+            Dots IS NOT NULL
+            AND Dots != ''
+            AND Equipment IN ('Raw', 'Wraps')
+        ORDER BY Dots DESC
+        LIMIT 5;
+    `;
 
-const embed = new EmbedBuilder()
-    .setColor('#c62932')
-    .setTitle('🥇 Powerlifting Rankings')
-    .setDescription('Top lifters sorted by Dots')
-    .setFooter({
-        text: 'Data retrieved from OpenPowerlifting',
-    });
-
-const fields = topLifters.map((lifter, index) => ({
-    name: `\`${index + 1}.\` ${lifter.Name}`,
-    value: `\`\`\`S / B / D | Total | Dots\n${lifter.Squat} / ${lifter.Bench} / ${lifter.Deadlift} | ${lifter.Total} | ${lifter.Dots}\`\`\``,
-    inline: false,
-}));
-
-embed.addFields(fields);
+    return db.prepare(query).all() as TopLifter[];
+}
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('top')
         .setDescription('Display top ranked lifters'),
     async execute(interaction: ChatInputCommandInteraction) {
-        await interaction.reply({ embeds: [embed] });
+        try {
+            const topLifters: TopLifter[] = getTopLifters();
+
+            if (topLifters.length === 0) {
+                await interaction.reply('No data found for top lifters.');
+                return;
+            }
+
+            const embed = new EmbedBuilder()
+                .setColor('#c62932')
+                .setTitle('🥇 Powerlifting Rankings')
+                .setDescription('Top lifters sorted by Dots')
+                .setFooter({
+                    text: 'Data retrieved from OpenPowerlifting',
+                });
+
+            const fields = topLifters.map((lifter, index) => ({
+                name: `\`${index + 1}.\` ${lifter.Name} (${lifter.Sex})`,
+                value: `\`\`\`S / B / D | Total | Dots\n${lifter.Squat || 0} / ${lifter.Bench || 0} / ${lifter.Deadlift || 0} | ${lifter.Total || 0} | ${(lifter.Dots || 0).toFixed(2)}\`\`\``,
+                inline: false,
+            }));
+
+            embed.addFields(fields);
+
+            await interaction.reply({ embeds: [embed] });
+        } catch (error) {
+            console.error('Error executing /top command:', error);
+            await interaction.reply({
+                content: 'An error occurred while fetching the top lifters.',
+                ephemeral: true,
+            });
+        }
     },
 };

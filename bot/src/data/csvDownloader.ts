@@ -95,7 +95,9 @@ export async function csvDownloader(): Promise<{
         // Determine the CSV file name dynamically
         const extractedPath = path.join(DOWNLOAD_DIR, datedFolder);
         const extractedFiles = await fsp.readdir(extractedPath);
-        const csvFileName = extractedFiles.find((file) => file.endsWith('.csv'));
+        const csvFileName = extractedFiles.find((file) =>
+            file.endsWith('.csv'),
+        );
 
         if (!csvFileName) {
             throw new Error('No CSV file found in the extracted folder.');
