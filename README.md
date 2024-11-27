@@ -37,3 +37,7 @@ To run the Discord bot or web client individually, enter either the `bot` or `we
 npm install
 npm run dev
 ```
+
+## Contribute
+
+See [CONTRIBUTING](CONTRIBUTING.md).
