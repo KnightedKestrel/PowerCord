@@ -1,5 +1,7 @@
 # Contributing
 
+Thank you for taking the time to look to contribute to PowerCord. Below are some additional instructions on setting up the project in a way that allows for code contributions, as well as information on reporting bugs and making suggestions.
+
 ## Getting Started
 
 To get started with repo setup, follow these steps:
