@@ -5,6 +5,7 @@
 
 PowerCord is a Discord bot that displays powerlifting meet data from https://www.openpowerlifting.org/.
 
+[![Pipeline Status](https://gitlab.com/KnightedKestrel/powercord/badges/master/pipeline.svg)](https://gitlab.com/KnightedKestrel/powercord/-/commits/master)
 [![Node JS](https://img.shields.io/badge/node.js-23.2.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Discord JS](https://img.shields.io/badge/discord.js-14.16.3-orange.svg)](https://discord.js.org/)
 [![Code style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4)](https://github.com/prettier/prettier)
