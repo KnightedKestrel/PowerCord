@@ -1,0 +1,11 @@
+stages:
+    - check
+
+check:
+    stage: check
+    image: node:23
+    before_script:
+        - npm ci
+    script:
+        - npm run lint
+        - npm run prettier
