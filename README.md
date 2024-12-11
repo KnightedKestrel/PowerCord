@@ -28,7 +28,7 @@ This project uses [dotenv](https://github.com/motdotla/dotenv#readme) to manage 
 In the root directory of the project enter the following commands. This will install all dependencies and begin the dev instance.
 
 ```sh
-npm install:all
+npm run install:all
 npm run dev
 ```
 
