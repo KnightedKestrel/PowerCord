@@ -6,6 +6,7 @@ import DatabaseManager from './data/database';
 import { csvDownloader } from './data/csvDownloader';
 import { csvProcessor } from './data/csvProcessor';
 import { Command } from './types/command';
+import './deploy-commands';
 
 const token = process.env.DISCORD_TOKEN;
 
