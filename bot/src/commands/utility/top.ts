@@ -1,4 +1,9 @@
-import { ChatInputCommandInteraction } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+} from 'discord.js';
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 import DatabaseManager from '../../data/database';
 
@@ -12,8 +17,10 @@ interface TopLifter {
     Dots: number;
 }
 
-export function getTopLifters(): TopLifter[] {
+export function getTopLifters(page: number = 1): TopLifter[] {
     const db = DatabaseManager.getInstance().getDB();
+    const limit = 5;
+    const offset = (page - 1) * limit;
 
     const query = `
         SELECT
@@ -31,7 +38,7 @@ export function getTopLifters(): TopLifter[] {
             AND Dots != ''
             AND Equipment IN ('Raw', 'Wraps')
         ORDER BY Dots DESC
-        LIMIT 5;
+        LIMIT ${limit} OFFSET ${offset};
     `;
 
     return db.prepare(query).all() as TopLifter[];
@@ -58,15 +65,93 @@ module.exports = {
                     text: 'Data retrieved from OpenPowerlifting',
                 });
 
-            const fields = topLifters.map((lifter, index) => ({
-                name: `\`${index + 1}.\` ${lifter.Name} (${lifter.Sex})`,
-                value: `\`\`\`S / B / D | Total | Dots\n${lifter.Squat || 0} / ${lifter.Bench || 0} / ${lifter.Deadlift || 0} | ${lifter.Total || 0} | ${(lifter.Dots || 0).toFixed(2)}\`\`\``,
-                inline: false,
-            }));
+            const fields = topLifters.flatMap((lifter, index) => [
+                {
+                    name: `\`${index + 1}.\` ${lifter.Name} (${lifter.Sex})`,
+                    value: `Squat: ${lifter.Squat} | Bench : ${lifter.Bench} | Deadlift: ${lifter.Deadlift}`,
+                    inline: true,
+                },
+                {
+                    name: `\u200B`,
+                    value: `Total: ${lifter.Total} | Dots: ${(lifter.Dots || 0).toFixed(2)}`,
+                    inline: true,
+                },
+                {
+                    name: `\u200B`,
+                    value: `\u200B`,
+                    inline: true,
+                },
+            ]);
 
             embed.addFields(fields);
 
-            await interaction.reply({ embeds: [embed] });
+            const maxPages = 4;
+            let currentPage = 1;
+
+            const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents(
+                new ButtonBuilder()
+                    .setCustomId('prev')
+                    .setLabel('◀')
+                    .setStyle(ButtonStyle.Primary)
+                    .setDisabled(true),
+                new ButtonBuilder()
+                    .setCustomId('next')
+                    .setLabel('▶')
+                    .setStyle(ButtonStyle.Primary),
+            );
+
+            const message = await interaction.reply({
+                embeds: [embed],
+                components: [buttons],
+                fetchReply: true,
+            });
+
+            const collector = message.createMessageComponentCollector({
+                filter: (i) => i.user.id === interaction.user.id,
+                time: 60000,
+            });
+
+            collector.on('collect', async (i) => {
+                if (i.customId === 'prev' && currentPage > 1) {
+                    currentPage--;
+                } else if (i.customId === 'next' && currentPage < maxPages) {
+                    currentPage++;
+                } else {
+                    return;
+                }
+
+                const newLifters = getTopLifters(currentPage);
+                const newFields = newLifters.flatMap((lifter, index) => [
+                    {
+                        name: `\`${(currentPage - 1) * 5 + index + 1}.\` ${lifter.Name} (${lifter.Sex})`,
+                        value: `Squat: ${lifter.Squat} | Bench : ${lifter.Bench} | Deadlift: ${lifter.Deadlift}`,
+                        inline: true,
+                    },
+                    {
+                        name: `\u200B`,
+                        value: `Total: ${lifter.Total} | Dots: ${(lifter.Dots || 0).toFixed(2)}`,
+                        inline: true,
+                    },
+                    {
+                        name: `\u200B`,
+                        value: `\u200B`,
+                        inline: true,
+                    },
+                ]);
+
+                embed.setFields(newFields);
+                buttons.components[0].setDisabled(currentPage === 1);
+                buttons.components[1].setDisabled(currentPage === maxPages);
+
+                await i.update({ embeds: [embed], components: [buttons] });
+            });
+
+            collector.on('end', () => {
+                buttons.components.forEach((button) =>
+                    button.setDisabled(true),
+                );
+                interaction.editReply({ components: [buttons] });
+            });
         } catch (error) {
             console.error('Error executing /top command:', error);
             await interaction.reply({
