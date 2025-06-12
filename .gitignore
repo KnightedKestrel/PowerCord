@@ -1,3 +1,11 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
 # Logs
 logs
 *.log
@@ -26,6 +34,8 @@ sqlite/
 *.njsproj
 *.sln
 *.sw?
+.fleet
+.idea
 
 # Environment variables
 *.env*
