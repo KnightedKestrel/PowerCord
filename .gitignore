@@ -15,6 +15,11 @@ dist-ssr
 *.sqlite
 downloads/
 sqlite/
+.output
+.data
+.nuxt
+.nitro
+.cache
 
 # Editor directories and files
 .vscode/*
@@ -26,6 +31,8 @@ sqlite/
 *.njsproj
 *.sln
 *.sw?
+.fleet
+.idea
 
 # Environment variables
 *.env*
