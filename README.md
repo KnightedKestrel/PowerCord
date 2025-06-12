@@ -1,15 +1,18 @@
-<img width="125" height="125" align="left" style="float: left;" alt="PowerCord logo" src="PowerCord.png">
-<!-- Extra padding in image because GitLab ignores margin styling -->
+<p align="center">
+    <img width="125" height="125" alt="PowerCord logo" src="PowerCord.png">
+    <h1 align="center">PowerCord</h1>
+</p>
 
-# PowerCord
+<p align="center">
+    <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/node.js-23.2.0-brightgreen.svg" alt="Node JS" /></a>
+    <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.16.3-orange.svg" alt="Discord JS" /></a>
+    <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4" alt="Code style: Prettier" /></a>
+    <a href="https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands"><img src="https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white" alt="Invite to Discord Server" /></a>
+</p>
 
-PowerCord is a Discord bot that displays powerlifting meet data from https://www.openpowerlifting.org/.
-
-[![Pipeline Status](https://gitlab.com/KnightedKestrel/powercord/badges/master/pipeline.svg)](https://gitlab.com/KnightedKestrel/powercord/-/commits/master)
-[![Node JS](https://img.shields.io/badge/node.js-23.2.0-brightgreen.svg)](https://nodejs.org/en/)
-[![Discord JS](https://img.shields.io/badge/discord.js-14.16.3-orange.svg)](https://discord.js.org/)
-[![Code style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4)](https://github.com/prettier/prettier)
-[![Invite to Discord server](https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white)](https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands)
+<p align="center">
+    View meet data from <a href="https://www.openpowerlifting.org/">OpenPowerlifting.org</a> in Discord.
+</p>
 
 ## Setup
 
