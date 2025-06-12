@@ -16,9 +16,9 @@ To get started with repo setup, follow these steps:
 
 This repo contains the contents for both the Discord bot and its website.
 
--   `/`: Root directory that contains many helpful npm commands for formatting, tests, and running both applications in a dev environment.
--   `/bot`: Source code for the bot and all utilities it needs.
--   `/web`: Source code for the website.
+- `/`: Root directory that contains many helpful npm commands for formatting, tests, and running both applications in a dev environment.
+- `/bot`: Source code for the bot and all utilities it needs.
+- `/web`: Source code for the website.
 
 ## How to Contribute
 
@@ -26,9 +26,9 @@ This repo contains the contents for both the Discord bot and its website.
 
 If you encounter a bug or have a feature request, you can open a new issue. To be able to quickly assist in fixing it, please include as much detail as possible:
 
--   Steps to reproduce the issue
--   Expected and actual behavior
--   Screenshots if available
+- Steps to reproduce the issue
+- Expected and actual behavior
+- Screenshots if available
 
 ### Code Contributions
 
