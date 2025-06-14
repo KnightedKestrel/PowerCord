@@ -15,7 +15,7 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v4
               with:
-                  fetch-depth: 2  # Needed to compare commits for path changes
+                  fetch-depth: 2 # Needed to compare commits for path changes
 
             - name: Check for changes in bot
               id: check-changes
