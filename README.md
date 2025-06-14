@@ -17,7 +17,7 @@
     View meet data from <a href="https://www.openpowerlifting.org/">OpenPowerlifting.org</a> in Discord.
 </p>
 
-## Setup
+## 🚀 Setup
 
 Project requires [Node.js](https://nodejs.org/) to run. After installing, it is recommended to use [NVM](https://github.com/nvm-sh/nvm) ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)) to manage Node versions. To set the Node version used by the project, run `nvm use` from root and follow the prompts, especially if that version has not been installed yet.
 
@@ -46,6 +46,14 @@ npm install
 npm run dev
 ```
 
-## Contribute
+## 📍 Roadmap
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+[Open board on Volta](https://volta.net/KnightedKestrel/PowerCord).
+
+## 🪴 Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/fc4f5c50862fb4f4ddc54324bda0351e5d073e5a.svg "Repobeats analytics image")
+
+## 🧱 Contribute
+
+See our [Contributing Guide](CONTRIBUTING.md).
