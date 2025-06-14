@@ -4,6 +4,7 @@
 </p>
 
 <p align="center">
+    <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg" alt="CI Status"/></a>
     <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/node.js-23.2.0-brightgreen.svg" alt="Node JS" /></a>
     <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.16.3-orange.svg" alt="Discord JS" /></a>
     <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4" alt="Code style: Prettier" /></a>
@@ -24,7 +25,8 @@ No other system level dependencies are needed.
 
 This project uses [dotenv](https://github.com/motdotla/dotenv#readme) to manage environment-specific settings. Rename the `.env.example` file in the `bot` directory to `.env` and enter in the necessary values listed inside the file. If you do not have a token yet, check out [this guide](https://discordjs.guide/preparations/setting-up-a-bot-application.html).
 
-⚠️ Keep the Discord token to yourself at all costs.
+> [!WARNING]
+> Keep the Discord token to yourself at all costs.
 
 ### Project
 
