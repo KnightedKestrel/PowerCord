@@ -1,16 +1,16 @@
 name: bot-deploy
 
-on:
-    push:
-        branches: [master]
-        paths:
-            - 'bot/**'
+workflow_run:
+    workflows: ['ci']
+    types:
+        - completed
+    branches: [master]
 
 jobs:
     deploy:
         runs-on: ubuntu-latest
         needs: style-check
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event.workflow_run.conclusion == 'success' && github.event_name == 'workflow_run'
         steps:
             - name: Check out code
               uses: actions/checkout@v4
