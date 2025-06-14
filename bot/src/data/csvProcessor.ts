@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import { parse } from '@fast-csv/parse';
 import DatabaseManager from './database';
 
@@ -8,11 +7,14 @@ export async function csvProcessor(
     extractedDate: string,
 ): Promise<void> {
     const db = DatabaseManager.getInstance().getDB();
-
     console.log('Processing CSV file:', csvPath);
 
+    const startTime = Date.now();
+
     try {
-        // Ensure the headers match the expected schema
+        db.exec('PRAGMA synchronous = OFF;');
+        db.exec('PRAGMA journal_mode = WAL;');
+
         const expectedHeaders = [
             'Name',
             'Sex',
@@ -58,33 +60,18 @@ export async function csvProcessor(
             'Sanctioned',
         ];
 
-        // Read and validate headers from the CSV
         const stream = fs.createReadStream(csvPath);
         const parser = parse({ headers: true });
-
         let headersValidated = false;
+        const batchSize = 1000;
+        const subBatchSize = Math.floor(900 / expectedHeaders.length);
+        let rowBuffer: any[] = [];
 
-        // Define the insert statement
-        const insertStmt = db.prepare(`
-            INSERT INTO entries (
-                Name, Sex, Event, Equipment, Age, AgeClass, BirthYearClass, Division, BodyweightKg, WeightClassKg,
-                Squat1Kg, Squat2Kg, Squat3Kg, Squat4Kg, Best3SquatKg, Bench1Kg, Bench2Kg, Bench3Kg, Bench4Kg, Best3BenchKg,
-                Deadlift1Kg, Deadlift2Kg, Deadlift3Kg, Deadlift4Kg, Best3DeadliftKg, TotalKg, Place, Dots, Wilks,
-                Glossbrenner, Goodlift, Tested, Country, State, Federation, ParentFederation, Date, MeetCountry,
-                MeetState, MeetTown, MeetName, Sanctioned
-            ) VALUES (
-                @Name, @Sex, @Event, @Equipment, @Age, @AgeClass, @BirthYearClass, @Division, @BodyweightKg, @WeightClassKg,
-                @Squat1Kg, @Squat2Kg, @Squat3Kg, @Squat4Kg, @Best3SquatKg, @Bench1Kg, @Bench2Kg, @Bench3Kg, @Bench4Kg, @Best3BenchKg,
-                @Deadlift1Kg, @Deadlift2Kg, @Deadlift3Kg, @Deadlift4Kg, @Best3DeadliftKg, @TotalKg, @Place, @Dots, @Wilks,
-                @Glossbrenner, @Goodlift, @Tested, @Country, @State, @Federation, @ParentFederation, @Date, @MeetCountry,
-                @MeetState, @MeetTown, @MeetName, @Sanctioned
-            )
-        `);
+        db.exec('BEGIN TRANSACTION;');
 
         stream
             .pipe(parser)
             .on('headers', (headers) => {
-                // Validate the headers
                 headersValidated =
                     JSON.stringify(headers) === JSON.stringify(expectedHeaders);
                 if (!headersValidated) {
@@ -97,42 +84,114 @@ export async function csvProcessor(
                     console.log(
                         'Headers validated successfully. Clearing the table.',
                     );
-                    // Clear the `entries` table before inserting new data
                     db.prepare('DELETE FROM entries').run();
                 }
             })
             .on('data', (row) => {
                 if (headersValidated) {
-                    try {
-                        // Insert each row into the database immediately
-                        insertStmt.run(row);
-                    } catch (error) {
-                        console.error('Error inserting row:', error);
+                    rowBuffer.push(row);
+                    if (rowBuffer.length >= batchSize) {
+                        try {
+                            for (
+                                let i = 0;
+                                i < rowBuffer.length;
+                                i += subBatchSize
+                            ) {
+                                const subBatch = rowBuffer.slice(
+                                    i,
+                                    i + subBatchSize,
+                                );
+                                const placeholders = new Array(
+                                    expectedHeaders.length,
+                                )
+                                    .fill('?')
+                                    .join(', ');
+                                const batchStmt = db.prepare(`
+                                    INSERT INTO entries (
+                                        Name, Sex, Event, Equipment, Age, AgeClass, BirthYearClass, Division, BodyweightKg, WeightClassKg,
+                                        Squat1Kg, Squat2Kg, Squat3Kg, Squat4Kg, Best3SquatKg, Bench1Kg, Bench2Kg, Bench3Kg, Bench4Kg, Best3BenchKg,
+                                        Deadlift1Kg, Deadlift2Kg, Deadlift3Kg, Deadlift4Kg, Best3DeadliftKg, TotalKg, Place, Dots, Wilks,
+                                        Glossbrenner, Goodlift, Tested, Country, State, Federation, ParentFederation, Date, MeetCountry,
+                                        MeetState, MeetTown, MeetName, Sanctioned
+                                    ) VALUES ${subBatch.map(() => `(${placeholders})`).join(', ')}
+                                `);
+                                batchStmt.run(
+                                    ...subBatch.flatMap((r) =>
+                                        Object.values(r),
+                                    ),
+                                );
+                            }
+                            rowBuffer = [];
+                        } catch (error) {
+                            console.error('Error inserting batch:', error);
+                        }
                     }
                 }
             })
             .on('end', () => {
-                console.log(
-                    'CSV data successfully inserted into the database.',
-                );
+                if (rowBuffer.length > 0) {
+                    try {
+                        for (
+                            let i = 0;
+                            i < rowBuffer.length;
+                            i += subBatchSize
+                        ) {
+                            const subBatch = rowBuffer.slice(
+                                i,
+                                i + subBatchSize,
+                            );
+                            const placeholders = new Array(
+                                expectedHeaders.length,
+                            )
+                                .fill('?')
+                                .join(', ');
+                            const batchStmt = db.prepare(`
+                                INSERT INTO entries (
+                                    Name, Sex, Event, Equipment, Age, AgeClass, BirthYearClass, Division, BodyweightKg, WeightClassKg,
+                                    Squat1Kg, Squat2Kg, Squat3Kg, Squat4Kg, Best3SquatKg, Bench1Kg, Bench2Kg, Bench3Kg, Bench4Kg, Best3BenchKg,
+                                    Deadlift1Kg, Deadlift2Kg, Deadlift3Kg, Deadlift4Kg, Best3DeadliftKg, TotalKg, Place, Dots, Wilks,
+                                    Glossbrenner, Goodlift, Tested, Country, State, Federation, ParentFederation, Date, MeetCountry,
+                                    MeetState, MeetTown, MeetName, Sanctioned
+                                ) VALUES ${subBatch.map(() => `(${placeholders})`).join(', ')}
+                            `);
+                            batchStmt.run(
+                                ...subBatch.flatMap((r) => Object.values(r)),
+                            );
+                        }
+                    } catch (error) {
+                        console.error('Error inserting final batch:', error);
+                    }
+                }
 
-                // Update the opl_data_version table with the extracted date
                 db.prepare(
                     `INSERT OR REPLACE INTO opl_data_version (UpdatedDate) VALUES (?)`,
                 ).run(extractedDate);
+                db.exec('COMMIT;');
+                console.log(
+                    'CSV data successfully inserted into the database.',
+                );
                 console.log(
                     `Database updated with new version date: ${extractedDate}`,
                 );
+
+                const endTime = Date.now();
+                const durationSec = ((endTime - startTime) / 1000).toFixed(2);
+                console.log(`Processing completed in ${durationSec} seconds`);
             })
             .on('error', (error) => {
                 console.error(`Error processing CSV data: ${error.message}`);
+                db.exec('ROLLBACK;');
             });
     } catch (error) {
         console.error('Error processing CSV:', error);
+        db.exec('ROLLBACK;');
         throw error;
     } finally {
-        // Clean up the CSV file after processing
+        db.exec('PRAGMA synchronous = NORMAL;');
+        db.exec('PRAGMA journal_mode = DELETE;');
+
         try {
+            fs.unlinkSync(csvPath);
             console.log('CSV file deleted after processing.');
         } catch (unlinkError) {
             console.error('Error deleting CSV file:', unlinkError);
