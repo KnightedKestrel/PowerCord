@@ -1,4 +1,4 @@
-name: Deploy service-a
+name: bot-deploy
 
 on:
     push:
