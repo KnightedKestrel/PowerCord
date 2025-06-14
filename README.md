@@ -4,9 +4,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml">
-    <img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg" alt="CI Status"/>
-  </a>
+    <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg" alt="CI Status"/></a>
     <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/node.js-23.2.0-brightgreen.svg" alt="Node JS" /></a>
     <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.16.3-orange.svg" alt="Discord JS" /></a>
     <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4" alt="Code style: Prettier" /></a>
