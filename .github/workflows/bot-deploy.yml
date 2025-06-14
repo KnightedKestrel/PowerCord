@@ -1,15 +1,15 @@
 name: bot-deploy
 
-workflow_run:
-    workflows: ['ci']
-    types:
-        - completed
-    branches: [master]
+on:
+    workflow_run:
+        workflows: ['ci']
+        types:
+            - completed
+        branches: [master]
 
 jobs:
     deploy:
         runs-on: ubuntu-latest
-        needs: style-check
         if: github.event.workflow_run.conclusion == 'success' && github.event_name == 'workflow_run'
         steps:
             - name: Check out code
