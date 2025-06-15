@@ -1,6 +1,7 @@
 // Importing required Discord.js modules and other dependencies
 import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import DatabaseManager from '../../data/database';
+
 const { SlashCommandBuilder } = require('discord.js');
 
 // Function to get the last update date from the database

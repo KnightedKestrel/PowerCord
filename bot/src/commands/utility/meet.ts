@@ -1,13 +1,14 @@
+import { SlashCommandStringOption } from '@discordjs/builders';
 import {
-    ChatInputCommandInteraction,
-    ButtonInteraction,
     ActionRowBuilder,
     ButtonBuilder,
+    ButtonInteraction,
     ButtonStyle,
+    ChatInputCommandInteraction,
 } from 'discord.js';
-import { SlashCommandStringOption } from '@discordjs/builders';
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 import DatabaseManager from '../../data/database';
+
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
 interface Meet {
     Place: number;

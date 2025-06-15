@@ -1,11 +1,12 @@
 import {
-    ChatInputCommandInteraction,
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle,
+    ChatInputCommandInteraction,
 } from 'discord.js';
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 import DatabaseManager from '../../data/database';
+
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
 interface TopLifter {
     Name: string;

@@ -52,7 +52,7 @@ npm run dev
 
 ## 🪴 Activity
 
-![Alt](https://repobeats.axiom.co/api/embed/fc4f5c50862fb4f4ddc54324bda0351e5d073e5a.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/fc4f5c50862fb4f4ddc54324bda0351e5d073e5a.svg 'Repobeats analytics image')
 
 ## 🧱 Contribute
 
