@@ -55,14 +55,15 @@ module.exports = {
 
         // Create an embed to display the status
         const embed = new EmbedBuilder()
+            .setColor('#c62932')
             .setAuthor({
                 name: 'Status',
             })
             .setDescription(
                 `Latency is **${latency}**ms\n\n` +
-                    `Uptime: **${hours} hours** and **${minutes} minutes**\n` +
-                    `I am currently in **${serverCount} servers** with a total of **${userCount} users**\n\n` +
-                    `Thanks to [OpenPowerlifting](https://www.openpowerlifting.org/) for providing all our data`,
+                `Uptime: **${hours} hours** and **${minutes} minutes**\n` +
+                `I am currently in **${serverCount} servers** with a total of **${userCount} users**\n\n` +
+                `Thanks to [OpenPowerlifting](https://www.openpowerlifting.org/) for providing all our data`,
             );
 
         // Send the final reply with the embed

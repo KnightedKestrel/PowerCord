@@ -96,6 +96,7 @@ module.exports = {
                 currentPage: number,
             ): InstanceType<typeof EmbedBuilder> => {
                 const embed = new EmbedBuilder()
+                    .setColor('#c62932')
                     .setTitle('🥇 Powerlifting Rankings')
                     .setDescription(
                         `Top lifters for **${name}**, page ${currentPage}`,
@@ -135,7 +136,7 @@ module.exports = {
                     row.addComponents(
                         new ButtonBuilder()
                             .setCustomId('previous')
-                            .setLabel('Previous')
+                            .setLabel('◀')
                             .setStyle(ButtonStyle.Primary),
                     );
                 }
@@ -143,7 +144,7 @@ module.exports = {
                     row.addComponents(
                         new ButtonBuilder()
                             .setCustomId('next')
-                            .setLabel('Next')
+                            .setLabel('▶')
                             .setStyle(ButtonStyle.Primary),
                     );
                 }
