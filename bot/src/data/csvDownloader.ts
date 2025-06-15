@@ -2,9 +2,9 @@ import fs from 'fs';
 import fsp from 'fs/promises';
 import path from 'path';
 import axios from 'axios';
+import * as cheerio from 'cheerio';
 import unzipper from 'unzipper';
 import DatabaseManager from './database';
-import * as cheerio from 'cheerio';
 
 const ZIP_URL =
     'https://openpowerlifting.gitlab.io/opl-csv/files/openpowerlifting-latest.zip';
@@ -16,7 +16,9 @@ async function getLastUpdate(): Promise<string> {
         const url = 'https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html';
         const response = await axios.get(url);
         const cheer = cheerio.load(response.data);
-        const updatedText = cheer('body > div > div > div > div > main > ul > li')
+        const updatedText = cheer(
+            'body > div > div > div > div > main > ul > li',
+        )
             .first()
             .text()
             .trim();
@@ -57,7 +59,7 @@ export async function csvDownloader(): Promise<{
             console.log('Temporary files cleaned up.');
             return { csvPath: '', extractedDate: '' };
         } else {
-            console.log('DB:', currentDate, 'CSV:', getDate)
+            console.log('DB:', currentDate, 'CSV:', getDate);
         }
 
         // ZIP download
@@ -134,7 +136,6 @@ export async function csvDownloader(): Promise<{
         const csvPath = path.join(extractedPath, csvFileName);
         console.log(`CSV ready for processing: ${csvPath}`);
         return { csvPath, extractedDate };
-
     } catch (error) {
         console.error(
             'An error occurred during CSV download or processing:',
