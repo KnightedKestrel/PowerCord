@@ -1,8 +1,9 @@
-require('dotenv').config();
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Database from 'better-sqlite3';
 import { schema } from './schema';
+
+require('dotenv').config();
 
 class DatabaseManager {
     private static instance: DatabaseManager | null = null;

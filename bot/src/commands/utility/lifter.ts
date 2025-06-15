@@ -1,7 +1,8 @@
-import { ChatInputCommandInteraction } from 'discord.js';
 import { SlashCommandStringOption } from '@discordjs/builders';
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
+import { ChatInputCommandInteraction } from 'discord.js';
 import DatabaseManager from '../../data/database';
+
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
 interface Lifter {
     Place: number;

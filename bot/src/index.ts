@@ -1,12 +1,13 @@
-require('dotenv').config();
 import fs from 'node:fs';
 import path from 'node:path';
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
-import DatabaseManager from './data/database';
 import { csvDownloader } from './data/csvDownloader';
 import { csvProcessor } from './data/csvProcessor';
+import DatabaseManager from './data/database';
 import { Command } from './types/command';
 import './deploy-commands';
+
+require('dotenv').config();
 
 const token = process.env.DISCORD_TOKEN;
 
