@@ -8,10 +8,12 @@
                             src="/assets/img/logo.png"
                             class="size-12 shrink-0 rounded-md"
                         />
-                        <span class="text-2xl">PowerCord</span>
+                        <span class="logo-text text-3xl text-white"
+                            >PowerCord</span
+                        >
                     </div>
                 </ULink>
-                <div class="flex gap-4">
+                <div class="flex items-center gap-4">
                     <ULink
                         to="https://volta.net/KnightedKestrel/PowerCord"
                         target="_blank"
@@ -26,15 +28,21 @@
                     >
                         Source
                     </ULink>
-                    <ULink
+                    <UButton
                         to="https://discord.gg/MZfchrRah4"
                         target="_blank"
-                        external
+                        size="lg"
+                        variant="subtle"
+                        >Join Support Server</UButton
                     >
-                        Support Server
-                    </ULink>
                 </div>
             </div>
         </UContainer>
     </header>
 </template>
+
+<style lang="scss" scoped>
+.logo-text {
+    font-family: 'Kanit';
+}
+</style>
