@@ -5,7 +5,7 @@
                 <h1 class="text-5xl">
                     Powerlifting competition results in
                     <img
-                        class="my-1 h-10"
+                        class="my-1 h-12"
                         src="/assets/img/discord-logo.svg"
                         alt="Discord"
                     />
@@ -19,6 +19,7 @@
                         target="_blank"
                         size="xl"
                         icon="line-md:discord-twotone"
+                        class="btn"
                         >Add to Discord</UButton
                     >
                     <UButton
@@ -27,6 +28,7 @@
                         size="xl"
                         icon="line-md:github-twotone"
                         variant="outline"
+                        class="btn"
                         >View on GitHub</UButton
                     >
                 </div>
@@ -42,12 +44,12 @@
             <div class="flex gap-4">
                 <div v-for="feature in features" class="flex-1">
                     <div
-                        class="ring-default flex h-full flex-col gap-y-2 rounded-xl px-4 py-5 ring"
+                        class="ring-default flex h-full flex-col gap-y-2 rounded-xl bg-gray-800 px-4 py-5 shadow-xl ring"
                     >
                         <UIcon
                             v-if="feature.icon"
                             :name="feature.icon"
-                            class="text-2xl"
+                            class="text-primary text-3xl"
                         />
                         <h2 class="text-highlighted text-xl font-semibold">
                             {{ feature.title }}
