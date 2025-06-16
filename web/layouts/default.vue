@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <!-- <AppHeader /> -->
+    <div class="flex h-screen flex-col justify-between">
+        <Header />
         <slot />
-        <!-- <AppFooter /> -->
+        <Footer />
     </div>
 </template>
 
