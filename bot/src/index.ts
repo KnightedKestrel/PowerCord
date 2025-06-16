@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
+import cron from 'node-cron';
 import { csvDownloader } from './data/csvDownloader';
 import { csvProcessor } from './data/csvProcessor';
 import DatabaseManager from './data/database';
@@ -28,19 +29,28 @@ async function initializeBot() {
     }
 
     // Download the CSV data
-    try {
-        const { csvPath, extractedDate } = await csvDownloader();
+    async function downloadData() {
+        try {
+            const { csvPath, extractedDate } = await csvDownloader();
 
-        if (csvPath && extractedDate) {
-            console.log('Processing CSV...');
-            await csvProcessor(csvPath, extractedDate);
-            console.log('CSV processed successfully.');
-        } else {
-            console.log('No new data to process.');
+            if (csvPath && extractedDate) {
+                console.log('Processing CSV...');
+                await csvProcessor(csvPath, extractedDate);
+                console.log('CSV processed successfully.');
+            } else {
+                console.log('No new data to process.');
+            }
+        } catch (error) {
+            console.error('An error occurred during data collection:', error);
         }
-    } catch (error) {
-        console.error('An error occurred during data collection:', error);
     }
+    downloadData();
+
+    //Scheduler
+    cron.schedule('0 0 * * *', () => {
+        console.log('Running scheduled Database Update');
+        downloadData();
+    });
 
     // Initialize the Discord client
     const client = new Client({
