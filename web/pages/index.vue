@@ -30,7 +30,10 @@
                         >View on GitHub</UButton
                     >
                 </div>
-                <ULink to="https://www.openpowerlifting.org/" external
+                <ULink
+                    to="https://www.openpowerlifting.org/"
+                    target="_blank"
+                    external
                     >Data provided by OpenPowerlifting
                     <UIcon name="fe:link-external" class="size-5"
                 /></ULink>
