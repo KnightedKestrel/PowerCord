@@ -20,7 +20,9 @@ class DatabaseManager {
         // Ensure the downloads directory exists
         fs.mkdirSync(dbDirectory, { recursive: true });
 
-        this.db = new Database.default(dbPath, {/*verbose: console.log*/ });
+        this.db = new Database.default(dbPath, {
+            /*verbose: console.log*/
+        });
         console.log(`Connected to database at ${dbPath}`);
     }
 
