@@ -41,6 +41,11 @@
                     <div
                         class="ring-default flex h-full flex-col gap-y-2 rounded-xl px-4 py-5 ring"
                     >
+                        <UIcon
+                            v-if="feature.icon"
+                            :name="feature.icon"
+                            class="text-2xl"
+                        />
                         <h2 class="text-highlighted text-xl font-semibold">
                             {{ feature.title }}
                         </h2>
@@ -60,21 +65,25 @@ const features = ref([
         title: 'Zero Configuration',
         details:
             'Simply invite the bot to your server and start using commands in Discord right away.',
+        icon: 'line-md:speed-twotone',
     },
     {
         title: 'Always Up-to-date',
         details:
             'Built to grab all the latest meet results from the OPL Data Service nightly.',
+        icon: 'line-md:download-twotone',
     },
     {
         title: 'Open Source',
         details:
             'Completely open source and available on GitHub for self-hosting or contributions.',
+        icon: 'line-md:cloud-alt-tags-twotone',
     },
     {
         title: 'Support Available',
         details:
             'Join our support server for help on usage or hosting. Feedback also welcome!',
+        icon: 'line-md:heart-twotone-half-filled',
     },
 ]);
 </script>
