@@ -7,22 +7,23 @@ import { csvProcessor } from './data/csvProcessor';
 import DatabaseManager from './data/database';
 import { Command } from './types/command';
 import './deploy-commands';
+import logger from './logger';
 
 require('dotenv').config();
 
 const token = process.env.DISCORD_TOKEN;
 
-console.log('Bot is starting...');
+logger.info('Bot is starting...');
 
 async function initializeBot() {
     // Initialize the database
     const dbManager = new DatabaseManager();
     try {
-        console.log('Creating the database...');
+        logger.info('Creating the database...');
         await dbManager.createDB();
-        console.log('Database created successfully.');
+        logger.info('Database created successfully.');
     } catch (error) {
-        console.error('Failed to initialize the database:', error);
+        logger.error('Failed to initialize the database:', error);
         process.exit(1); // Exit if the database fails to initialize
     } finally {
         dbManager.close();
@@ -34,21 +35,21 @@ async function initializeBot() {
             const { csvPath, extractedDate } = await csvDownloader();
 
             if (csvPath && extractedDate) {
-                console.log('Processing CSV...');
+                logger.info('Processing CSV...');
                 await csvProcessor(csvPath, extractedDate);
-                console.log('CSV processed successfully.');
+                logger.info('CSV processed successfully.');
             } else {
-                console.log('No new data to process.');
+                logger.info('No new data to process.');
             }
         } catch (error) {
-            console.error('An error occurred during data collection:', error);
+            logger.error('An error occurred during data collection:', error);
         }
     }
     downloadData();
 
     //Scheduler
     cron.schedule('0 0 * * *', () => {
-        console.log('Running scheduled Database Update');
+        logger.info('Running scheduled Database Update');
         downloadData();
     });
 
@@ -73,7 +74,7 @@ async function initializeBot() {
             if ('data' in command && 'execute' in command) {
                 client.commands.set(command.data.name, command);
             } else {
-                console.log(
+                logger.warn(
                     `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
                 );
             }
@@ -81,7 +82,7 @@ async function initializeBot() {
     }
 
     client.once(Events.ClientReady, (readyClient) => {
-        console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+        logger.info(`Ready! Logged in as ${readyClient.user.tag}`);
     });
 
     client.on(Events.InteractionCreate, async (interaction) => {
@@ -91,7 +92,7 @@ async function initializeBot() {
         );
 
         if (!command) {
-            console.error(
+            logger.error(
                 `No command matching ${interaction.commandName} was found.`,
             );
             return;
@@ -100,7 +101,7 @@ async function initializeBot() {
         try {
             await command.execute(interaction);
         } catch (error) {
-            console.error(error);
+            logger.error(error);
             if (interaction.replied || interaction.deferred) {
                 await interaction.followUp({
                     content: 'There was an error while executing this command!',
