@@ -95,6 +95,7 @@ module.exports = {
             }
 
             const embed = new EmbedBuilder()
+                .setColor('#c62932')
                 .setTitle('🥇 Powerlifting Rankings')
                 .setDescription(`Last 5 meets for **${name}**, sorted by Dots`)
                 .setFooter({
