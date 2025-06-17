@@ -55,6 +55,7 @@ module.exports = {
 
         // Create an embed to display the status
         const embed = new EmbedBuilder()
+            .setColor('#c62932')
             .setAuthor({
                 name: 'Status',
             })
