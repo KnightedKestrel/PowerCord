@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@fast-csv/parse": "^5.0.2",
+    "@logtail/node": "^0.5.5",
+    "@logtail/winston": "^0.5.5",
     "@types/better-sqlite3": "^7.6.13",
     "axios": "^1.9.0",
     "better-sqlite3": "^11.10.0",
@@ -19,8 +21,7 @@
     "dotenv": "^16.5.0",
     "node-cron": "^4.1.0",
     "unzipper": "^0.12.3",
-    "winston": "^3.17.0",
-    "winston-loggly-bulk": "^3.3.2"
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@types/unzipper": "^0.10.11",
