@@ -13,14 +13,13 @@ const logger = winston.createLogger({
 });
 
 if (process.env.LOGGLY_TOKEN && process.env.LOGGLY_SUBDOMAIN) {
-    winston.add(
-        new Loggly({
-            token: process.env.LOGGLY_TOKEN,
-            subdomain: process.env.LOGGLY_SUBDOMAIN,
-            tags: ['Winston-NodeJS'],
-            json: true,
-        }),
-    );
+    const logglyTransport = new Loggly({
+        token: process.env.LOGGLY_TOKEN,
+        subdomain: process.env.LOGGLY_SUBDOMAIN,
+        tags: ['Winston-NodeJS'],
+        json: true,
+    });
+    logger.add(logglyTransport);
 }
 
 function getTimestamp() {
