@@ -1,41 +1,30 @@
 const winston = require('winston');
-const { Loggly } = require('winston-loggly-bulk');
+const { Logtail } = require('@logtail/node');
+const { LogtailTransport } = require('@logtail/winston');
+require('dotenv').config();
 
 const logger = winston.createLogger({
     format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.printf((log: { level: any; message: any }) => {
-            return `[${getTimestamp()}][${log.level}] ${log.message}`;
-        }),
+        winston.format.errors({ stack: true }),
+        winston.format.timestamp(),
+        winston.format.json(),
     ),
     transports: [new winston.transports.Console()],
     exceptionHandlers: [new winston.transports.Console()],
 });
 
-if (process.env.LOGGLY_TOKEN && process.env.LOGGLY_SUBDOMAIN) {
-    const logglyTransport = new Loggly({
-        token: process.env.LOGGLY_TOKEN,
-        subdomain: process.env.LOGGLY_SUBDOMAIN,
-        tags: ['Winston-NodeJS'],
-        json: true,
+if (process.env.LOGTAIL_SOURCE_TOKEN && process.env.LOGTAIL_INGESTING_HOST) {
+    // Create a Logtail client
+    const logtail = new Logtail(process.env.LOGTAIL_SOURCE_TOKEN, {
+        endpoint: `https://${process.env.LOGTAIL_INGESTING_HOST}`,
     });
-    logger.add(logglyTransport);
-}
 
-function getTimestamp() {
-    let today = new Date();
-    let DD: string | number = today.getDate();
-    let MM: string | number = today.getMonth() + 1;
-    const YYYY: string | number = today.getFullYear();
-    let HH: string | number = today.getHours();
-    let mm: string | number = today.getMinutes();
-    let ss: string | number = today.getSeconds();
-    if (DD < 10) DD = `0${DD}`;
-    if (MM < 10) MM = `0${MM}`;
-    if (HH < 10) HH = `0${HH}`;
-    if (mm < 10) mm = `0${mm}`;
-    if (ss < 10) ss = `0${ss}`;
-    return `${YYYY}-${MM}-${DD} ${HH}:${mm}:${ss}`;
+    // Create a Winston logger - passing in the Logtail transport
+    const logtailTransport = winston.createLogger({
+        transports: [new LogtailTransport(logtail)],
+    });
+
+    logger.add(logtailTransport);
 }
 
 export default logger;
