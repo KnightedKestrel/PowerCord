@@ -7,6 +7,7 @@ import {
     ChatInputCommandInteraction,
 } from 'discord.js';
 import DatabaseManager from '../../data/database';
+import logger from '../../logger';
 
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
@@ -203,7 +204,7 @@ module.exports = {
                 reply.edit({ components: [] });
             });
         } catch (error) {
-            console.error('Error executing /meet command:', error);
+            logger.error('Error executing /meet command:', error);
             await interaction.reply({
                 content: 'An error occurred while fetching the meet data.',
                 ephemeral: true,

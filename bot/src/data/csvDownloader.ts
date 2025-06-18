@@ -4,6 +4,7 @@ import path from 'path';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import unzipper from 'unzipper';
+import logger from '../logger';
 import DatabaseManager from './database';
 
 const ZIP_URL =
@@ -26,14 +27,14 @@ async function getLastUpdate(): Promise<string> {
         const dateText = noDotText.replace('Updated:', '').trim();
 
         if (!dateText) {
-            console.log(updatedText);
+            logger.info(updatedText);
             throw new Error('Could not find the date on the specified page.');
         }
 
-        console.log(`Last CSV Update: ${dateText}`);
+        logger.info(`Last CSV Update: ${dateText}`);
         return dateText;
     } catch (error) {
-        console.error('Failed to fetch updated date:', error);
+        logger.error('Failed to fetch updated date:', error);
         throw error;
     }
 }
@@ -54,18 +55,18 @@ export async function csvDownloader(): Promise<{
             .get();
 
         if (currentDate === getDate) {
-            console.log('The CSV data is already up-to-date.');
+            logger.info('The CSV data is already up-to-date.');
             await fsp.rm(DOWNLOAD_DIR, { recursive: true, force: true });
-            console.log('Temporary files cleaned up.');
+            logger.info('Temporary files cleaned up.');
             return { csvPath: '', extractedDate: '' };
         } else {
-            console.log('DB:', currentDate, 'CSV:', getDate);
+            logger.info('DB:', currentDate, 'CSV:', getDate);
         }
 
         // ZIP download
         await fsp.mkdir(DOWNLOAD_DIR, { recursive: true });
 
-        console.log('Downloading the latest ZIP file...');
+        logger.info('Downloading the latest ZIP file...');
         const response = await axios({
             url: ZIP_URL,
             method: 'GET',
@@ -77,18 +78,18 @@ export async function csvDownloader(): Promise<{
             response.data.pipe(writer);
 
             writer.on('finish', () => {
-                console.log('Download complete. File saved to:', ZIP_PATH);
+                logger.info('Download complete. File saved to:', ZIP_PATH);
                 resolve();
             });
 
             writer.on('error', (error: any) => {
-                console.error('Error writing file:', error);
+                logger.error('Error writing file:', error);
                 reject(error);
             });
         });
 
         // Extract ZIP
-        console.log('Extracting the ZIP file...');
+        logger.info('Extracting the ZIP file...');
         await new Promise<void>((resolve, reject) => {
             fs.createReadStream(ZIP_PATH)
                 .pipe(unzipper.Extract({ path: DOWNLOAD_DIR }))
@@ -96,7 +97,7 @@ export async function csvDownloader(): Promise<{
                 .on('error', reject);
         });
 
-        console.log('Extraction complete.');
+        logger.info('Extraction complete.');
         const files = await fsp.readdir(DOWNLOAD_DIR);
         const datedFolder = files.find(
             (file) =>
@@ -110,7 +111,7 @@ export async function csvDownloader(): Promise<{
             );
         }
 
-        console.log(`Found dated folder: ${datedFolder}`);
+        logger.info(`Found dated folder: ${datedFolder}`);
         const extractedDate = getDate;
         // const extractedDate = datedFolder.match(
         //     /openpowerlifting-(\d{4}-\d{2}-\d{2})/,
@@ -134,10 +135,10 @@ export async function csvDownloader(): Promise<{
         }
 
         const csvPath = path.join(extractedPath, csvFileName);
-        console.log(`CSV ready for processing: ${csvPath}`);
+        logger.info(`CSV ready for processing: ${csvPath}`);
         return { csvPath, extractedDate };
     } catch (error) {
-        console.error(
+        logger.error(
             'An error occurred during CSV download or processing:',
             error,
         );
@@ -145,7 +146,7 @@ export async function csvDownloader(): Promise<{
     } finally {
         // Cleanup
         await fsp.access(ZIP_PATH);
-        console.log('Deleting ZIP file...');
+        logger.info('Deleting ZIP file...');
         await fsp.unlink(ZIP_PATH);
     }
 }

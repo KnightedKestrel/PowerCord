@@ -1,6 +1,7 @@
 import { SlashCommandStringOption } from '@discordjs/builders';
 import { ChatInputCommandInteraction } from 'discord.js';
 import DatabaseManager from '../../data/database';
+import logger from '../../logger';
 
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
@@ -157,7 +158,7 @@ module.exports = {
 
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
-            console.error('Error executing /lifter command:', error);
+            logger.error('Error executing /lifter command:', error);
             await interaction.reply({
                 content: 'An error occurred while fetching the lifter data.',
                 ephemeral: true,

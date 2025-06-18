@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { parse } from '@fast-csv/parse';
+import logger from '../logger';
 import DatabaseManager from './database';
 
 export async function csvProcessor(
@@ -7,7 +8,7 @@ export async function csvProcessor(
     extractedDate: string,
 ): Promise<void> {
     const db = DatabaseManager.getInstance().getDB();
-    console.log('Processing CSV file:', csvPath);
+    logger.info('Processing CSV file:', csvPath);
 
     const startTime = Date.now();
 
@@ -81,7 +82,7 @@ export async function csvProcessor(
                         ),
                     );
                 } else {
-                    console.log(
+                    logger.info(
                         'Headers validated successfully. Clearing the table.',
                     );
                     db.prepare('DELETE FROM entries').run();
@@ -123,7 +124,7 @@ export async function csvProcessor(
                             }
                             rowBuffer = [];
                         } catch (error) {
-                            console.error('Error inserting batch:', error);
+                            logger.error('Error inserting batch:', error);
                         }
                     }
                 }
@@ -159,7 +160,7 @@ export async function csvProcessor(
                             );
                         }
                     } catch (error) {
-                        console.error('Error inserting final batch:', error);
+                        logger.error('Error inserting final batch:', error);
                     }
                 }
 
@@ -167,23 +168,23 @@ export async function csvProcessor(
                     `INSERT OR REPLACE INTO opl_data_version (UpdatedDate) VALUES (?)`,
                 ).run(extractedDate);
                 db.exec('COMMIT;');
-                console.log(
+                logger.info(
                     'CSV data successfully inserted into the database.',
                 );
-                console.log(
+                logger.info(
                     `Database updated with new version date: ${extractedDate}`,
                 );
 
                 const endTime = Date.now();
                 const durationSec = ((endTime - startTime) / 1000).toFixed(2);
-                console.log(`Processing completed in ${durationSec} seconds`);
+                logger.info(`Processing completed in ${durationSec} seconds`);
             })
             .on('error', (error) => {
-                console.error(`Error processing CSV data: ${error.message}`);
+                logger.error(`Error processing CSV data: ${error.message}`);
                 db.exec('ROLLBACK;');
             });
     } catch (error) {
-        console.error('Error processing CSV:', error);
+        logger.error('Error processing CSV:', error);
         db.exec('ROLLBACK;');
         throw error;
     } finally {
@@ -192,9 +193,9 @@ export async function csvProcessor(
 
         try {
             fs.unlinkSync(csvPath);
-            console.log('CSV file deleted after processing.');
+            logger.info('CSV file deleted after processing.');
         } catch (unlinkError) {
-            console.error('Error deleting CSV file:', unlinkError);
+            logger.error('Error deleting CSV file:', unlinkError);
         }
     }
 }

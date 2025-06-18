@@ -5,6 +5,7 @@ import {
     ChatInputCommandInteraction,
 } from 'discord.js';
 import DatabaseManager from '../../data/database';
+import logger from '../../logger';
 
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
@@ -154,7 +155,7 @@ module.exports = {
                 interaction.editReply({ components: [buttons] });
             });
         } catch (error) {
-            console.error('Error executing /top command:', error);
+            logger.error('Error executing /top command:', error);
             await interaction.reply({
                 content: 'An error occurred while fetching the top lifters.',
                 ephemeral: true,
