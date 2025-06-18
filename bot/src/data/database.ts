@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Database from 'better-sqlite3';
+import logger from '../logger';
 import { schema } from './schema';
 
 require('dotenv').config();
@@ -23,7 +24,7 @@ class DatabaseManager {
         this.db = new Database.default(dbPath, {
             /*verbose: console.log*/
         });
-        console.log(`Connected to database at ${dbPath}`);
+        logger.info(`Connected to database at ${dbPath}`);
     }
 
     static getInstance(): DatabaseManager {
@@ -47,9 +48,9 @@ class DatabaseManager {
             });
 
             transaction();
-            console.log('Database schema created successfully.');
+            logger.info('Database schema created successfully.');
         } catch (err) {
-            console.error('Error creating database schema:', err);
+            logger.error('Error creating database schema:', err);
             throw err;
         }
     }
@@ -61,7 +62,7 @@ class DatabaseManager {
     close(): void {
         if (this.db) {
             this.db.close();
-            console.log('Database connection closed.');
+            logger.info('Database connection closed.');
         }
     }
 }
