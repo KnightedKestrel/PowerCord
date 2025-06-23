@@ -52,10 +52,12 @@ module.exports = {
         .setDescription('Display top ranked lifters'),
     async execute(interaction: ChatInputCommandInteraction) {
         try {
+            await interaction.deferReply();
+
             const topLifters: TopLifter[] = getTopLifters();
 
             if (topLifters.length === 0) {
-                await interaction.reply('No data found for top lifters.');
+                await interaction.editReply('No data found for top lifters.');
                 return;
             }
 
@@ -102,11 +104,12 @@ module.exports = {
                     .setStyle(ButtonStyle.Primary),
             );
 
-            const message = await interaction.reply({
+            await interaction.editReply({
                 embeds: [embed],
                 components: [buttons],
-                fetchReply: true,
             });
+
+            const message = await interaction.fetchReply();
 
             const collector = message.createMessageComponentCollector({
                 filter: (i) => i.user.id === interaction.user.id,
@@ -156,10 +159,18 @@ module.exports = {
             });
         } catch (error) {
             logger.error('Error executing /top command:', error);
-            await interaction.reply({
-                content: 'An error occurred while fetching the top lifters.',
-                ephemeral: true,
-            });
+            if (interaction.deferred || interaction.replied) {
+                await interaction.editReply({
+                    content:
+                        'An error occurred while fetching the top lifters.',
+                });
+            } else {
+                await interaction.reply({
+                    content:
+                        'An error occurred while fetching the top lifters.',
+                    ephemeral: true,
+                });
+            }
         }
     },
 };

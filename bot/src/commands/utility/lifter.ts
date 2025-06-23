@@ -70,14 +70,16 @@ module.exports = {
         ),
     async execute(interaction: ChatInputCommandInteraction) {
         try {
-            // Get the 'name' from the command options
+            await interaction.deferReply();
+
             const name = interaction.options.getString('name');
             if (!name) {
-                await interaction.reply('You need to specify a lifter name.');
+                await interaction.editReply(
+                    'You need to specify a lifter name.',
+                );
                 return;
             }
 
-            // Fetch lifters based on the provided name
             const lifters: Lifter[] = getLifters(name);
 
             for (const lifter of lifters) {
@@ -91,7 +93,9 @@ module.exports = {
             }
 
             if (lifters.length === 0) {
-                await interaction.reply(`No data found for lifter: ${name}.`);
+                await interaction.editReply(
+                    `No data found for lifter: ${name}.`,
+                );
                 return;
             }
 
@@ -104,33 +108,6 @@ module.exports = {
                 });
 
             const fields = lifters.flatMap((lifter, index) => [
-                // {
-                //     name: `\`${index + 1}.\` ${lifter.Federation} ${lifter.MeetName}`,
-                //     value: `${lifter.Place}, ${lifter.MeetCountry}, ${lifter.MeetState}, ${lifter.Division}`,
-                //     inline: false,
-                // },
-                // {
-                //     name: '\u200B',
-                //     value: `
-                //         Date: ${lifter.Date}
-                //         Age: ${lifter.Age}
-
-                //         Equip: ${lifter.Equipment}
-                //         Class: ${lifter.Class}
-                //         Weight: ${lifter.Weight}`,
-                //     inline: true
-                // },
-                // {
-                //     name: '\u200B',
-                //     value: `
-                //         Squat: ${lifter.Squat}
-                //         Bench: ${lifter.Bench}
-                //         Dead: ${lifter.Deadlift}
-
-                //         Total: ${lifter.Total}
-                //         DOTS: ${lifter.Dots}`,
-                //     inline: true
-                // }
                 {
                     name: `\`${index + 1}.\` ${lifter.Federation} ${lifter.MeetName}`,
                     value: `
@@ -156,13 +133,21 @@ module.exports = {
 
             embed.addFields(fields);
 
-            await interaction.reply({ embeds: [embed] });
+            await interaction.editReply({ embeds: [embed] });
         } catch (error) {
             logger.error('Error executing /lifter command:', error);
-            await interaction.reply({
-                content: 'An error occurred while fetching the lifter data.',
-                ephemeral: true,
-            });
+            if (interaction.deferred || interaction.replied) {
+                await interaction.editReply({
+                    content:
+                        'An error occurred while fetching the lifter data.',
+                });
+            } else {
+                await interaction.reply({
+                    content:
+                        'An error occurred while fetching the lifter data.',
+                    ephemeral: true,
+                });
+            }
         }
     },
 };
