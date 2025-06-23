@@ -161,11 +161,13 @@ module.exports = {
             logger.error('Error executing /top command:', error);
             if (interaction.deferred || interaction.replied) {
                 await interaction.editReply({
-                    content: 'An error occurred while fetching the top lifters.',
+                    content:
+                        'An error occurred while fetching the top lifters.',
                 });
             } else {
                 await interaction.reply({
-                    content: 'An error occurred while fetching the top lifters.',
+                    content:
+                        'An error occurred while fetching the top lifters.',
                     ephemeral: true,
                 });
             }

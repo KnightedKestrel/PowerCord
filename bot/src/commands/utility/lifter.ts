@@ -74,7 +74,9 @@ module.exports = {
 
             const name = interaction.options.getString('name');
             if (!name) {
-                await interaction.editReply('You need to specify a lifter name.');
+                await interaction.editReply(
+                    'You need to specify a lifter name.',
+                );
                 return;
             }
 
@@ -83,13 +85,17 @@ module.exports = {
             for (const lifter of lifters) {
                 if (!lifter.Squat) lifter.Squat = '—' as unknown as number;
                 if (!lifter.Bench) lifter.Bench = '—' as unknown as number;
-                if (!lifter.Deadlift) lifter.Deadlift = '—' as unknown as number;
+                if (!lifter.Deadlift)
+                    lifter.Deadlift = '—' as unknown as number;
                 if (!lifter.Age) lifter.Age = '—' as unknown as number;
-                if (!lifter.MeetState) lifter.MeetState = '—' as unknown as string;
+                if (!lifter.MeetState)
+                    lifter.MeetState = '—' as unknown as string;
             }
 
             if (lifters.length === 0) {
-                await interaction.editReply(`No data found for lifter: ${name}.`);
+                await interaction.editReply(
+                    `No data found for lifter: ${name}.`,
+                );
                 return;
             }
 
@@ -132,11 +138,13 @@ module.exports = {
             logger.error('Error executing /lifter command:', error);
             if (interaction.deferred || interaction.replied) {
                 await interaction.editReply({
-                    content: 'An error occurred while fetching the lifter data.',
+                    content:
+                        'An error occurred while fetching the lifter data.',
                 });
             } else {
                 await interaction.reply({
-                    content: 'An error occurred while fetching the lifter data.',
+                    content:
+                        'An error occurred while fetching the lifter data.',
                     ephemeral: true,
                 });
             }

@@ -165,7 +165,6 @@ module.exports = {
 
             const reply = await interaction.fetchReply();
 
-
             const collector = reply.createMessageComponentCollector({
                 time: 60000,
             });
