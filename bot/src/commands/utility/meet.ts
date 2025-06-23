@@ -78,9 +78,11 @@ module.exports = {
         ),
     async execute(interaction: ChatInputCommandInteraction) {
         try {
+            await interaction.deferReply();
+
             const name = interaction.options.getString('name');
             if (!name) {
-                await interaction.reply('You need to specify a meet.');
+                await interaction.editReply('You need to specify a meet.');
                 return;
             }
 
@@ -88,7 +90,7 @@ module.exports = {
             const meets: Meet[] = getMeets(name, offset);
 
             if (meets.length === 0) {
-                await interaction.reply(`No data found for meet: ${name}.`);
+                await interaction.editReply(`No data found for meet: ${name}.`);
                 return;
             }
 
@@ -156,11 +158,13 @@ module.exports = {
             const hasNext = getMeets(name, offset + 5).length > 0;
             const actionRow = createActionRow(false, hasNext);
 
-            const reply = await interaction.reply({
+            await interaction.editReply({
                 embeds: [embed],
                 components: [actionRow],
-                fetchReply: true,
             });
+
+            const reply = await interaction.fetchReply();
+
 
             const collector = reply.createMessageComponentCollector({
                 time: 60000,
@@ -205,10 +209,16 @@ module.exports = {
             });
         } catch (error) {
             logger.error('Error executing /meet command:', error);
-            await interaction.reply({
-                content: 'An error occurred while fetching the meet data.',
-                ephemeral: true,
-            });
+            if (interaction.deferred || interaction.replied) {
+                await interaction.editReply({
+                    content: 'An error occurred while fetching the meet data.',
+                });
+            } else {
+                await interaction.reply({
+                    content: 'An error occurred while fetching the meet data.',
+                    ephemeral: true,
+                });
+            }
         }
     },
 };
