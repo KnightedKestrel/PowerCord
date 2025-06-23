@@ -25,25 +25,39 @@ export function getTopLifters(page: number = 1): TopLifter[] {
     const offset = (page - 1) * limit;
 
     const query = `
+        WITH RankedLifters AS (
+            SELECT
+                Name,
+                Sex,
+                Best3SquatKg AS Squat,
+                Best3BenchKg AS Bench,
+                Best3DeadliftKg AS Deadlift,
+                TotalKg AS Total,
+                Equipment,
+                Dots,
+                ROW_NUMBER() OVER (PARTITION BY Name ORDER BY Dots DESC) AS rn
+            FROM entries
+            WHERE
+                Dots IS NOT NULL
+                AND Dots != ''
+                AND Equipment IN ('Raw', 'Wraps')
+        )
         SELECT
             Name,
             Sex,
-            Best3SquatKg AS Squat,
-            Best3BenchKg AS Bench,
-            Best3DeadliftKg AS Deadlift,
-            TotalKg AS Total,
+            Squat,
+            Bench,
+            Deadlift,
+            Total,
             Equipment,
             Dots
-        FROM entries
-        WHERE
-            Dots IS NOT NULL
-            AND Dots != ''
-            AND Equipment IN ('Raw', 'Wraps')
+        FROM RankedLifters
+        WHERE rn = 1
         ORDER BY Dots DESC
-        LIMIT ${limit} OFFSET ${offset};
+        LIMIT ? OFFSET ?;
     `;
 
-    return db.prepare(query).all() as TopLifter[];
+    return db.prepare(query).all(limit, offset) as TopLifter[];
 }
 
 module.exports = {
