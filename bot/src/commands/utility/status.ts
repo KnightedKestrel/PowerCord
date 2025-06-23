@@ -9,7 +9,7 @@ export function getLastUpdate(): { UpdatedDate: string } {
     const db = DatabaseManager.getInstance().getDB();
 
     const query = `
-    SELECT "UpdatedDate" FROM "main"."opl_data_version" LIMIT 1        
+    SELECT "UpdatedDate" FROM "main"."opl_data_version" LIMIT 1
     `;
 
     return db.prepare(query).get() as { UpdatedDate: string };
@@ -63,7 +63,7 @@ module.exports = {
                 `Latency is **${latency}**ms\n\n` +
                     `Uptime: **${hours} hours** and **${minutes} minutes**\n` +
                     `I am currently in **${serverCount} servers** with a total of **${userCount} users**\n\n` +
-                    `Thanks to [OpenPowerlifting](https://www.openpowerlifting.org/) for providing all our data`,
+                    `Credit to [OpenPowerlifting](https://www.openpowerlifting.org/) for data used`,
             );
 
         // Send the final reply with the embed
