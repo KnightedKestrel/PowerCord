@@ -33,6 +33,7 @@
                         target="_blank"
                         size="lg"
                         variant="subtle"
+                        class="text-md"
                         >Join Support Server</UButton
                     >
                 </div>
