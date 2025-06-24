@@ -70,7 +70,7 @@ useSeoMeta({
     ogTitle: 'PowerCord - The Powerlifting Discord Bot',
     ogDescription:
         'View Powerlifting meet results, lifter profiles, and top totals in your own server! Powered by data provided by OpenPowerlifting.org and completely open source.',
-    ogImage: '/assets/img/logo.png',
+    ogImage: 'https://powercord-gilt.vercel.app/ogImage.png',
 });
 
 const features = ref([
