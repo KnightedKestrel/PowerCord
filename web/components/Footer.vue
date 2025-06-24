@@ -1,5 +1,5 @@
 <template>
-    <footer class="w-full border-t border-gray-800">
+    <footer class="w-full border-t border-gray-800" role="contentinfo">
         <UContainer>
             <div class="flex h-16 items-center">
                 <p class="text-muted">

@@ -1,5 +1,5 @@
 <template>
-    <header class="w-full border-b border-gray-800">
+    <header class="w-full border-b border-gray-800" role="banner">
         <UContainer>
             <div class="flex h-16 items-center justify-between">
                 <ULink to="/">
@@ -7,13 +7,14 @@
                         <img
                             src="/assets/img/logo.png"
                             class="size-12 shrink-0 rounded-md"
+                            alt="PowerCord logo"
                         />
                         <span class="logo-text text-3xl text-white"
                             >PowerCord</span
                         >
                     </div>
                 </ULink>
-                <div class="flex items-center gap-4">
+                <nav class="flex items-center gap-4" role="navigation">
                     <ULink
                         to="https://volta.net/KnightedKestrel/PowerCord"
                         target="_blank"
@@ -36,7 +37,7 @@
                         class="text-md"
                         >Join Support Server</UButton
                     >
-                </div>
+                </nav>
             </div>
         </UContainer>
     </header>
