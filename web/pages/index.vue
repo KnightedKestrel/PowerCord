@@ -19,7 +19,7 @@
                         target="_blank"
                         size="xl"
                         icon="line-md:discord-twotone"
-                        class="btn"
+                        class="btn text-lg"
                         >Add to Discord</UButton
                     >
                     <UButton
@@ -28,13 +28,14 @@
                         size="xl"
                         icon="line-md:github-twotone"
                         variant="outline"
-                        class="btn"
+                        class="btn text-lg"
                         >View on GitHub</UButton
                     >
                 </div>
                 <ULink
                     to="https://www.openpowerlifting.org/"
                     target="_blank"
+                    class="text-primary"
                     external
                     >Data provided by OpenPowerlifting
                     <UIcon name="fe:link-external" class="size-5"
@@ -64,6 +65,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
+useSeoMeta({
+    ogTitle: 'PowerCord - The Powerlifting Discord Bot',
+    ogDescription:
+        'View Powerlifting meet results, lifter profiles, and top totals in your own server! Powered by data provided by OpenPowerlifting.org and completely open source.',
+    ogImage: '/assets/img/logo.png',
+});
 
 const features = ref([
     {

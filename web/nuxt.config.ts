@@ -2,6 +2,15 @@
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
     devtools: { enabled: true },
+    app: {
+        head: {
+            title: 'PowerCord | Powerlifting competition results in Discord', // Default fallback title
+            htmlAttrs: {
+                lang: 'en',
+            },
+            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+        },
+    },
 
     modules: [
         '@nuxt/icon',
