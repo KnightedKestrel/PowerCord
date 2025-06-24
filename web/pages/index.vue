@@ -1,45 +1,61 @@
 <template>
     <UContainer>
         <div class="my-20">
-            <div class="mb-16 flex flex-col gap-6">
-                <h1 class="text-5xl">
-                    Powerlifting competition results in
-                    <img
-                        class="my-1 h-12"
-                        src="/assets/img/discord-logo.svg"
-                        alt="Discord"
-                    />
-                </h1>
-                <p class="text-xl">
-                    View powerlifting meet data, lifter profiles, and more!
-                </p>
-                <div class="flex gap-4">
-                    <UButton
-                        to="https://discord.com/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands"
-                        target="_blank"
-                        size="xl"
-                        icon="line-md:discord-twotone"
-                        class="btn text-lg"
-                        >Add to Discord</UButton
-                    >
-                    <UButton
-                        to="https://github.com/KnightedKestrel/PowerCord"
-                        target="_blank"
-                        size="xl"
-                        icon="line-md:github-twotone"
-                        variant="outline"
-                        class="btn text-lg"
-                        >View on GitHub</UButton
-                    >
+            <div class="my-12 flex items-center justify-between gap-2">
+                <div class="mb-16 flex flex-col gap-6">
+                    <h1 class="text-4xl">
+                        Powerlifting competition results in
+                        <img
+                            class="my-1 h-12"
+                            src="/assets/img/discord-logo.svg"
+                            alt="Discord"
+                        />
+                    </h1>
+                    <p class="text-xl">
+                        View powerlifting meet data, lifter profiles, and more!
+                    </p>
+                    <div class="flex gap-4">
+                        <UButton
+                            to="https://discord.com/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands"
+                            target="_blank"
+                            size="xl"
+                            icon="line-md:discord-twotone"
+                            class="btn text-lg"
+                            >Add to Discord</UButton
+                        >
+                        <UButton
+                            to="https://github.com/KnightedKestrel/PowerCord"
+                            target="_blank"
+                            size="xl"
+                            icon="line-md:github-twotone"
+                            variant="outline"
+                            class="btn text-lg"
+                            >View on GitHub</UButton
+                        >
+                    </div>
+                    <span
+                        ><ULink
+                            to="https://www.openpowerlifting.org/"
+                            target="_blank"
+                            class="text-primary"
+                            external
+                            >Data provided by OpenPowerlifting
+                            <UIcon
+                                name="fe:link-external"
+                                class="size-5" /></ULink
+                    ></span>
                 </div>
-                <ULink
-                    to="https://www.openpowerlifting.org/"
-                    target="_blank"
-                    class="text-primary"
-                    external
-                    >Data provided by OpenPowerlifting
-                    <UIcon name="fe:link-external" class="size-5"
-                /></ULink>
+
+                <div class="max-h-120 relative overflow-y-hidden">
+                    <img
+                        class="max-h-240 h-full w-full object-cover"
+                        src="/assets/img/preview-showcase.png"
+                        alt="Screenshot preview showcase for couple commands in Discord"
+                    />
+                    <div
+                        class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-900 to-transparent"
+                    ></div>
+                </div>
             </div>
 
             <div class="flex gap-4">
