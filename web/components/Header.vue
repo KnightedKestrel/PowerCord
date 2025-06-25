@@ -33,7 +33,7 @@
                         to="https://discord.gg/MZfchrRah4"
                         target="_blank"
                         size="lg"
-                        variant="subtle"
+                        variant="outline"
                         class="text-md"
                         >Join Support Server</UButton
                     >
