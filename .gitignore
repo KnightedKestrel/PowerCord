@@ -38,4 +38,4 @@ sqlite/
 *.env*
 !.env.example
 
-# Trivial change to trigger vercel build x2
+# Trivial change to trigger vercel build x3
