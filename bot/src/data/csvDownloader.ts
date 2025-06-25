@@ -16,30 +16,28 @@ const DOWNLOAD_DIR = path.resolve(__dirname, './downloads');
 const ZIP_PATH = path.join(DOWNLOAD_DIR, 'openpowerlifting-latest.zip');
 
 // Checks the OPL Data Service status page for the latest date
-export async function checkLatestUpdate(): Promise<string> {
-    try {
-        const response = await axios.get(CSV_STATUS_URL);
-        const cheer = cheerio.load(response.data);
-        const updatedText = cheer(
-            'body > div > div > div > div > main > ul > li',
-        )
-            .first()
-            .text()
-            .trim();
-        const noDotText = updatedText.replace('.', '');
-        const dateText = noDotText.replace('Updated:', '').trim();
+export async function checkLatestVersionDate(): Promise<string | null> {
+    const response = await axios.get(CSV_STATUS_URL);
+    const cheer = cheerio.load(response.data);
+    const updatedText = cheer('body > div > div > div > div > main > ul > li')
+        .first()
+        .text()
+        .trim();
+    const noDotText = updatedText.replace('.', '');
+    const dateText = noDotText.replace('Updated:', '').trim();
 
-        if (!dateText) {
-            logger.info(updatedText);
-            throw new Error('Could not find the date on the specified page.');
-        }
-
-        logger.info(`Last CSV Update: ${dateText}`);
-        return dateText;
-    } catch (error) {
-        logger.error('Failed to fetch updated date:', error);
-        throw error;
+    if (!dateText) {
+        logger.error(
+            'Could not find a version date on the OPL Data Service page.',
+            updatedText,
+        );
+        return null;
     }
+
+    logger.info(
+        `Fetched latest version date of CSV in OPL Data Service: ${dateText}`,
+    );
+    return dateText;
 }
 
 export async function csvDownloader(): Promise<{
@@ -50,20 +48,21 @@ export async function csvDownloader(): Promise<{
 
     try {
         // Compare dates
-        const getDate = await checkLatestUpdate();
+        const versionDate = await checkLatestVersionDate();
+        // if (versionDate === null) return;
 
         const currentDate = db
             .prepare('SELECT UpdatedDate FROM opl_data_version LIMIT 1')
             .pluck()
             .get();
 
-        if (currentDate === getDate) {
+        if (currentDate === versionDate) {
             logger.info('The CSV data is already up-to-date.');
             await fsp.rm(DOWNLOAD_DIR, { recursive: true, force: true });
             logger.info('Temporary files cleaned up.');
             return { csvPath: '', extractedDate: '' };
         } else {
-            logger.info('DB:', currentDate, 'CSV:', getDate);
+            logger.info('DB:', currentDate, 'CSV:', versionDate);
         }
 
         // ZIP download
@@ -115,7 +114,7 @@ export async function csvDownloader(): Promise<{
         }
 
         logger.info(`Found dated folder: ${datedFolder}`);
-        const extractedDate = getDate;
+        const extractedDate = versionDate;
         // const extractedDate = datedFolder.match(
         //     /openpowerlifting-(\d{4}-\d{2}-\d{2})/,
         // )?.[1];
