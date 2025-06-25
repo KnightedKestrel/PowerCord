@@ -6,6 +6,8 @@
                     Copyright &copy; 2024-{{ currentYear }} |
                     <ULink
                         to="https://github.com/KnightedKestrel/PowerCord/blob/master/LICENSE"
+                        target="_blank"
+                        external
                         >AGPLv3</ULink
                     >
                 </p>
