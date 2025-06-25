@@ -3,7 +3,13 @@
         <UContainer>
             <div class="flex h-16 items-center">
                 <p class="text-muted">
-                    Copyright &copy; 2024-{{ currentYear }}
+                    Copyright &copy; 2024-{{ currentYear }} |
+                    <ULink
+                        to="https://github.com/KnightedKestrel/PowerCord/blob/master/LICENSE"
+                        target="_blank"
+                        external
+                        >AGPLv3</ULink
+                    >
                 </p>
             </div>
         </UContainer>
