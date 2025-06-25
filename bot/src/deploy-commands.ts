@@ -45,7 +45,7 @@ const rest = new REST().setToken(discordToken);
         );
 
         // Register slash commands globally
-        const data = await rest.put(Routes.applicationGuildCommands(clientId), {
+        const data = await rest.put(Routes.applicationCommands(clientId), {
             body: commands,
         });
 
