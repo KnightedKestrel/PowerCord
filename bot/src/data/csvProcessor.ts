@@ -16,13 +16,6 @@ export async function csvProcessor(
         db.exec('PRAGMA synchronous = OFF;');
         db.exec('PRAGMA journal_mode = WAL;');
 
-        // Ensure opl_data_version table exists with only UpdatedDate column
-        db.exec(`
-            CREATE TABLE IF NOT EXISTS opl_data_version (
-                UpdatedDate TEXT NOT NULL
-            )
-        `);
-
         const expectedHeaders = [
             'Name',
             'Sex',
