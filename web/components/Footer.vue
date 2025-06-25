@@ -23,4 +23,4 @@ import { ref } from 'vue';
 const currentYear = ref(new Date().getFullYear());
 </script>
 
-# Trivial change to trigger vercel build x5
+# Trivial change to trigger vercel build x6
