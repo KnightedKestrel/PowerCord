@@ -6,16 +6,15 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const clientId = process.env.CLIENT_ID;
-const guildId = process.env.GUILD_ID;
 const discordToken = process.env.DISCORD_TOKEN;
 
 const commands = [];
-// Grab all the command folders from the commands directory you created earlier
+// Grab all the command folders from the commands director
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
-    // Grab all the command files from the commands directory you created earlier
+    // Grab all command files from the commands directory
     const commandsPath = path.join(foldersPath, folder);
     const commandFiles = fs
         .readdirSync(commandsPath)
@@ -45,11 +44,10 @@ const rest = new REST().setToken(discordToken);
             `Started refreshing ${commands.length} application (/) commands.`,
         );
 
-        // The put method is used to fully refresh all commands in the guild with the current set
-        const data = await rest.put(
-            Routes.applicationGuildCommands(clientId, guildId),
-            { body: commands },
-        );
+        // Register slash commands globally
+        const data = await rest.put(Routes.applicationGuildCommands(clientId), {
+            body: commands,
+        });
 
         logger.info(
             `Successfully reloaded ${data.length} application (/) commands.`,
