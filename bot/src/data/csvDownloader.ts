@@ -9,13 +9,16 @@ import DatabaseManager from './database';
 
 const ZIP_URL =
     'https://openpowerlifting.gitlab.io/opl-csv/files/openpowerlifting-latest.zip';
+const CSV_STATUS_URL =
+    'https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html';
+
 const DOWNLOAD_DIR = path.resolve(__dirname, './downloads');
 const ZIP_PATH = path.join(DOWNLOAD_DIR, 'openpowerlifting-latest.zip');
 
-async function getLastUpdate(): Promise<string> {
+// Checks the OPL Data Service status page for the latest date
+export async function checkLatestUpdate(): Promise<string> {
     try {
-        const url = 'https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html';
-        const response = await axios.get(url);
+        const response = await axios.get(CSV_STATUS_URL);
         const cheer = cheerio.load(response.data);
         const updatedText = cheer(
             'body > div > div > div > div > main > ul > li',
@@ -47,7 +50,7 @@ export async function csvDownloader(): Promise<{
 
     try {
         // Compare dates
-        const getDate = await getLastUpdate();
+        const getDate = await checkLatestUpdate();
 
         const currentDate = db
             .prepare('SELECT UpdatedDate FROM opl_data_version LIMIT 1')
