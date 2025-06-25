@@ -37,3 +37,5 @@ sqlite/
 # Environment variables
 *.env*
 !.env.example
+
+# Trivial change to trigger vercel build
