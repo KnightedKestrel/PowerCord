@@ -165,7 +165,9 @@ export async function csvProcessor(
                 }
 
                 db.prepare('DELETE FROM opl_data_version').run();
-                db.prepare('INSERT INTO opl_data_version (UpdatedDate) VALUES (?)').run(extractedDate);
+                db.prepare(
+                    'INSERT INTO opl_data_version (UpdatedDate) VALUES (?)',
+                ).run(extractedDate);
 
                 db.exec('COMMIT;');
                 logger.info(
