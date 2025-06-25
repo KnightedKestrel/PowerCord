@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { checkLatestUpdate } from '../data/csvDownloader';
+import { checkLatestVersionDate } from '../data/csvDownloader';
 
 // Mocking https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html
 const statusPage = `
@@ -32,6 +32,14 @@ const statusPage = `
 </html>
 `;
 
+const emptyPage = `
+<html>
+    <body>
+        <div></div>
+    </body>
+</html>
+`;
+
 describe('csvDownloader', () => {
     beforeEach(() => {
         vi.spyOn(axios, 'get').mockImplementation(vi.fn());
@@ -45,8 +53,17 @@ describe('csvDownloader', () => {
         vi.mocked(axios.get).mockResolvedValue({
             data: statusPage,
         });
-        const date = await checkLatestUpdate();
 
+        const date = await checkLatestVersionDate();
         expect(date).toBe('2001-01-01');
+    });
+
+    it('should return null when no date found on status page', async () => {
+        vi.mocked(axios.get).mockResolvedValue({
+            data: emptyPage,
+        });
+
+        const date = await checkLatestVersionDate();
+        expect(date).toBe(null);
     });
 });
