@@ -29,6 +29,9 @@ jobs:
             - name: Install web dependencies
               run: npm ci --prefix web
 
+            - name: Run bot tests
+              run: npm run test:bot
+
             - name: Run ESLint
               run: npm run lint
 
