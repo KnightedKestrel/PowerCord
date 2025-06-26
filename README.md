@@ -4,11 +4,13 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg" alt="CI Status"/></a>
-    <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml/badge.svg" alt="Bot deployment status" /></a>
-    <a href="https://powercord-gilt.vercel.app/"><img src="https://vercelbadge.vercel.app/api/KnightedKestrel/PowerCord" alt="Web deployment status" /></a>
-    <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/node.js-24.2.0-brightgreen.svg" alt="Node JS" /></a>
-    <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.19.3-orange.svg" alt="Discord JS" /></a>
+    <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
+    <!-- Get bot deployments working before showing -->
+    <!-- <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml/badge.svg" alt="Bot deployment status" /></a> -->
+    <a href="https://powercord-gilt.vercel.app/"><img src="https://vercelbadge.vercel.app/api/KnightedKestrel/PowerCord" alt="Web Deployment Status" /></a>
+    <!-- Get code coverage up before showing -->
+    <!-- <a href="https://codecov.io/gh/KnightedKestrel/PowerCord"><img src="https://codecov.io/gh/KnightedKestrel/PowerCord/graph/badge.svg?token=04DYKZJMH3" alt="Codecov Coverage"/></a> -->
+    <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.20.0-orange.svg" alt="Discord JS" /></a>
     <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4" alt="Code style: Prettier" /></a>
     <a href="https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands"><img src="https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white" alt="Invite to Discord Server" /></a>
 </p>
@@ -50,10 +52,6 @@ npm run dev
 
 [Open board on Volta](https://volta.net/KnightedKestrel/PowerCord).
 
-## 🪴 Activity
-
-![Alt](https://repobeats.axiom.co/api/embed/fc4f5c50862fb4f4ddc54324bda0351e5d073e5a.svg 'Repobeats analytics image')
-
 ## 🧱 Contribute
 
-See our [Contributing Guide](CONTRIBUTING.md).
+[See contributing guide](CONTRIBUTING.md).
