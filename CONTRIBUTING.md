@@ -6,7 +6,7 @@ Thank you for taking the time to look to contribute to PowerCord. Below are some
 
 To get started with repo setup, follow these steps:
 
-1. **Fork the Repository**: Fork into your own GitLab account.
+1. **Fork the Repository**: Fork into your own GitHub account.
 
 2. **Clone Your Fork**: Clone to work locally or use the web editor in your new fork.
 
