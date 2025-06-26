@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { checkLatestVersionDate } from '../data/csvDownloader';
+import { checkLatestVersionDate, csvDownloader } from '../data/csvDownloader';
+import logger from '../logger';
+
+vi.mock('../logger', () => ({
+    default: {
+        info: vi.fn(),
+        error: vi.fn(),
+    },
+}));
 
 // Mocking https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html
 const statusPage = `
@@ -40,7 +48,7 @@ const emptyPage = `
 </html>
 `;
 
-describe('csvDownloader', () => {
+describe('csvDownloader - checkLatestVersionDate()', () => {
     beforeEach(() => {
         vi.spyOn(axios, 'get').mockImplementation(vi.fn());
     });
@@ -55,6 +63,7 @@ describe('csvDownloader', () => {
         });
 
         const date = await checkLatestVersionDate();
+        expect(logger.error).not.toHaveBeenCalled();
         expect(date).toBe('2001-01-01');
     });
 
@@ -64,6 +73,24 @@ describe('csvDownloader', () => {
         });
 
         const date = await checkLatestVersionDate();
+        expect(logger.error).toHaveBeenCalled();
         expect(date).toBe(null);
     });
 });
+
+// describe('csvDownloader - csvDownloader()', () => {
+//     beforeEach(() => {
+//         vi.spyOn(axios, 'get').mockImplementation(vi.fn());
+//     });
+
+//     afterEach(() => {
+//         vi.restoreAllMocks();
+//     });
+
+//     it('should return null on no date to check against', async () => {
+//         vi.mocked(checkLatestVersionDate).mockResolvedValue(null);
+
+//         const date = await csvDownloader();
+//         expect(date).toBe(null);
+//     });
+// });
