@@ -51,7 +51,6 @@
 import type { NavigationMenuItem } from '@nuxt/ui';
 import { ref } from 'vue';
 
-const isNavOpen = ref(false);
 const navItems = ref<NavigationMenuItem[][]>([
     [
         {
