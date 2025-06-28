@@ -1,8 +1,10 @@
 <template>
     <UContainer>
-        <div class="my-20">
-            <div class="my-12 flex items-center justify-between gap-2">
-                <div class="mb-16 flex flex-col gap-6">
+        <div class="my-12 md:my-20">
+            <div
+                class="my-4 flex flex-wrap-reverse items-center justify-center gap-2 md:my-12 md:flex-nowrap md:justify-between"
+            >
+                <div class="mb-16 flex flex-col gap-6 text-center md:text-left">
                     <h1 class="text-4xl">
                         Powerlifting competition results in
                         <img
@@ -14,13 +16,15 @@
                     <p class="text-xl">
                         View powerlifting meet data, lifter profiles, and more!
                     </p>
-                    <div class="flex gap-4">
+                    <div
+                        class="flex flex-wrap justify-center gap-4 md:justify-normal"
+                    >
                         <UButton
                             to="https://discord.com/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands"
                             target="_blank"
                             size="xl"
                             icon="line-md:discord-twotone"
-                            class="btn text-lg"
+                            class="btn text-nowrap text-lg"
                             >Add to Discord</UButton
                         >
                         <UButton
@@ -29,7 +33,7 @@
                             size="xl"
                             icon="line-md:github-twotone"
                             variant="outline"
-                            class="btn text-lg"
+                            class="btn text-nowrap text-lg"
                             >View on GitHub</UButton
                         >
                     </div>
@@ -46,7 +50,7 @@
                     ></span>
                 </div>
 
-                <div class="max-h-120 relative overflow-y-hidden">
+                <div class="md:max-h-120 relative max-h-80 overflow-y-hidden">
                     <img
                         class="max-h-240 h-full w-full object-cover"
                         src="/assets/img/preview-showcase.png"
@@ -58,8 +62,8 @@
                 </div>
             </div>
 
-            <div class="flex gap-4">
-                <div v-for="feature in features" class="flex-1">
+            <div class="flex flex-wrap gap-4 md:flex-nowrap">
+                <div v-for="feature in features" class="basis-sm flex-1">
                     <div
                         class="ring-default flex h-full flex-col gap-y-2 rounded-xl bg-gray-800 px-4 py-5 shadow-xl ring"
                     >

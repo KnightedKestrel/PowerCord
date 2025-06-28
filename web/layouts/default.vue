@@ -1,9 +1,11 @@
 <template>
-    <main class="flex h-screen flex-col justify-between" role="main">
+    <div class="flex h-screen flex-col justify-between">
         <Header />
-        <slot />
+        <main role="main">
+            <slot />
+        </main>
         <Footer />
-    </main>
+    </div>
 </template>
 
 <style lang="scss">
