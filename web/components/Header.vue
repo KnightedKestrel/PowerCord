@@ -1,5 +1,5 @@
 <template>
-    <header class="relative z-50 w-full border-b border-gray-800" role="banner">
+    <header class="w-full border-b border-gray-800" role="banner">
         <UContainer>
             <div class="flex h-16 items-center justify-between">
                 <ULink to="/">
@@ -17,6 +17,7 @@
 
                 <UNavigationMenu :items="navItems" class="hidden md:block" />
 
+                <!-- Mobile navigation menu -->
                 <USlideover
                     :close="{
                         color: 'neutral',
@@ -26,7 +27,7 @@
                     class="md:hidden"
                 >
                     <UButton
-                        :icon="isNavOpen ? 'i-lucide:x' : 'i-lucide:menu'"
+                        icon="i-lucide:menu"
                         size="xl"
                         color="neutral"
                         variant="subtle"
@@ -73,18 +74,6 @@ const navItems = ref<NavigationMenuItem[][]>([
         },
     ],
 ]);
-
-const openNav = () => {
-    isNavOpen.value = !isNavOpen.value;
-};
-
-watch(isNavOpen, (newValue) => {
-    if (newValue) {
-        document.body.classList.add('no-scroll');
-    } else {
-        document.body.classList.remove('no-scroll');
-    }
-});
 </script>
 
 <style lang="scss" scoped>
@@ -92,5 +81,3 @@ watch(isNavOpen, (newValue) => {
     font-family: 'Kanit';
 }
 </style>
-
-<!-- i-lucide:x -->
