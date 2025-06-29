@@ -8,13 +8,15 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@nuxt/content": "^3.6.1",
     "@nuxt/eslint": "^1.4.1",
     "@nuxt/fonts": "^0.11.4",
-    "@nuxt/icon": "^1.14.0",
+    "@nuxt/icon": "^1.15.0",
     "@nuxt/image": "^1.10.0",
     "@nuxt/scripts": "^0.11.8",
     "@nuxt/ui": "^3.2.0",
