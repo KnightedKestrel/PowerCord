@@ -55,21 +55,21 @@ const navItems = ref<NavigationMenuItem[][]>([
     [
         {
             label: 'Roadmap',
-            icon: 'i-lucide-map',
-            to: 'https://volta.net/KnightedKestrel/PowerCord',
-            target: '_blank',
+            icon: 'charm:map',
+            to: '/roadmap',
+            class: 'text-md',
         },
         {
             label: 'Source',
-            icon: 'i-simple-icons-github',
             to: 'https://volta.net/KnightedKestrel/PowerCord',
             target: '_blank',
+            class: 'text-md',
         },
         {
             label: 'Support Server',
-            icon: 'i-simple-icons-discord',
             to: 'https://discord.gg/MZfchrRah4',
             target: '_blank',
+            class: 'text-md',
         },
     ],
 ]);
