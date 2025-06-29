@@ -61,7 +61,7 @@ const navItems = ref<NavigationMenuItem[][]>([
         },
         {
             label: 'Source',
-            to: 'https://volta.net/KnightedKestrel/PowerCord',
+            to: 'https://github.com/KnightedKestrel/PowerCord',
             target: '_blank',
             class: 'text-md',
         },
