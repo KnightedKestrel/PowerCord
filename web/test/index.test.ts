@@ -7,4 +7,9 @@ describe('Index', () => {
         const component = await mountSuspended(Index);
         expect(component.vm).toBeTruthy();
     });
+
+    it('matches the snapshot', async () => {
+        const component = await mountSuspended(Index);
+        expect(component.html()).toMatchSnapshot();
+    });
 });
