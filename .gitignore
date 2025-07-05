@@ -20,6 +20,7 @@ sqlite/
 .nuxt
 .nitro
 .cache
+coverage
 
 # Editor directories and files
 .vscode/*
