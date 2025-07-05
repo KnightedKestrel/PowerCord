@@ -8,5 +8,9 @@ export default defineVitestConfig({
                 domEnvironment: 'jsdom',
             },
         },
+        coverage: {
+            reporter: ['text', 'lcov'],
+            reportsDirectory: './coverage',
+        },
     },
 });
