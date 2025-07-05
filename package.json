@@ -8,15 +8,14 @@
     "format": "npm run prettier:fix && npm run lint:fix",
     "install:bot": "npm install --prefix bot",
     "install:web": "npm install --prefix web",
-    "install:all": "npm run install:bot && npm run install:web",
+    "install:all": "npm install && npm install --prefix bot && npm install --prefix web",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "test:bot": "npm run test --prefix bot",
     "test:web": "npm run test --prefix web",
-    "clean": "rm -rf node_modules package-lock.json bot/node_modules bot/package-lock.json web/node_modules web/package-lock.json web/.nuxt web/.output web/dist",
-    "update:locks": "npm install && npm install --prefix bot && npm install --prefix web"
+    "clean": "rm -rf node_modules package-lock.json bot/node_modules bot/package-lock.json web/node_modules web/package-lock.json web/.nuxt web/.output web/dist"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
