@@ -14,7 +14,9 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "test:bot": "npm run test --prefix bot",
-    "test:web": "npm run test --prefix web"
+    "test:web": "npm run test --prefix web",
+    "clean": "rm -rf node_modules package-lock.json bot/node_modules bot/package-lock.json web/node_modules web/package-lock.json web/.nuxt web/.output web/dist",
+    "update:locks": "npm install && npm install --prefix bot && npm install --prefix web"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
