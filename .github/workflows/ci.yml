@@ -16,7 +16,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: '24'
+                  node-version: '22'
                   cache: 'npm'
 
             - name: Install root dependencies
@@ -29,13 +29,21 @@ jobs:
             - name: Install web dependencies
               run: npm ci --prefix web
 
-            - name: Run tests
+            - name: Run bot tests with coverage
               run: npx vitest run --coverage
+              working-directory: bot
 
-            - name: Upload results to Codecov
+            - name: Run web tests with coverage
+              run: npx vitest run --coverage
+              working-directory: web
+
+            - name: Upload coverage results to Codecov
               uses: codecov/codecov-action@v5
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
+                  files: |
+                      bot/coverage/lcov.info
+                      web/coverage/lcov.info
 
             - name: Run ESLint
               run: npm run lint

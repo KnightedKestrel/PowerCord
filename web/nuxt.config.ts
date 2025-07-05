@@ -20,7 +20,6 @@ export default defineNuxtConfig({
         '@nuxt/ui',
         '@nuxt/fonts',
         '@nuxt/eslint',
-        '@nuxt/content',
         '@nuxtjs/tailwindcss',
     ],
 
