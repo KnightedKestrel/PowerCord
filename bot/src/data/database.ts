@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Database from 'better-sqlite3';
-import logger from '../logger';
+import logger from '../utils/logger';
 import { schema } from './schema';
 
 require('dotenv').config();

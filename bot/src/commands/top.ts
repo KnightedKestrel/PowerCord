@@ -4,8 +4,8 @@ import {
     ButtonStyle,
     ChatInputCommandInteraction,
 } from 'discord.js';
-import DatabaseManager from '../../data/database';
-import logger from '../../logger';
+import DatabaseManager from '../data/database';
+import logger from '../utils/logger';
 
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 

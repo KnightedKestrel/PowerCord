@@ -7,7 +7,7 @@ import { csvProcessor } from './data/csvProcessor';
 import DatabaseManager from './data/database';
 import { Command } from './types/command';
 import './deploy-commands';
-import logger from './logger';
+import logger from './utils/logger';
 
 require('dotenv').config();
 

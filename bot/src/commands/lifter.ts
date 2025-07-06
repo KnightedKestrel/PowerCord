@@ -1,7 +1,7 @@
 import { SlashCommandStringOption } from '@discordjs/builders';
 import { ChatInputCommandInteraction } from 'discord.js';
-import DatabaseManager from '../../data/database';
-import logger from '../../logger';
+import DatabaseManager from '../data/database';
+import logger from '../utils/logger';
 
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 

@@ -1,6 +1,6 @@
 // Importing required Discord.js modules and other dependencies
 import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
-import DatabaseManager from '../../data/database';
+import DatabaseManager from '../data/database';
 
 const { SlashCommandBuilder } = require('discord.js');
 

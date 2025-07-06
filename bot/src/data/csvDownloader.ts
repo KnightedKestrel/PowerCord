@@ -4,7 +4,7 @@ import path from 'path';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import unzipper from 'unzipper';
-import logger from '../logger';
+import logger from '../utils/logger';
 import DatabaseManager from './database';
 
 const ZIP_URL =

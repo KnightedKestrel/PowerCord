@@ -1,4 +1,4 @@
-import logger from './logger';
+import logger from './utils/logger';
 
 require('dotenv').config();
 const { REST, Routes } = require('discord.js');

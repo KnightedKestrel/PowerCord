@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { parse } from '@fast-csv/parse';
-import logger from '../logger';
+import logger from '../utils/logger';
 import DatabaseManager from './database';
 
 export async function csvProcessor(
