@@ -8,7 +8,9 @@
 
 - Use TypeScript everywhere (including the Discord bot and all Vue components).
 - For Vue, always use `<script setup lang="ts">` and the composition API.
-- Use Prettier and ESLint for formatting and linting; follow project configs strictly.
+- Use Prettier and ESLint for formatting and linting.
+- Code must conform to the project's ESLint and Prettier rules strictly.
+- Always use the `logger` utility for logging (never use `console.log`, `console.error`, etc.).
 - Use clear, descriptive names for variables and functions.
 - Add comments only for complex or non-obvious logic.
 - Keep functions focused and under 50 lines; extract complex logic to separate files.
