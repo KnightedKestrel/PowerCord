@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { checkLatestVersionDate, csvDownloader } from '../data/csvDownloader';
-import logger from '../utils/logger';
+import {
+    checkLatestVersionDate,
+    csvDownloader,
+} from '../src/data/csvDownloader';
+import logger from '../src/utils/logger';
 
-vi.mock('../logger', () => ({
+vi.mock('../src/utils/logger', () => ({
     default: {
         info: vi.fn(),
         error: vi.fn(),
