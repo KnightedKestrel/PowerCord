@@ -1,6 +1,6 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime';
 import { describe, expect, it } from 'vitest';
-import Footer from '../components/Footer.vue';
+import Footer from '../../app/components/Footer.vue';
 
 describe('Footer', () => {
     it('can mount the component', async () => {

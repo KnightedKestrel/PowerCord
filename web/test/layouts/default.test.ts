@@ -1,6 +1,6 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime';
 import { describe, expect, it } from 'vitest';
-import DefaultLayout from '../layouts/default.vue';
+import DefaultLayout from '../../app/layouts/default.vue';
 
 describe('DefaultLayout', () => {
     it('renders header, footer, and slot', async () => {

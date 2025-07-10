@@ -7,7 +7,7 @@
                     <ULink
                         to="https://github.com/KnightedKestrel/PowerCord/blob/master/LICENSE"
                         target="_blank"
-                        class="text-white"
+                        class="text-white hover:text-primary"
                         external
                         >AGPLv3</ULink
                     >

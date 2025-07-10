@@ -1,6 +1,6 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime';
 import { describe, expect, it } from 'vitest';
-import Roadmap from '../pages/roadmap.vue';
+import Roadmap from '../../app/pages/roadmap.vue';
 
 describe('Roadmap', () => {
     it('can mount the component', async () => {

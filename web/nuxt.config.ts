@@ -1,7 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
+    future: {
+        compatibilityVersion: 4,
+    },
     devtools: { enabled: true },
+
     app: {
         head: {
             title: 'PowerCord | Powerlifting competition results in Discord', // Default fallback title
@@ -15,7 +19,6 @@ export default defineNuxtConfig({
     modules: [
         '@nuxt/icon',
         '@nuxt/image',
-        '@nuxt/scripts',
         '@nuxt/test-utils',
         '@nuxt/ui',
         '@nuxt/fonts',
