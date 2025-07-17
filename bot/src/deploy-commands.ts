@@ -1,12 +1,12 @@
+import { config } from './utils/config';
 import logger from './utils/logger';
 
-require('dotenv').config();
 const { REST, Routes } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const clientId = process.env.CLIENT_ID;
-const discordToken = process.env.DISCORD_TOKEN;
+const clientId = config.CLIENT_ID;
+const discordToken = config.DISCORD_TOKEN;
 
 const commands = [];
 // Grab all the command folders from the commands director

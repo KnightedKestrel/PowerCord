@@ -3,11 +3,10 @@ import path from 'node:path';
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import { Command } from './types/command';
 import './deploy-commands';
+import { config } from './utils/config';
 import logger from './utils/logger';
 
-require('dotenv').config();
-
-const token = process.env.DISCORD_TOKEN;
+const token = config.DISCORD_TOKEN;
 
 logger.info('Bot is starting...');
 

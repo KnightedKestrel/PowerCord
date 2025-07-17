@@ -2,8 +2,25 @@ import { Logtail } from '@logtail/node';
 import { LogtailTransport } from '@logtail/winston';
 import { createLogger, format, transports } from 'winston';
 import { consoleFormat } from 'winston-console-format';
+import { config } from './config';
 
-require('dotenv').config();
+const consoleTransport = new transports.Console({
+    format: format.combine(
+        format.colorize({ all: true }),
+        format.padLevels(),
+        consoleFormat({
+            showMeta: true,
+            metaStrip: ['timestamp', 'service'],
+            inspectOptions: {
+                depth: Infinity,
+                colors: true,
+                maxArrayLength: Infinity,
+                breakLength: 120,
+                compact: Infinity,
+            },
+        }),
+    ),
+});
 
 const logger = createLogger({
     format: format.combine(
@@ -11,15 +28,15 @@ const logger = createLogger({
         format.timestamp(),
         format.json(),
     ),
+    transports: [consoleTransport],
+    exceptionHandlers: [consoleTransport],
 });
 
-if (process.env.LOGTAIL_SOURCE_TOKEN && process.env.LOGTAIL_INGESTING_HOST) {
-    // Create a Logtail client
-    const logtail = new Logtail(process.env.LOGTAIL_SOURCE_TOKEN, {
-        endpoint: `https://${process.env.LOGTAIL_INGESTING_HOST}`,
+if (config.LOGTAIL_SOURCE_TOKEN && config.LOGTAIL_INGESTING_HOST) {
+    const logtail = new Logtail(config.LOGTAIL_SOURCE_TOKEN, {
+        endpoint: `https://${config.LOGTAIL_INGESTING_HOST}`,
     });
 
-    // Create a Winston logger - passing in the Logtail transport
     const logtailTransport = createLogger({
         transports: [new LogtailTransport(logtail)],
     });
