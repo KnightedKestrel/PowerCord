@@ -1,16 +1,16 @@
-const winston = require('winston');
-const { Logtail } = require('@logtail/node');
-const { LogtailTransport } = require('@logtail/winston');
+import { Logtail } from '@logtail/node';
+import { LogtailTransport } from '@logtail/winston';
+import { createLogger, format, transports } from 'winston';
+import { consoleFormat } from 'winston-console-format';
+
 require('dotenv').config();
 
-const logger = winston.createLogger({
-    format: winston.format.combine(
-        winston.format.errors({ stack: true }),
-        winston.format.timestamp(),
-        winston.format.json(),
+const logger = createLogger({
+    format: format.combine(
+        format.errors({ stack: true }),
+        format.timestamp(),
+        format.json(),
     ),
-    transports: [new winston.transports.Console()],
-    exceptionHandlers: [new winston.transports.Console()],
 });
 
 if (process.env.LOGTAIL_SOURCE_TOKEN && process.env.LOGTAIL_INGESTING_HOST) {
@@ -20,7 +20,7 @@ if (process.env.LOGTAIL_SOURCE_TOKEN && process.env.LOGTAIL_INGESTING_HOST) {
     });
 
     // Create a Winston logger - passing in the Logtail transport
-    const logtailTransport = winston.createLogger({
+    const logtailTransport = createLogger({
         transports: [new LogtailTransport(logtail)],
     });
 

@@ -1,19 +1,19 @@
-// Importing required Discord.js modules and other dependencies
-import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
-import DatabaseManager from '../data/database';
-
-const { SlashCommandBuilder } = require('discord.js');
+import {
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    SlashCommandBuilder,
+} from 'discord.js';
 
 // Function to get the last update date from the database
-export function getLastUpdate(): { UpdatedDate: string } {
-    const db = DatabaseManager.getInstance().getDB();
+// export function getLastUpdate(): { UpdatedDate: string } {
+//     const db = DatabaseManager.getInstance().getDB();
 
-    const query = `
-    SELECT "UpdatedDate" FROM "main"."opl_data_version" LIMIT 1
-    `;
+//     const query = `
+//     SELECT "UpdatedDate" FROM "main"."opl_data_version" LIMIT 1
+//     `;
 
-    return db.prepare(query).get() as { UpdatedDate: string };
-}
+//     return db.prepare(query).get() as { UpdatedDate: string };
+// }
 
 // Command definition
 module.exports = {
@@ -50,7 +50,7 @@ module.exports = {
         // await interaction.editReply(`The bot is in ${serverCount} servers with a total of ${userCount} users`);
 
         // Last update from the database
-        const lastUpdate = getLastUpdate().UpdatedDate;
+        // const lastUpdate = getLastUpdate().UpdatedDate;
         // await interaction.editReply(`Extracted Date, ${lastUpdate}`);
 
         // Create an embed to display the status

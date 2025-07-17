@@ -1,6 +1,4 @@
-import { ChatInputCommandInteraction } from 'discord.js';
-
-const { SlashCommandBuilder } = require('discord.js');
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 module.exports = {
     data: new SlashCommandBuilder()

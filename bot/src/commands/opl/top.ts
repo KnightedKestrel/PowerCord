@@ -3,61 +3,15 @@ import {
     ButtonBuilder,
     ButtonStyle,
     ChatInputCommandInteraction,
+    EmbedBuilder,
+    SlashCommandBuilder,
 } from 'discord.js';
-import DatabaseManager from '../data/database';
-import logger from '../utils/logger';
+import { getTopLifters } from '../../data/mockClient';
+import { TopLifter } from '../../types/types';
+import logger from '../../utils/logger';
 
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
-
-interface TopLifter {
-    Name: string;
-    Sex: string;
-    Squat: number;
-    Bench: number;
-    Deadlift: number;
-    Total: number;
-    Dots: number;
-}
-
-export function getTopLifters(page: number = 1): TopLifter[] {
-    const db = DatabaseManager.getInstance().getDB();
-    const limit = 5;
-    const offset = (page - 1) * limit;
-
-    const query = `
-        WITH RankedLifters AS (
-            SELECT
-                Name,
-                Sex,
-                Best3SquatKg AS Squat,
-                Best3BenchKg AS Bench,
-                Best3DeadliftKg AS Deadlift,
-                TotalKg AS Total,
-                Equipment,
-                Dots,
-                ROW_NUMBER() OVER (PARTITION BY Name ORDER BY Dots DESC) AS rn
-            FROM entries
-            WHERE
-                Dots IS NOT NULL
-                AND Dots != ''
-                AND Equipment IN ('Raw', 'Wraps')
-        )
-        SELECT
-            Name,
-            Sex,
-            Squat,
-            Bench,
-            Deadlift,
-            Total,
-            Equipment,
-            Dots
-        FROM RankedLifters
-        WHERE rn = 1
-        ORDER BY Dots DESC
-        LIMIT ? OFFSET ?;
-    `;
-
-    return db.prepare(query).all(limit, offset) as TopLifter[];
+async function fetchTopLifters(page: number = 1): Promise<TopLifter[]> {
+    return getTopLifters(page);
 }
 
 module.exports = {
@@ -68,7 +22,7 @@ module.exports = {
         try {
             await interaction.deferReply();
 
-            const topLifters: TopLifter[] = getTopLifters();
+            const topLifters: TopLifter[] = await fetchTopLifters();
 
             if (topLifters.length === 0) {
                 await interaction.editReply('No data found for top lifters.');
@@ -139,7 +93,7 @@ module.exports = {
                     return;
                 }
 
-                const newLifters = getTopLifters(currentPage);
+                const newLifters = await fetchTopLifters(currentPage);
                 const newFields = newLifters.flatMap((lifter, index) => [
                     {
                         name: `\`${(currentPage - 1) * 5 + index + 1}.\` ${lifter.Name} (${lifter.Sex})`,
