@@ -1,4 +1,3 @@
-// src/types.ts (or wherever)
 export interface Lifter {
     name: string;
     meets: {
