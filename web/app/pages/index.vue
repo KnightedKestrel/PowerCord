@@ -48,6 +48,15 @@
                                 name="fe:link-external"
                                 class="size-5" /></ULink
                     ></span>
+                    <div style="color-scheme: none">
+                        <iframe
+                            src="https://status.betterstack.com/badge?theme=dark"
+                            width="250"
+                            height="30"
+                            frameborder="0"
+                            scrolling="no"
+                        ></iframe>
+                    </div>
                 </div>
 
                 <div class="md:max-h-120 relative max-h-80 overflow-y-hidden">
