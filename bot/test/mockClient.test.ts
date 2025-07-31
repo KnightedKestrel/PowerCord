@@ -17,7 +17,7 @@ describe('getLifter', () => {
 
     it('returns undefined if there is no close match', async () => {
         const result = await getLifter('NonExistentName');
-        expect(result).toEqual(undefined);
+        expect(result).toBeUndefined();
     });
 });
 
@@ -36,7 +36,7 @@ describe('getMeet', () => {
 
     it('returns undefined if there is no close match', async () => {
         const result = await getMeet('NonExistentMeet');
-        expect(result).toEqual(undefined);
+        expect(result).toBeUndefined();
     });
 });
 
