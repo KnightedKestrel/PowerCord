@@ -24,6 +24,14 @@ export interface Lifter {
         total?: number;
         dots?: number;
     }[];
+    personalBests?: {
+        equipment: string;
+        squat?: string;
+        bench?: string;
+        deadlift?: string;
+        total: string;
+        dots: string;
+    }[];
 }
 
 export interface Meet {
