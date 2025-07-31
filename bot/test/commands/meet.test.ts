@@ -22,38 +22,58 @@ vi.mock('discord.js', () => ({
         }
     },
     EmbedBuilder: class {
-        setColor() {
+        setColor(color) {
+            // @ts-ignore
+            this.color = color;
             return this;
         }
-        setTitle() {
+        setTitle(title) {
+            // @ts-ignore
+            this.title = title;
             return this;
         }
-        setDescription() {
+        setDescription(description) {
+            // @ts-ignore
+            this.description = description;
             return this;
         }
-        setFooter() {
+        setFooter(footer) {
+            // @ts-ignore
+            this.footer = footer;
             return this;
         }
-        setFields() {
+        setFields(fields) {
+            // @ts-ignore
+            this.fields = fields;
             return this;
         }
     },
     ActionRowBuilder: class {
-        addComponents() {
+        addComponents(...components) {
+            // @ts-ignore
+            this.components = [...(this.components || []), ...components];
             return this;
         }
     },
     ButtonBuilder: class {
-        setCustomId() {
+        setCustomId(id) {
+            // @ts-ignore
+            this.customId = id;
             return this;
         }
-        setLabel() {
+        setLabel(label) {
+            // @ts-ignore
+            this.label = label;
             return this;
         }
-        setStyle() {
+        setStyle(style) {
+            // @ts-ignore
+            this.style = style;
             return this;
         }
-        setDisabled() {
+        setDisabled(disabled) {
+            // @ts-ignore
+            this.disabled = disabled;
             return this;
         }
     },
@@ -128,7 +148,6 @@ describe('Meet command', () => {
 
     it('generates an embed with meet data', async () => {
         const interaction = mockInteraction('Labors of Strength');
-
         await execute(interaction);
 
         expect(interaction.deferReply).toHaveBeenCalled();
