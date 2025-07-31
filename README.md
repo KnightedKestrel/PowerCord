@@ -14,6 +14,9 @@
     <a href="https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands"><img src="https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white" alt="Invite to Discord Server" /></a>
 </p>
 
+> [!CAUTION]
+> Major refactor taking place. OpenPowerlifting.org integration temporarily removed while refining features with mock data. This is an in-development project and the public bot will be updated when first major release is ready.
+
 <p align="center">
     View meet data from <a href="https://www.openpowerlifting.org/">OpenPowerlifting.org</a> in Discord.
 </p>
