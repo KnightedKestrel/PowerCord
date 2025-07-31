@@ -7,8 +7,6 @@ export const meetData: Meet[] = [
         date: '2025-06-15',
         country: 'Greece',
         state: '',
-        ruleset: 'Raw/Wraps',
-        sanctioned: 'Yes',
         entries: [
             {
                 place: 1,
@@ -158,8 +156,6 @@ export const meetData: Meet[] = [
         date: '2025-07-10',
         country: 'Norway',
         state: '',
-        ruleset: 'Raw/Wraps',
-        sanctioned: 'Yes',
         entries: [
             {
                 place: 1,
@@ -309,8 +305,6 @@ export const meetData: Meet[] = [
         date: '2025-04-22',
         country: 'Greece',
         state: '',
-        ruleset: 'Raw/Wraps',
-        sanctioned: 'Yes',
         entries: [
             {
                 place: 1,
@@ -460,8 +454,6 @@ export const meetData: Meet[] = [
         date: '2025-05-08',
         country: 'Greece',
         state: '',
-        ruleset: 'Raw/Wraps',
-        sanctioned: 'Yes',
         entries: [
             {
                 place: 1,
@@ -611,8 +603,6 @@ export const meetData: Meet[] = [
         date: '2025-02-14',
         country: 'Sweden',
         state: '',
-        ruleset: 'Raw/Wraps',
-        sanctioned: 'Yes',
         entries: [
             {
                 place: 1,

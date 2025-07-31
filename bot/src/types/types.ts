@@ -33,8 +33,6 @@ export interface Meet {
     country: string;
     state?: string;
     town?: string;
-    ruleset: string;
-    sanctioned: string;
     entries: {
         place: number;
         name: string;
