@@ -50,7 +50,7 @@
                     ></span>
                     <div style="color-scheme: none">
                         <iframe
-                            src="https://status.betterstack.com/badge?theme=dark"
+                            src="https://status.powercord.gg/badge?theme=dark"
                             width="250"
                             height="30"
                             frameborder="0"
