@@ -6,6 +6,7 @@ import {
     EmbedBuilder,
     SlashCommandBuilder,
 } from 'discord.js';
+import { getEmbedColor, getEmbedFooter } from '../../constants/embed';
 import { api } from '../../data/api';
 import { Meet } from '../../types/types';
 import logger from '../../utils/logger';
@@ -51,12 +52,10 @@ module.exports = {
             const entries = meet.entries.sort(compareDots);
 
             const embed = new EmbedBuilder()
-                .setColor('#c62932')
+                .setColor(getEmbedColor())
                 .setTitle('🥇 Powerlifting Rankings')
                 .setDescription(`Top lifters for **${meet.name}**, page 1`)
-                .setFooter({
-                    text: 'Data retrieved from OpenPowerlifting',
-                });
+                .setFooter({ text: getEmbedFooter() });
 
             const pageSize = 5;
             const maxPages = Math.ceil(entries.length / pageSize);
@@ -84,7 +83,7 @@ module.exports = {
                 ]);
                 embed.setFields(fields);
                 embed.setDescription(
-                    `Top lifters for **${name}**, page ${page}`,
+                    `Top lifters for **${meet.name}**, page ${page}`,
                 );
             };
 

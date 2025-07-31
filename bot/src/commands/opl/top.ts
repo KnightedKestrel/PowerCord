@@ -6,6 +6,7 @@ import {
     EmbedBuilder,
     SlashCommandBuilder,
 } from 'discord.js';
+import { getEmbedColor, getEmbedFooter } from '../../constants/embed';
 import { api } from '../../data/api';
 import { TopLifter } from '../../types/types';
 import logger from '../../utils/logger';
@@ -33,12 +34,10 @@ module.exports = {
             }
 
             const embed = new EmbedBuilder()
-                .setColor('#c62932')
+                .setColor(getEmbedColor())
                 .setTitle('🥇 Powerlifting Rankings')
                 .setDescription('Top lifters sorted by dots')
-                .setFooter({
-                    text: 'Data retrieved from OpenPowerlifting',
-                });
+                .setFooter({ text: getEmbedFooter() });
 
             const fields = topLifters.flatMap((lifter, index) => [
                 {

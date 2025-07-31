@@ -4,6 +4,7 @@ import {
     SlashCommandBuilder,
     SlashCommandStringOption,
 } from 'discord.js';
+import { getEmbedColor, getEmbedFooter } from '../../constants/embed';
 import { api } from '../../data/api';
 import { Lifter } from '../../types/types';
 import logger from '../../utils/logger';
@@ -44,12 +45,10 @@ module.exports = {
             }
 
             const embed = new EmbedBuilder()
-                .setColor('#c62932')
+                .setColor(getEmbedColor())
                 .setTitle('🥇 Powerlifting Rankings')
-                .setDescription(`Last 5 meets for **${name}**, sorted by Dots`)
-                .setFooter({
-                    text: 'Data retrieved from OpenPowerlifting',
-                });
+                .setDescription(`Last 5 meets for **${lifter.name}**, sorted by Dots`)
+                .setFooter({ text: getEmbedFooter() });
 
             const fields = lifter.meets.flatMap((meet, index) => [
                 {
