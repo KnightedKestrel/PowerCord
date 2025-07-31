@@ -47,7 +47,9 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setColor(getEmbedColor())
                 .setTitle('🥇 Powerlifting Rankings')
-                .setDescription(`Last 5 meets for **${lifter.name}**, sorted by Dots`)
+                .setDescription(
+                    `Last 5 meets for **${lifter.name}**, sorted by Dots`,
+                )
                 .setFooter({ text: getEmbedFooter() });
 
             const fields = lifter.meets.flatMap((meet, index) => [
