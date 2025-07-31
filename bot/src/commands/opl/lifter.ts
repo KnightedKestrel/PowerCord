@@ -1,18 +1,15 @@
 import {
-    ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle,
     ChatInputCommandInteraction,
     EmbedBuilder,
     SlashCommandBuilder,
     SlashCommandStringOption,
 } from 'discord.js';
-import { getLifter } from '../../data/mockClient';
+import { api } from '../../data/api';
 import { Lifter } from '../../types/types';
 import logger from '../../utils/logger';
 
 async function fetchLifter(name: string): Promise<Lifter | undefined> {
-    return getLifter(name);
+    return api.getLifter(name);
 }
 
 module.exports = {

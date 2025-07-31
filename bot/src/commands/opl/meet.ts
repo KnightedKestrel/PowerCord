@@ -6,12 +6,12 @@ import {
     EmbedBuilder,
     SlashCommandBuilder,
 } from 'discord.js';
-import { getMeet } from '../../data/mockClient';
+import { api } from '../../data/api';
 import { Meet } from '../../types/types';
 import logger from '../../utils/logger';
 
 async function fetchMeet(name: string): Promise<Meet | undefined> {
-    return getMeet(name);
+    return api.getMeet(name);
 }
 
 function compareDots(a: Meet['entries'][0], b: Meet['entries'][0]): number {

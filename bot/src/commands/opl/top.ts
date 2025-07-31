@@ -6,12 +6,14 @@ import {
     EmbedBuilder,
     SlashCommandBuilder,
 } from 'discord.js';
-import { getTopLifters } from '../../data/mockClient';
+import { api } from '../../data/api';
 import { TopLifter } from '../../types/types';
 import logger from '../../utils/logger';
 
-async function fetchTopLifters(page: number = 1): Promise<TopLifter[]> {
-    return getTopLifters(page);
+async function fetchTopLifters(
+    page: number = 1,
+): Promise<TopLifter[] | undefined> {
+    return api.getTopLifters(page);
 }
 
 module.exports = {
@@ -22,10 +24,11 @@ module.exports = {
         try {
             await interaction.deferReply();
 
-            const topLifters: TopLifter[] = await fetchTopLifters();
+            const topLifters: TopLifter[] | undefined = await fetchTopLifters();
 
-            if (topLifters.length === 0) {
+            if (!topLifters || topLifters.length === 0) {
                 await interaction.editReply('No data found for top lifters.');
+                logger.error('Error getting top lifters.');
                 return;
             }
 
@@ -94,6 +97,15 @@ module.exports = {
                 }
 
                 const newLifters = await fetchTopLifters(currentPage);
+
+                if (!newLifters || newLifters.length === 0) {
+                    logger.error('Error getting page for top lifters.', {
+                        'Page Number': currentPage,
+                        'Fetched Top Lifters': newLifters,
+                    });
+                    return;
+                }
+
                 const newFields = newLifters.flatMap((lifter, index) => [
                     {
                         name: `\`${(currentPage - 1) * 5 + index + 1}.\` ${lifter.name} (${lifter.sex})`,

@@ -5,55 +5,55 @@ import { topLifterData } from '../src/data/mock/top';
 import { getLifter, getMeet, getTopLifters } from '../src/data/mockClient';
 
 describe('getLifter', () => {
-    it('returns the lifter with an exact match', () => {
-        const result = getLifter('Hercules');
+    it('returns the lifter with an exact match', async () => {
+        const result = await getLifter('Hercules');
         expect(result).toEqual(lifterData.find((l) => l.name === 'Hercules'));
     });
 
-    it('returns the closest matching lifter with fuzzy search', () => {
-        const result = getLifter('Hercul');
+    it('returns the closest matching lifter with fuzzy search', async () => {
+        const result = await getLifter('Hercul');
         expect(result?.name).toBe('Hercules');
     });
 
-    it('returns undefined if there is no close match', () => {
-        const result = getLifter('NonExistentName');
+    it('returns undefined if there is no close match', async () => {
+        const result = await getLifter('NonExistentName');
         expect(result).toEqual(undefined);
     });
 });
 
 describe('getMeet', () => {
-    it('returns the meet with an exact match', () => {
-        const result = getMeet('Labors of Strength');
+    it('returns the meet with an exact match', async () => {
+        const result = await getMeet('Labors of Strength');
         expect(result).toEqual(
             meetData.find((m) => m.name === 'Labors of Strength'),
         );
     });
 
-    it('returns the closest matching meet with fuzzy search', () => {
-        const result = getMeet('Labor of Strength');
+    it('returns the closest matching meet with fuzzy search', async () => {
+        const result = await getMeet('Labor of Strength');
         expect(result?.name).toBe('Labors of Strength');
     });
 
-    it('returns undefined if there is no close match', () => {
-        const result = getMeet('NonExistentMeet');
+    it('returns undefined if there is no close match', async () => {
+        const result = await getMeet('NonExistentMeet');
         expect(result).toEqual(undefined);
     });
 });
 
 describe('getTopLifters', () => {
-    it('returns the first page of top lifters by default', () => {
-        const result = getTopLifters();
+    it('returns the first page of top lifters by default', async () => {
+        const result = await getTopLifters();
         expect(result).toEqual(topLifterData.slice(0, 5));
-        expect(result.length).toBe(5);
+        expect(result?.length).toBe(5);
     });
 
-    it('returns the specified page of top lifters', () => {
-        const result = getTopLifters(2);
+    it('returns the specified page of top lifters', async () => {
+        const result = await getTopLifters(2);
         expect(result).toEqual(topLifterData.slice(5, 10));
     });
 
-    it('returns an empty array for pages out-of-bounds', () => {
-        const result = getTopLifters(10);
+    it('returns an empty array for pages out-of-bounds', async () => {
+        const result = await getTopLifters(10);
         expect(result).toEqual([]);
     });
 });
