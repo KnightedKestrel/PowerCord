@@ -5,21 +5,19 @@ import { meetData } from './mock/meet';
 import { topLifterData } from './mock/top';
 
 export function getLifter(name: string): Lifter | undefined {
-    const lifterNames = lifterData.map((l: any) => l.name);
+    const lifterNames = lifterData.map((l) => l.name);
     const sortedNames = matchSorter(lifterNames, name);
-    const closestName = sortedNames[0] || lifterNames[0];
-    const closestLifter = lifterData.find((l: any) => l.name === closestName);
-    if (!closestLifter) return undefined;
-    return closestLifter;
+    if (sortedNames.length === 0) return undefined;
+    const closestName = sortedNames[0];
+    return lifterData.find((l) => l.name === closestName);
 }
 
 export function getMeet(meetName: string): Meet | undefined {
-    const meetNames = meetData.map((m: any) => m.name);
+    const meetNames = meetData.map((m) => m.name);
     const sortedNames = matchSorter(meetNames, meetName);
-    const closestName = sortedNames[0] || meetNames[0];
-    const closestMeet = meetData.find((m: any) => m.name === closestName);
-    if (!closestMeet) return undefined;
-    return closestMeet;
+    if (sortedNames.length === 0) return undefined;
+    const closestName = sortedNames[0];
+    return meetData.find((m) => m.name === closestName);
 }
 
 export function getTopLifters(page: number = 1): TopLifter[] {
