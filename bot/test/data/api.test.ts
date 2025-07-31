@@ -5,7 +5,7 @@ const mockConfig = {
     ENABLE_MOCK_API: false,
 };
 
-vi.mock('../src/utils/config', () => ({
+vi.mock('../../src/utils/config', () => ({
     config: mockConfig,
 }));
 
@@ -21,8 +21,8 @@ const mockMockClient = {
     getTopLifters: vi.fn(),
 };
 
-vi.mock('../src/data/apiClient', () => mockApiClient);
-vi.mock('../src/data/mockClient', () => mockMockClient);
+vi.mock('../../src/data/apiClient', () => mockApiClient);
+vi.mock('../../src/data/mockClient', () => mockMockClient);
 
 describe('api', () => {
     beforeEach(() => {
@@ -34,7 +34,7 @@ describe('api', () => {
         mockConfig.ENABLE_MOCK_API = true;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
-        const { api } = await import('../src/data/api');
+        const { api } = await import('../../src/data/api');
         await api.getLifter('test');
 
         expect(mockMockClient.getLifter).toHaveBeenCalledWith('test');
@@ -45,7 +45,7 @@ describe('api', () => {
         mockConfig.ENABLE_MOCK_API = false;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
-        const { api } = await import('../src/data/api');
+        const { api } = await import('../../src/data/api');
         await api.getLifter('test');
 
         expect(mockApiClient.getLifter).toHaveBeenCalledWith('test');
@@ -56,7 +56,7 @@ describe('api', () => {
         mockConfig.ENABLE_MOCK_API = true;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
-        const { api } = await import('../src/data/api');
+        const { api } = await import('../../src/data/api');
         await api.getMeet('test meet');
 
         expect(mockMockClient.getMeet).toHaveBeenCalledWith('test meet');
@@ -67,7 +67,7 @@ describe('api', () => {
         mockConfig.ENABLE_MOCK_API = false;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
-        const { api } = await import('../src/data/api');
+        const { api } = await import('../../src/data/api');
         await api.getMeet('test meet');
 
         expect(mockApiClient.getMeet).toHaveBeenCalledWith('test meet');
@@ -78,7 +78,7 @@ describe('api', () => {
         mockConfig.ENABLE_MOCK_API = true;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
-        const { api } = await import('../src/data/api');
+        const { api } = await import('../../src/data/api');
         await api.getTopLifters(2);
 
         expect(mockMockClient.getTopLifters).toHaveBeenCalledWith(2);
@@ -89,7 +89,7 @@ describe('api', () => {
         mockConfig.ENABLE_MOCK_API = false;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
-        const { api } = await import('../src/data/api');
+        const { api } = await import('../../src/data/api');
         await api.getTopLifters(2);
 
         expect(mockApiClient.getTopLifters).toHaveBeenCalledWith(2);

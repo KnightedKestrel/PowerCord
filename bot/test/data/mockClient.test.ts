@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { lifterData } from '../src/data/mock/lifter';
-import { meetData } from '../src/data/mock/meet';
-import { topLifterData } from '../src/data/mock/top';
-import { getLifter, getMeet, getTopLifters } from '../src/data/mockClient';
+import { lifterData } from '../../src/data/mock/lifter';
+import { meetData } from '../../src/data/mock/meet';
+import { topLifterData } from '../../src/data/mock/top';
+import { getLifter, getMeet, getTopLifters } from '../../src/data/mockClient';
 
 describe('getLifter', () => {
     it('returns the lifter with an exact match', async () => {

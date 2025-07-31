@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { getLifter, getMeet, getTopLifters } from '../src/data/apiClient';
-import { Lifter, Meet, TopLifter } from '../src/types/types';
-import logger from '../src/utils/logger';
+import { getLifter, getMeet, getTopLifters } from '../../src/data/apiClient';
+import { Lifter, Meet, TopLifter } from '../../src/types/types';
+import logger from '../../src/utils/logger';
 
-vi.mock('../src/utils/logger', () => ({
+vi.mock('../../src/utils/logger', () => ({
     default: {
         info: vi.fn(),
         error: vi.fn(),
