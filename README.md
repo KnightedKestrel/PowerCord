@@ -12,6 +12,7 @@
     <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.20.0-orange.svg" alt="Discord JS" /></a>
     <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4" alt="Code style: Prettier" /></a>
     <a href="https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands"><img src="https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white" alt="Invite to Discord Server" /></a>
+    <a href="https://volta.net/KnightedKestrel/PowerCord"><img src="https://private-user-images.githubusercontent.com/25458428/473125356-ca21819b-7d8b-4d4b-852b-88446a360281.svg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTM5ODYwNzUsIm5iZiI6MTc1Mzk4NTc3NSwicGF0aCI6Ii8yNTQ1ODQyOC80NzMxMjUzNTYtY2EyMTgxOWItN2Q4Yi00ZDRiLTg1MmItODg0NDZhMzYwMjgxLnN2Zz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA3MzElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNzMxVDE4MTYxNVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWY5ZWYyMmJlODIyOGMyZmY5ZTRkYTExN2FmZDcxM2NhZjYwMDRiZjlmZTA4OWVhZDNmODBlZTkzZjYyNDM4NjcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.jttvthDCcuEZuZChuaR7dFwMhEQEW5cjhCPgypnSn10" alt="Open Volta board" /></a>
 </p>
 
 > [!CAUTION]
@@ -49,10 +50,6 @@ To run the Discord bot or web client individually, enter either the `bot` or `we
 npm install
 npm run dev
 ```
-
-## 📍 Roadmap
-
-[Open board on Volta](https://volta.net/KnightedKestrel/PowerCord).
 
 ## 🧱 Contribute
 
