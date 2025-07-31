@@ -32,20 +32,20 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setColor('#c62932')
                 .setTitle('🥇 Powerlifting Rankings')
-                .setDescription('Top lifters sorted by Dots')
+                .setDescription('Top lifters sorted by dots')
                 .setFooter({
                     text: 'Data retrieved from OpenPowerlifting',
                 });
 
             const fields = topLifters.flatMap((lifter, index) => [
                 {
-                    name: `\`${index + 1}.\` ${lifter.Name} (${lifter.Sex})`,
-                    value: `Squat: ${lifter.Squat} | Bench : ${lifter.Bench} | Deadlift: ${lifter.Deadlift}`,
+                    name: `\`${index + 1}.\` ${lifter.name} (${lifter.sex})`,
+                    value: `squat: ${lifter.squat} | bench : ${lifter.bench} | deadlift: ${lifter.deadlift}`,
                     inline: true,
                 },
                 {
                     name: `\u200B`,
-                    value: `Total: ${lifter.Total} | Dots: ${(lifter.Dots || 0).toFixed(2)}`,
+                    value: `total: ${lifter.total} | dots: ${(lifter.dots || 0).toFixed(2)}`,
                     inline: true,
                 },
                 {
@@ -96,13 +96,13 @@ module.exports = {
                 const newLifters = await fetchTopLifters(currentPage);
                 const newFields = newLifters.flatMap((lifter, index) => [
                     {
-                        name: `\`${(currentPage - 1) * 5 + index + 1}.\` ${lifter.Name} (${lifter.Sex})`,
-                        value: `Squat: ${lifter.Squat} | Bench : ${lifter.Bench} | Deadlift: ${lifter.Deadlift}`,
+                        name: `\`${(currentPage - 1) * 5 + index + 1}.\` ${lifter.name} (${lifter.sex})`,
+                        value: `squat: ${lifter.squat} | bench : ${lifter.bench} | deadlift: ${lifter.deadlift}`,
                         inline: true,
                     },
                     {
                         name: `\u200B`,
-                        value: `Total: ${lifter.Total} | Dots: ${(lifter.Dots || 0).toFixed(2)}`,
+                        value: `total: ${lifter.total} | dots: ${(lifter.dots || 0).toFixed(2)}`,
                         inline: true,
                     },
                     {

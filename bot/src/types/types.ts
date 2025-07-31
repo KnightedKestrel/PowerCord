@@ -1,54 +1,62 @@
+// Documentation on data used
+// https://gitlab.com/openpowerlifting/opl-data/blob/main/docs/data-readme.md
+
+// Largely based on
+// https://gitlab.com/openpowerlifting/opl-data/blob/main/scripts/compile-sqlite
+
 export interface Lifter {
     name: string;
     meets: {
-        Place: number;
-        Federation: string;
-        Date: string;
-        MeetCountry: string;
-        MeetState: string | null;
-        MeetName: string;
-        Division: string | null;
-        Age: number | null;
-        Equipment: string;
-        Class: number | null;
-        Weight: number | null;
-        Squat: number | null;
-        Bench: number | null;
-        Deadlift: number | null;
-        Total: number | null;
-        Dots: number | null;
+        place: number;
+        federation: string;
+        date: string;
+        country: string;
+        state?: string;
+        name: string;
+        division?: string;
+        age?: number;
+        equipment: string;
+        weightClass?: number;
+        bodyWeight?: number;
+        squat?: number;
+        bench?: number;
+        deadlift?: number;
+        total?: number;
+        dots?: number;
     }[];
 }
 
 export interface Meet {
-    meetName: string;
+    name: string;
+    federation: string;
+    date: string;
+    country: string;
+    state?: string;
+    town?: string;
+    ruleset: string;
+    sanctioned: string;
     entries: {
-        Place: number;
-        Federation: string;
-        Date: string;
-        MeetCountry: string;
-        MeetState: string | null;
-        MeetName: string;
-        Division: string | null;
-        Name: string;
-        Age: number | null;
-        Equipment: string;
-        Class: number | null;
-        Weight: number | null;
-        Squat: number | null;
-        Bench: number | null;
-        Deadlift: number | null;
-        Total: number | null;
-        Dots: number | null;
+        place: number;
+        name: string;
+        sex: string;
+        age?: number;
+        equipment: string;
+        weightClass?: number;
+        bodyweight?: number;
+        squat?: number;
+        bench?: number;
+        deadlift?: number;
+        total?: number;
+        dots?: number;
     }[];
 }
 
 export interface TopLifter {
-    Name: string;
-    Sex: string;
-    Squat: number;
-    Bench: number;
-    Deadlift: number;
-    Total: number;
-    Dots: number;
+    name: string;
+    sex: string;
+    squat: number;
+    bench: number;
+    deadlift: number;
+    total: number;
+    dots: number;
 }
