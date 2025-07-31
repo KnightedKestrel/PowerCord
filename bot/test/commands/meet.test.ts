@@ -100,7 +100,7 @@ vi.mock('../src/data/api', () => ({
                             age: 39,
                             equipment: 'Raw',
                             weightClass: 100,
-                            bodyweight: 98.6,
+                            bodyWeight: 98.6,
                             squat: 1018,
                             bench: 758,
                             deadlift: 729,

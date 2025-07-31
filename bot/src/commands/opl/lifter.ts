@@ -56,7 +56,7 @@ module.exports = {
                 {
                     name: `\`${index + 1}.\` ${meet.federation} ${meet.name}`,
                     value: `
-                    ${meet.place}st Place, ${meet.place}
+                    ${meet.place}st Place, ${meet.state}
                     Date: ${meet.date}
                     Age: ${meet.age}
                     Equip: ${meet.equipment}

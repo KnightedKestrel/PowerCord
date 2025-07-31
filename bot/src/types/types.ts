@@ -48,7 +48,7 @@ export interface Meet {
         age?: number;
         equipment: string;
         weightClass?: number;
-        bodyweight?: number;
+        bodyWeight?: number;
         squat?: number;
         bench?: number;
         deadlift?: number;
