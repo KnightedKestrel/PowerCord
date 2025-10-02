@@ -33,7 +33,7 @@ export async function getTopLifters(
     page: number = 1,
 ): Promise<TopLifter[] | undefined> {
     try {
-        const response = await api.get('/top-lifters', { params: { page } });
+        const response = await api.get('/top', { params: { page } });
         return response.data as TopLifter[];
     } catch (error) {
         logger.error('Error fetching top lifters:', error);
