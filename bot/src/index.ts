@@ -7,14 +7,12 @@ import { config } from './utils/config';
 import logger from './utils/logger';
 
 const token = config.DISCORD_TOKEN;
-const useMock = config.ENABLE_MOCK_API || !config.API_BASE_URL;
 
 logger.info('Bot is starting...');
-
-if (useMock) {
+if (config.ENABLE_MOCK_API || !config.API_BASE_URL) {
     logger.info('Using mock data. Ensure that ENABLE_MOCK_API and API_BASE_URL are set.');
 } else {
-    logger.info('Expecting API data from: ' + config.API_BASE_URL);
+    logger.info('Retrieving API data from: ' + config.API_BASE_URL);
 }
 
 async function initializeBot() {
