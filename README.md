@@ -62,6 +62,6 @@ npm install
 npm run dev
 ```
 
-## 🧱 Contribute
+## 🌱 Contribute
 
 [See contributing guide](CONTRIBUTING.md).
