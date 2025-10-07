@@ -18,7 +18,13 @@ const compat = new FlatCompat({
 export default [
     ...compat.extends('eslint:recommended', 'prettier'),
 
-    globalIgnores(['**/.nuxt', '**/.data', '**/.output']),
+    globalIgnores([
+        '**/.nuxt',
+        '**/.data',
+        '**/.output',
+        '**/coverage',
+        '**/dist',
+    ]),
 
     {
         plugins: {
