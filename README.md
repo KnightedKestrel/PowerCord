@@ -5,8 +5,7 @@
 
 <p align="center">
     <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
-    <!-- Get bot deployments working before showing -->
-    <!-- <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml/badge.svg" alt="Bot deployment status" /></a> -->
+    <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml/badge.svg" alt="Bot deployment status" /></a>
     <a href="https://powercord-gilt.vercel.app/"><img src="https://vercelbadge.vercel.app/api/KnightedKestrel/PowerCord" alt="Web Deployment Status" /></a>
     <a href="https://codecov.io/gh/KnightedKestrel/PowerCord"><img src="https://codecov.io/gh/KnightedKestrel/PowerCord/graph/badge.svg?token=04DYKZJMH3" alt="Codecov Coverage"/></a>
     <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.20.0-orange.svg" alt="Discord JS" /></a>
@@ -16,15 +15,19 @@
 </p>
 
 <p align="center">
-  <a href="https://discord.com/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands">Add to Discord</a>
-  ·
-  <a href="https://discord.com/invite/MZfchrRah4">Support Server</a>
-  ·
-  <a href="https://trello.com/b/pm9X3ZfI">Roadmap</a>
+    <a href="https://discord.com/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands">Add to Discord</a>
+    ·
+    <a href="https://discord.com/invite/MZfchrRah4">Support Server</a>
+    ·
+    <a href="https://trello.com/b/pm9X3ZfI">Roadmap</a>
+</p>
+
+<p align="center">
+    <a href="https://status.powercord.gg/"><img src="https://uptime.betterstack.com/status-badges/v3/monitor/26gjw.svg" alt="Better Stack Uptime Monitor" /></a>
 </p>
 
 > [!CAUTION]
-> Major refactor taking place. OpenPowerlifting.org integration temporarily removed while refining features with mock data. This is an in-development project and the public bot will be updated when first major release is ready.
+> Major refactor taking place. This is an in-development project and OpenPowerlifting data will be intermittent until first major release is ready.
 
 <p align="center">
     View meet data from <a href="https://www.openpowerlifting.org/">OpenPowerlifting.org</a> in Discord.
