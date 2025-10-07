@@ -5,6 +5,7 @@ import { Command } from './types/command';
 import './deploy-commands';
 import { config } from './utils/config';
 import logger from './utils/logger';
+import './utils/health';
 
 const token = config.DISCORD_TOKEN;
 
