@@ -12,7 +12,7 @@ const token = config.DISCORD_TOKEN;
 logger.info('Bot is starting...');
 if (config.ENABLE_MOCK_API || !config.API_BASE_URL) {
     logger.info(
-        'Using mock data. Ensure that ENABLE_MOCK_API and API_BASE_URL are set.',
+        'Using mock data. Ensure that ENABLE_MOCK_API and API_BASE_URL are set for API use.',
     );
 } else {
     logger.info('Retrieving API data from: ' + config.API_BASE_URL);
