@@ -6,6 +6,7 @@
 
 export interface Lifter {
     name: string;
+    sex?: string;
     meets: {
         place: number;
         federation: string;

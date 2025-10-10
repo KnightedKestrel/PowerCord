@@ -46,11 +46,21 @@ module.exports = {
 
             const embed = new EmbedBuilder()
                 .setColor(getEmbedColor())
-                .setTitle('🥇 Powerlifting Rankings')
-                .setDescription(
-                    `Last 5 meets for **${lifter.name}**, sorted by Dots`,
-                )
+                .setTitle(lifter.name)
                 .setFooter({ text: getEmbedFooter() });
+
+            let formattedPersonalBests;
+            if (lifter.personalBests && lifter.personalBests.length > 0) {
+                formattedPersonalBests = lifter.personalBests
+                    .map(
+                        (pb) =>
+                            `\`\`\`Equipment: ${pb.equipment}\nS: ${pb.squat ?? ''} B: ${pb.bench ?? ''} D: ${pb.deadlift ?? ''} Total: ${pb.total} DOTS: ${pb.dots}\`\`\``,
+                    )
+                    .join('');
+                embed.setDescription(
+                    `**Personal Bests**\n${formattedPersonalBests}`,
+                );
+            }
 
             const fields = lifter.meets.flatMap((meet, index) => [
                 {
