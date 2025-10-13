@@ -7,6 +7,7 @@
 export interface Lifter {
     name: string;
     sex?: string;
+    url?: string;
     meets: {
         place: number;
         federation: string;
@@ -61,6 +62,7 @@ export interface Meet {
 export interface TopLifter {
     name: string;
     sex: string;
+    url?: string;
     squat: number;
     bench: number;
     deadlift: number;
