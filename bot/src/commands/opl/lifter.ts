@@ -62,6 +62,10 @@ module.exports = {
                 );
             }
 
+            if (lifter.url) {
+                embed.setURL(lifter.url);
+            }
+
             const fields = lifter.meets.flatMap((meet, index) => [
                 {
                     name: `\`${index + 1}.\` ${meet.federation} ${meet.name}`,
