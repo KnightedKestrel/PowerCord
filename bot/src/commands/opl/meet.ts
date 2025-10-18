@@ -161,22 +161,21 @@ module.exports = {
                 return;
             }
 
-            const { config } = await import('../../utils/config');
-            const response = await fetch(`${config.API_BASE_URL}/meets/autocomplete?query=${encodeURIComponent(focusedValue)}&limit=25`);
+            const meetNames = await api.getMeetAutocomplete(focusedValue, 25);
 
-            if (!response.ok) {
+            if (!meetNames) {
                 await interaction.respond([]);
                 return;
             }
 
-            const meetNames: string[] = await response.json();
-            const choices = meetNames.slice(0, 25).map(name => ({
+            const choices = meetNames.map((name: string) => ({
                 name: name,
-                value: name
+                value: name,
             }));
 
             await interaction.respond(choices);
         } catch (error) {
+            logger.error('Error in meet autocomplete:', error);
             await interaction.respond([]);
         }
     },

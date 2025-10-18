@@ -5,10 +5,14 @@ export default {
     name: Events.InteractionCreate,
     async execute(interaction: Interaction) {
         if (interaction.isAutocomplete()) {
-            const command = interaction.client.commands.get(interaction.commandName);
+            const command = interaction.client.commands.get(
+                interaction.commandName,
+            );
 
             if (!command) {
-                logger.error(`No command matching ${interaction.commandName} was found.`);
+                logger.error(
+                    `No command matching ${interaction.commandName} was found.`,
+                );
                 return;
             }
 

@@ -120,22 +120,24 @@ module.exports = {
                 return;
             }
 
-            const { config } = await import('../../utils/config');
-            const response = await fetch(`${config.API_BASE_URL}/lifters/autocomplete?query=${encodeURIComponent(focusedValue)}&limit=10`);
+            const lifterNames = await api.getLifterAutocomplete(
+                focusedValue,
+                10,
+            );
 
-            if (!response.ok) {
+            if (!lifterNames) {
                 await interaction.respond([]);
                 return;
             }
 
-            const lifterNames: string[] = await response.json();
-            const choices = lifterNames.slice(0, 10).map(name => ({
+            const choices = lifterNames.map((name: string) => ({
                 name: name,
-                value: name
+                value: name,
             }));
 
             await interaction.respond(choices);
         } catch (error) {
+            logger.error('Error in lifter autocomplete:', error);
             await interaction.respond([]);
         }
     },
