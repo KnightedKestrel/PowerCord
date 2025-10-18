@@ -40,3 +40,33 @@ export async function getTopLifters(
         return undefined;
     }
 }
+
+export async function getLifterAutocomplete(
+    query: string,
+    limit: number = 10,
+): Promise<string[] | undefined> {
+    try {
+        const response = await api.get('/lifters/autocomplete', {
+            params: { query, limit },
+        });
+        return response.data as string[];
+    } catch (error) {
+        logger.error('Error fetching lifter autocomplete:', error);
+        return undefined;
+    }
+}
+
+export async function getMeetAutocomplete(
+    query: string,
+    limit: number = 10,
+): Promise<string[] | undefined> {
+    try {
+        const response = await api.get('/meets/autocomplete', {
+            params: { query, limit },
+        });
+        return response.data as string[];
+    } catch (error) {
+        logger.error('Error fetching meet autocomplete:', error);
+        return undefined;
+    }
+}

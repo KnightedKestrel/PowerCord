@@ -1,4 +1,5 @@
 import {
+    AutocompleteInteraction,
     ChatInputCommandInteraction,
     EmbedBuilder,
     SlashCommandBuilder,
@@ -21,7 +22,8 @@ module.exports = {
             option
                 .setName('name')
                 .setDescription('The name of the lifter')
-                .setRequired(true),
+                .setRequired(true)
+                .setAutocomplete(true),
         ),
     async execute(interaction: ChatInputCommandInteraction) {
         try {
@@ -107,6 +109,36 @@ module.exports = {
                     ephemeral: true,
                 });
             }
+        }
+    },
+    async autocomplete(interaction: AutocompleteInteraction) {
+        try {
+            const focusedValue = interaction.options.getFocused();
+
+            if (!focusedValue || focusedValue.length < 2) {
+                await interaction.respond([]);
+                return;
+            }
+
+            const lifterNames = await api.getLifterAutocomplete(
+                focusedValue,
+                10,
+            );
+
+            if (!lifterNames) {
+                await interaction.respond([]);
+                return;
+            }
+
+            const choices = lifterNames.map((name: string) => ({
+                name: name,
+                value: name,
+            }));
+
+            await interaction.respond(choices);
+        } catch (error) {
+            logger.error('Error in lifter autocomplete:', error);
+            await interaction.respond([]);
         }
     },
 };

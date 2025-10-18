@@ -1,5 +1,6 @@
 import {
     ActionRowBuilder,
+    AutocompleteInteraction,
     ButtonBuilder,
     ButtonStyle,
     ChatInputCommandInteraction,
@@ -30,7 +31,8 @@ module.exports = {
             option
                 .setName('name')
                 .setDescription('Name of the meet')
-                .setRequired(true),
+                .setRequired(true)
+                .setAutocomplete(true),
         ),
     async execute(interaction: ChatInputCommandInteraction) {
         try {
@@ -148,6 +150,33 @@ module.exports = {
                     ephemeral: true,
                 });
             }
+        }
+    },
+    async autocomplete(interaction: AutocompleteInteraction) {
+        try {
+            const focusedValue = interaction.options.getFocused();
+
+            if (!focusedValue || focusedValue.length < 2) {
+                await interaction.respond([]);
+                return;
+            }
+
+            const meetNames = await api.getMeetAutocomplete(focusedValue, 25);
+
+            if (!meetNames) {
+                await interaction.respond([]);
+                return;
+            }
+
+            const choices = meetNames.map((name: string) => ({
+                name: name,
+                value: name,
+            }));
+
+            await interaction.respond(choices);
+        } catch (error) {
+            logger.error('Error in meet autocomplete:', error);
+            await interaction.respond([]);
         }
     },
 };
