@@ -2,7 +2,9 @@ import { Lifter } from '../../types/types';
 
 export const lifterData: Lifter[] = [
     {
-        name: 'Hercules',
+        name: 'Heracles',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Heracles',
         meets: [
             {
                 place: 1,
@@ -114,6 +116,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Thor',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Thor',
         meets: [
             {
                 place: 1,
@@ -225,6 +229,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Atlas',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Atlas_(mythology)',
         meets: [
             {
                 place: 1,
@@ -336,6 +342,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Athena',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Athena',
         meets: [
             {
                 place: 1,
@@ -447,6 +455,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Freyja',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Freyja',
         meets: [
             {
                 place: 1,
@@ -558,6 +568,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Zeus',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Zeus',
         meets: [
             {
                 place: 1,
@@ -669,6 +681,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Loki',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Loki',
         meets: [
             {
                 place: 1,
@@ -780,6 +794,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Hel',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Hel_(mythological_being)',
         meets: [
             {
                 place: 5,
@@ -891,6 +907,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Hades',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Hades',
         meets: [
             {
                 place: 1,
@@ -1002,6 +1020,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Demeter',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Demeter',
         meets: [
             {
                 place: 4,
@@ -1113,6 +1133,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Odin',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Odin',
         meets: [
             {
                 place: 2,
@@ -1224,6 +1246,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Frigg',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Frigg',
         meets: [
             {
                 place: 4,
@@ -1335,6 +1359,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Poseidon',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Poseidon',
         meets: [
             {
                 place: 5,
@@ -1446,6 +1472,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Artemis',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Artemis',
         meets: [
             {
                 place: 6,
@@ -1557,6 +1585,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Apollo',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/Apollo',
         meets: [
             {
                 place: 1,
@@ -1668,6 +1698,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Tyr',
+        sex: 'M',
+        url: 'https://en.wikipedia.org/wiki/T%C3%BDr',
         meets: [
             {
                 place: 3,
@@ -1779,6 +1811,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Persephone',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Persephone',
         meets: [
             {
                 place: 3,
@@ -1890,6 +1924,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Hera',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Hera',
         meets: [
             {
                 place: 5,
@@ -2001,6 +2037,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Aphrodite',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Aphrodite',
         meets: [
             {
                 place: 6,
@@ -2112,6 +2150,8 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Skadi',
+        sex: 'F',
+        url: 'https://en.wikipedia.org/wiki/Ska%C3%B0i',
         meets: [
             {
                 place: 1,

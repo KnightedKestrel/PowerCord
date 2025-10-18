@@ -6,13 +6,13 @@ import { getLifter, getMeet, getTopLifters } from '../../src/data/mockClient';
 
 describe('getLifter', () => {
     it('returns the lifter with an exact match', async () => {
-        const result = await getLifter('Hercules');
-        expect(result).toEqual(lifterData.find((l) => l.name === 'Hercules'));
+        const result = await getLifter('Heracles');
+        expect(result).toEqual(lifterData.find((l) => l.name === 'Heracles'));
     });
 
     it('returns the closest matching lifter with fuzzy search', async () => {
-        const result = await getLifter('Hercul');
-        expect(result?.name).toBe('Hercules');
+        const result = await getLifter('Herac');
+        expect(result?.name).toBe('Heracles');
     });
 
     it('returns undefined if there is no close match', async () => {
