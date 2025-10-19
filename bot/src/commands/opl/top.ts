@@ -7,36 +7,41 @@ import {
     SlashCommandBuilder,
 } from 'discord.js';
 import { getEmbedColor, getEmbedFooter } from '../../constants/embed';
-import { config } from '../../utils/config';
+import { api } from '../../data/api';
 import { TopLifter } from '../../types/types';
 import logger from '../../utils/logger';
 
 let cachedTopLifters: TopLifter[] | null = null;
+let cacheInterval: NodeJS.Timeout | null = null;
 
-async function getTopLifters(forceRefresh: boolean = false): Promise<TopLifter[] | undefined> {
-    if (cachedTopLifters && !forceRefresh) {
-        return cachedTopLifters;
-    }
-
+async function updateTopLiftersCache(): Promise<void> {
     try {
-        const response = await fetch(`${config.API_BASE_URL}/top`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const freshData = await response.json();
+        const freshData = await api.getTopLifters();
 
         if (freshData) {
             cachedTopLifters = freshData;
-            if (forceRefresh) {
-                logger.info('Top lifters cache updated in background');
-            }
+            logger.info('Top lifters cache updated successfully');
         }
-
-        return cachedTopLifters || undefined;
     } catch (error) {
-        logger.error('Error fetching top lifters:', error);
-        return cachedTopLifters || undefined;
+        logger.error('Error updating top lifters cache:', error);
     }
+}
+
+async function initializeCache(): Promise<void> {
+    if (cacheInterval) return;
+
+    await updateTopLiftersCache();
+
+    cacheInterval = setInterval(updateTopLiftersCache, 12 * 60 * 60 * 1000);
+    logger.info('Top lifters cache initialized with 12-hour refresh interval');
+}
+
+async function getTopLifters(): Promise<TopLifter[] | undefined> {
+    if (!cachedTopLifters && !cacheInterval) {
+        await initializeCache();
+    }
+
+    return cachedTopLifters || undefined;
 }
 
 module.exports = {
@@ -47,7 +52,8 @@ module.exports = {
         try {
             await interaction.deferReply();
 
-            const allTopLifters: TopLifter[] | undefined = await getTopLifters();
+            const allTopLifters: TopLifter[] | undefined =
+                await getTopLifters();
 
             if (!allTopLifters || allTopLifters.length === 0) {
                 await interaction.editReply('No data found for top lifters.');
@@ -61,7 +67,9 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setColor(getEmbedColor())
                 .setTitle('🥇 Powerlifting Rankings')
-                .setDescription(`Top lifters sorted by dots - Page ${currentPage} of ${maxPages}`)
+                .setDescription(
+                    `Top lifters sorted by dots - Page ${currentPage} of ${maxPages}`,
+                )
                 .setFooter({ text: getEmbedFooter() });
 
             const updatePage = (page: number) => {
@@ -88,7 +96,9 @@ module.exports = {
                 ]);
 
                 embed.setFields(fields);
-                embed.setDescription(`Top lifters sorted by dots - Page ${page} of ${maxPages}`);
+                embed.setDescription(
+                    `Top lifters sorted by dots - Page ${page} of ${maxPages}`,
+                );
             };
 
             updatePage(currentPage);
@@ -122,7 +132,10 @@ module.exports = {
                 try {
                     if (i.customId === 'prev' && currentPage > 1) {
                         currentPage--;
-                    } else if (i.customId === 'next' && currentPage < maxPages) {
+                    } else if (
+                        i.customId === 'next' &&
+                        currentPage < maxPages
+                    ) {
                         currentPage++;
                     } else {
                         return;
@@ -134,7 +147,10 @@ module.exports = {
 
                     await i.update({ embeds: [embed], components: [buttons] });
                 } catch (error) {
-                    logger.error('Error handling pagination interaction:', error);
+                    logger.error(
+                        'Error handling pagination interaction:',
+                        error,
+                    );
                 }
             });
 
@@ -145,10 +161,11 @@ module.exports = {
                     );
                     interaction.editReply({ components: [buttons] });
                 } catch (error) {
-                    logger.error('Error disabling buttons on collector end:', error);
+                    logger.error(
+                        'Error disabling buttons on collector end:',
+                        error,
+                    );
                 }
-
-                getTopLifters(true);
             });
         } catch (error) {
             logger.error('Error executing /top command:', error);
