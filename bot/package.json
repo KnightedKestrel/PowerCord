@@ -13,8 +13,8 @@
   "dependencies": {
     "@logtail/node": "^0.5.6",
     "@logtail/winston": "^0.5.6",
-    "axios": "^1.12.2",
-    "discord.js": "^14.23.2",
+    "axios": "^1.13.2",
+    "discord.js": "^14.24.2",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "match-sorter": "^8.1.0",
@@ -22,10 +22,10 @@
     "winston-console-format": "^1.0.8"
   },
   "devDependencies": {
-    "@types/express": "^5.0.3",
+    "@types/express": "^5.0.5",
     "@vitest/coverage-v8": "^3.2.4",
-    "eslint": "^9.38.0",
-    "nodemon": "^3.1.10",
+    "eslint": "^9.39.1",
+    "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
