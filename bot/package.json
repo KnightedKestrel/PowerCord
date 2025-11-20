@@ -14,7 +14,7 @@
     "@logtail/node": "^0.5.6",
     "@logtail/winston": "^0.5.6",
     "axios": "^1.13.2",
-    "discord.js": "^14.24.2",
+    "discord.js": "^14.25.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "match-sorter": "^8.1.0",
