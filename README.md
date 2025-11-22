@@ -26,8 +26,8 @@
     <a href="https://status.powercord.gg/"><img src="https://uptime.betterstack.com/status-badges/v3/monitor/26gjw.svg" alt="Better Stack Uptime Monitor" /></a>
 </p>
 
-> [!CAUTION]
-> Major refactor taking place. This is an in-development project and OpenPowerlifting data will be intermittent until first major release is ready.
+> [!IMPORTANT]
+> Branding refresh! Now with our own original logo. Version 1.0 is in the final stages of development. Check the <a href="https://trello.com/b/pm9X3ZfI">roadmap</a> for progress and remaining issues.
 
 <p align="center">
     View meet data from <a href="https://www.openpowerlifting.org/">OpenPowerlifting.org</a> in Discord.
