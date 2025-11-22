@@ -55,8 +55,8 @@ const navItems = ref<NavigationMenuItem[][]>([
     [
         {
             label: 'Roadmap',
-            icon: 'charm:map',
-            to: '/roadmap',
+            to: 'https://trello.com/b/pm9X3ZfI',
+            target: '_blank',
             class: 'text-md',
         },
         {
