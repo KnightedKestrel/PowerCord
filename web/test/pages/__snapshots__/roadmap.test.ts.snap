@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Roadmap > matches the snapshot 1`] = `"<div class="h-screen"><iframe src="https://volta.net/embed/eyJ2aWV3IjoiYm9hcmQiLCJib2FyZFN0YXR1c2VzIjpbImJhY2tsb2ciLCJkb25lIiwicmVsZWFzZWQiLCJjYW5jZWxsZWQiLCJ0b2RvIiwiaW5fcHJvZ3Jlc3MiLCJpbl9yZXZpZXciLCJ0cmlhZ2UiXSwiYm9hcmRMaW5rZWRQcnMiOnRydWUsImxpc3RHcm91cCI6InN0YXR1cyIsImxpc3RPcmRlciI6ImNyZWF0ZWRfYXQiLCJ0aW1lbGluZVpvb20iOiJtb250aCIsInRpbWVsaW5lT3JkZXIiOiJzdGF0ZSIsInRpbWVsaW5lRGlzcGxheSI6ImFsbF9taWxlc3RvbmVzIiwiZmlsdGVycyI6e30sIm93bmVyIjoiS25pZ2h0ZWRLZXN0cmVsIiwibmFtZSI6IlBvd2VyQ29yZCJ9?theme=undefined&amp;primary=green&amp;gray=slate" width="100%" height="100%"></iframe></div>"`;
