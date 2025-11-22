@@ -16,7 +16,7 @@
     "@nuxt/fonts": "^0.12.1",
     "@nuxt/icon": "^2.1.0",
     "@nuxt/image": "^2.0.0",
-    "@nuxt/ui": "^4.2.0",
+    "@nuxt/ui": "^4.2.1",
     "@nuxtjs/tailwindcss": "^7.0.0-beta.0",
     "nuxt": "^4.2.1"
   },
@@ -25,7 +25,7 @@
     "@nuxt/test-utils": "^3.20.1",
     "@vitest/coverage-v8": "^3.2.4",
     "@vue/test-utils": "^2.4.6",
-    "eslint": "^9.37.0",
+    "eslint": "^9.39.1",
     "jsdom": "^26.1.0",
     "sass": "^1.94.2",
     "typescript": "^5.9.3",
