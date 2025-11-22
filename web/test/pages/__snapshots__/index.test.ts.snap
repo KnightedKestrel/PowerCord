@@ -15,7 +15,7 @@ exports[`Index > matches the snapshot 1`] = `
         <div style="color-scheme: none;"><iframe src="https://status.powercord.gg/badge?theme=dark" width="250" height="30" frameborder="0" scrolling="no"></iframe></div>
       </div>
       <div class="md:max-h-120 relative max-h-80 overflow-y-hidden"><img class="max-h-240 h-full w-full object-cover" src="/assets/img/preview-showcase.png" alt="Screenshot preview showcase for couple commands in Discord">
-        <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-900 to-transparent"></div>
+        <div class="bg-linear-to-t absolute bottom-0 left-0 right-0 h-24 from-gray-900 to-transparent"></div>
       </div>
     </div>
     <div class="flex flex-wrap gap-4 md:flex-nowrap">
