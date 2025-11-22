@@ -24,7 +24,7 @@
                             target="_blank"
                             size="xl"
                             icon="line-md:discord-twotone"
-                            class="btn text-nowrap text-lg"
+                            class="btn text-lg text-nowrap"
                             >Add to Discord</UButton
                         >
                         <UButton
@@ -33,7 +33,7 @@
                             size="xl"
                             icon="line-md:github-twotone"
                             variant="outline"
-                            class="btn text-nowrap text-lg"
+                            class="btn text-lg text-nowrap"
                             >View on GitHub</UButton
                         >
                     </div>
@@ -59,20 +59,20 @@
                     </div>
                 </div>
 
-                <div class="md:max-h-120 relative max-h-80 overflow-y-hidden">
+                <div class="relative max-h-80 overflow-y-hidden md:max-h-120">
                     <img
-                        class="max-h-240 h-full w-full object-cover"
+                        class="h-full max-h-240 w-full object-cover"
                         src="/assets/img/preview-showcase.png"
                         alt="Screenshot preview showcase for couple commands in Discord"
                     />
                     <div
-                        class="bg-linear-to-t absolute bottom-0 left-0 right-0 h-24 from-gray-900 to-transparent"
+                        class="absolute right-0 bottom-0 left-0 h-24 bg-linear-to-t from-gray-900 to-transparent"
                     ></div>
                 </div>
             </div>
 
             <div class="flex flex-wrap gap-4 md:flex-nowrap">
-                <div v-for="feature in features" class="basis-sm flex-1">
+                <div v-for="feature in features" class="flex-1 basis-sm">
                     <div
                         class="ring-default flex h-full flex-col gap-y-2 rounded-xl bg-gray-800 px-4 py-5 shadow-xl ring"
                     >
