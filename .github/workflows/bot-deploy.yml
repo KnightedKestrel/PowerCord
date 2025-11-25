@@ -13,7 +13,7 @@ jobs:
         if: github.event.workflow_run.conclusion == 'success' && github.event_name == 'workflow_run'
         steps:
             - name: Check out code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
               with:
                   fetch-depth: 2 # Needed to compare commits for path changes
 
