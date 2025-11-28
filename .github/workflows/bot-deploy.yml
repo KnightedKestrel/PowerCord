@@ -38,7 +38,7 @@ jobs:
 
             - name: Deploy to server
               if: steps.check-changes.outputs.deploy == 'true'
-              uses: appleboy/ssh-action@v1.0.3
+              uses: appleboy/ssh-action@v1.2.4
               with:
                   host: ${{ secrets.SERVER_IP }}
                   username: ${{ secrets.SERVER_USERNAME }}
