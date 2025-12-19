@@ -3,6 +3,7 @@ name: 'Terraform Plan'
 on:
     pull_request:
         branches: [master]
+        paths: ['./terraform/**']
 
 env:
     TF_CLOUD_ORGANIZATION: 'PowerCord'
