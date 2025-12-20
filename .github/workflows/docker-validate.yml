@@ -23,15 +23,30 @@ jobs:
                   dockerfile: ./bot/Dockerfile
 
             - name: Build Docker image
-              run: docker build -t powercord-bot-test .
+              run: docker build -t powercord-bot-validate -f bot/Dockerfile bot
 
             - name: Run Docker container
               run: |
-                  docker run -d --name bot-test -p 3000:3000 powercord-bot-test
-                  sleep 5
-                  curl -f http://localhost:3000/health || exit 1
-                  docker stop bot-test
+                  docker run -d --name bot-validate -p 3000:3000 powercord-bot-validate
+                  echo "Waiting for health endpoint..."
+                  for i in {1..30}; do
+                    if curl -sf http://localhost:3000/health > /dev/null; then
+                      echo "Health check passed"
+                      break
+                    fi
+                    sleep 2
+                  done
+                  if ! curl -sf http://localhost:3000/health > /dev/null; then
+                    echo "Container did not become healthy in time" >&2
+                    docker logs --tail 200 bot-validate || true
+                    exit 1
+                  fi
+                  docker stop bot-validate
+
+            - name: Show logs on failure
+              if: failure()
+              run: docker logs --tail 200 bot-validate || true
 
             - name: Clean up
               if: always()
-              run: docker rm bot-test || true
+              run: docker rm -f bot-validate || true
