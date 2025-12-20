@@ -7,6 +7,29 @@ on:
         branches: [master]
 
 jobs:
+    check-changes:
+        runs-on: ubuntu-latest
+        outputs:
+            bot: ${{ steps.filter.outputs.bot }}
+            web: ${{ steps.filter.outputs.web }}
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v6
+
+            - name: Detect file changes
+              uses: dorny/paths-filter@v3
+              id: filter
+              with:
+                  filters: |
+                      bot:
+                          - 'bot/**'
+                          - 'package.json'
+                          - 'tsconfig.json'
+                      web:
+                          - 'web/**'
+                          - 'package.json'
+                          - 'tsconfig.json'
+
     lint-format:
         runs-on: ubuntu-latest
         steps:
@@ -29,6 +52,8 @@ jobs:
               run: npm run prettier
 
     bot-test:
+        needs: check-changes
+        if: needs.check-changes.outputs.bot == 'true'
         runs-on: ubuntu-latest
         steps:
             - name: Check out code
@@ -55,6 +80,8 @@ jobs:
                   flags: bot
 
     web-test:
+        needs: check-changes
+        if: needs.check-changes.outputs.web == 'true'
         runs-on: ubuntu-latest
         steps:
             - name: Check out code
