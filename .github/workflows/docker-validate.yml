@@ -43,7 +43,7 @@ jobs:
                   fi
                   docker stop bot-validate
 
-            - name: Show logs on failure
+            - name: Show logs on fail
               if: failure()
               run: docker logs --tail 200 bot-validate || true
 
