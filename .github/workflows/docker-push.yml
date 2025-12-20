@@ -1,6 +1,7 @@
-name: 'Push Docker Image to Container Registry'
+name: 'Docker Push'
 
 on:
+    workflow_dispatch:
     push:
         branches: [master]
         paths: ['bot/**']

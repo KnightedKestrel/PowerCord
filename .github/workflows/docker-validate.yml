@@ -1,6 +1,7 @@
-name: 'Validate Dockerfile Build and Run'
+name: 'Docker Validate'
 
 on:
+    workflow_dispatch:
     pull_request:
         branches: [master]
         paths:
