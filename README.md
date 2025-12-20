@@ -5,7 +5,6 @@
 
 <p align="center">
     <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
-    <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/bot-deploy.yml/badge.svg" alt="Bot deployment status" /></a>
     <a href="https://powercord-gilt.vercel.app/"><img src="https://vercelbadge.vercel.app/api/KnightedKestrel/PowerCord" alt="Web Deployment Status" /></a>
     <a href="https://codecov.io/gh/KnightedKestrel/PowerCord"><img src="https://codecov.io/gh/KnightedKestrel/PowerCord/graph/badge.svg?token=04DYKZJMH3" alt="Codecov Coverage"/></a>
     <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.23.x-orange.svg" alt="Discord JS" /></a>
