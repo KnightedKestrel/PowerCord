@@ -10,8 +10,8 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.npm \
     npm ci
 # Delayed prod env to ensure ts-node is installed from dev
-ENV NODE_ENV production
+ENV NODE_ENV=production
 COPY . .
 USER node
 EXPOSE 3000
-CMD npm start
+CMD ["npm", "start"]
