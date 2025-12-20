@@ -7,46 +7,83 @@ on:
         branches: [master]
 
 jobs:
-    ci:
+    lint-format:
         runs-on: ubuntu-latest
         steps:
-            - name: Check out code
-              uses: actions/checkout@v6
+            - name: Checkout code
+              uses: actions/checkout@v4
 
             - name: Set up Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v4
               with:
                   node-version: '24'
                   cache: 'npm'
 
-            - name: Install root dependencies
+            - name: Install dependencies
               run: npm ci
-
-            # Deliberate choice not to use aggregate install command
-            - name: Install bot dependencies
-              run: npm ci --prefix bot
-
-            - name: Install web dependencies
-              run: npm ci --prefix web
-
-            - name: Run bot tests with coverage
-              run: npx vitest run --coverage
-              working-directory: bot
-
-            - name: Run web tests with coverage
-              run: npx vitest run --coverage
-              working-directory: web
-
-            - name: Upload coverage results to Codecov
-              uses: codecov/codecov-action@v5
-              with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-                  files: |
-                      bot/coverage/lcov.info
-                      web/coverage/lcov.info
 
             - name: Run ESLint
               run: npm run lint
 
             - name: Run Prettier
               run: npm run prettier
+
+    bot-test:
+        needs: lint-format
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '24'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Install bot dependencies
+              run: npm ci --prefix bot
+
+            - name: Run bot tests with coverage
+              run: npx vitest run --coverage
+              working-directory: bot
+
+            - name: Upload bot coverage
+              uses: codecov/codecov-action@v5
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  files: ./bot/coverage/lcov.info
+                  flags: bot
+
+    web-test:
+        needs: lint-format
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '24'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Install web dependencies
+              run: npm ci --prefix web
+
+            - name: Run web tests with coverage
+              run: npx vitest run --coverage
+              working-directory: web
+
+            - name: Upload web coverage
+              uses: codecov/codecov-action@v5
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  files: ./web/coverage/lcov.info
+                  flags: web
