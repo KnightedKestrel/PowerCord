@@ -1,4 +1,4 @@
-name: 'Push Docker Container to Registry'
+name: 'Push Docker Image to Container Registry'
 
 on:
     push:
