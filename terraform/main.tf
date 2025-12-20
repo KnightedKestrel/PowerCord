@@ -83,7 +83,7 @@ resource "aws_instance" "bot_server" {
     # Login to ECR
     aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${aws_ecr_repository.bot_repo.repository_url}
 
-    # Pull and run the container (single container, no compose needed)
+    # Pull and run the container
     docker pull ${aws_ecr_repository.bot_repo.repository_url}:${var.image_tag}
     docker run -d --name powercord-bot --restart always -p 3000:3000 \
       -e CLIENT_ID=${var.client_id} \
