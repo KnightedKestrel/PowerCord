@@ -57,6 +57,11 @@ data "aws_ami" "ecs_optimized" {
 # ECS Cluster
 resource "aws_ecs_cluster" "bot_cluster" {
   name = "powercord-bot-cluster"
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
 }
 
 # IAM Role for ECS EC2 Instances
@@ -203,14 +208,4 @@ resource "aws_ecs_service" "bot_service" {
   task_definition = aws_ecs_task_definition.bot_task.arn
   desired_count   = 1
   launch_type     = "EC2"
-}
-
-# Add ingress rule for health check (port 3000 open publicly)
-resource "aws_security_group_rule" "health_ingress" {
-  security_group_id = data.terraform_remote_state.shared.outputs.internal_sg_id
-  type              = "ingress"
-  from_port         = 3000
-  to_port           = 3000
-  protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
 }
