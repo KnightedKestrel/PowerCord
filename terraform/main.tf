@@ -115,8 +115,14 @@ resource "aws_launch_template" "ecs_lt" {
   }
 
   network_interfaces {
-    associate_public_ip_address = true
+    associate_public_ip_address = false
     security_groups             = [data.terraform_remote_state.shared.outputs.internal_sg_id]
+  }
+
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
   }
 
   user_data = base64encode(<<-EOF
