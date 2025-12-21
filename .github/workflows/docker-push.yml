@@ -7,7 +7,7 @@ on:
         paths: ['bot/**']
 
 jobs:
-    build-push:
+    docker-push:
         runs-on: ubuntu-latest
         permissions:
             id-token: write
@@ -35,3 +35,10 @@ jobs:
                   docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }} .
                   docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
                   docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
+
+            - name: Update ECS service
+              run: |
+                  aws ecs update-service \
+                    --cluster powercord-bot-cluster \
+                    --service powercord-bot-service \
+                    --force-new-deployment

@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
     push:
         branches: [master]
-        paths: ['./terraform/**']
+        paths: ['terraform/**']
 
 env:
     TF_CLOUD_ORGANIZATION: 'PowerCord'
@@ -13,7 +13,7 @@ env:
     CONFIG_DIRECTORY: './terraform'
 
 jobs:
-    terraform:
+    terraform-apply:
         name: 'Terraform Apply'
         runs-on: ubuntu-latest
         permissions:
