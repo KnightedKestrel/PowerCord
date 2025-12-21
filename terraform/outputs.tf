@@ -3,17 +3,12 @@ output "ecr_repository_url" {
   value       = aws_ecr_repository.bot_repo.repository_url
 }
 
-output "instance_public_ip" {
-  description = "Public IP of the Node.js bot EC2 instance (for health check)"
-  value       = aws_instance.bot_server.public_ip
+output "ecs_cluster_name" {
+  description = "Name of the ECS cluster"
+  value       = aws_ecs_cluster.bot_cluster.name
 }
 
-output "instance_private_ip" {
-  description = "Private IP of the Node.js bot EC2 instance"
-  value       = aws_instance.bot_server.private_ip
-}
-
-output "instance_id" {
-  description = "ID of the Node.js bot EC2 instance"
-  value       = aws_instance.bot_server.id
+output "ecs_service_name" {
+  description = "Name of the ECS service"
+  value       = aws_ecs_service.bot_service.name
 }

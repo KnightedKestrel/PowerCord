@@ -23,7 +23,7 @@ variable "image_tag" {
 }
 
 variable "client_id" {
-  description = "Discord Client ID (sensitive)"
+  description = "Discord Client ID"
   type        = string
   sensitive   = true
 }
@@ -52,5 +52,3 @@ variable "logtail_ingesting_host" {
   type        = string
   default     = ""
 }
-
-# Note: API_BASE_URL is dynamically set in user_data using API's private IP
