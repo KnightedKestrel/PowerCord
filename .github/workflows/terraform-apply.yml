@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
     push:
         branches: [master]
-        paths: ['./terraform/**']
+        paths: ['terraform/**']
 
 env:
     TF_CLOUD_ORGANIZATION: 'PowerCord'
