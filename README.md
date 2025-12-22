@@ -1,36 +1,40 @@
-<p align="center">
-    <img width="125" height="125" alt="PowerCord logo" src="PowerCord.png">
-    <h1 align="center">PowerCord</h1>
+<div class="title-block" style="text-align: center;" align="center">
+
+<p>
+    <img width="300" height="300" alt="PowerCord logo" src="PowerCord.png">
+    <h1 align="center">PowerCord — OpenPowerlifting in Discord</h1>
 </p>
 
-<p align="center">
-    <a href="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml"><img src="https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
-    <a href="https://powercord-gilt.vercel.app/"><img src="https://vercelbadge.vercel.app/api/KnightedKestrel/PowerCord" alt="Web Deployment Status" /></a>
-    <a href="https://codecov.io/gh/KnightedKestrel/PowerCord"><img src="https://codecov.io/gh/KnightedKestrel/PowerCord/graph/badge.svg?token=04DYKZJMH3" alt="Codecov Coverage"/></a>
-    <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-14.23.x-orange.svg" alt="Discord JS" /></a>
-    <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4" alt="Code style: Prettier" /></a>
-    <!-- <a href="https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands"><img src="https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white" alt="Invite to Discord Server" /></a> -->
-    <!-- <a href="https://trello.com/b/pm9X3ZfI"><img src="https://img.shields.io/badge/trello-open_roadmap-026AA7?logo=Trello&logoColor=white" alt="Open Trello board" /></a> -->
-</p>
+[![CI Status](https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg)](https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml)
+[![Web Deployment Status](https://vercelbadge.vercel.app/api/KnightedKestrel/PowerCord)](https://powercord-gilt.vercel.app/)
+[![Codecov Coverage](https://codecov.io/gh/KnightedKestrel/PowerCord/graph/badge.svg?token=04DYKZJMH3)](https://codecov.io/gh/KnightedKestrel/PowerCord)
+[![Discord JS](https://img.shields.io/badge/discord.js-14.23.x-orange.svg)](https://discord.js.org/)
+[![Code style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4)](https://github.com/prettier/prettier)
 
-<p align="center">
-    <a href="https://discord.com/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands">Add to Discord</a>
-    ·
-    <a href="https://discord.com/invite/MZfchrRah4">Support Server</a>
-    ·
-    <a href="https://trello.com/b/pm9X3ZfI">Roadmap</a>
-</p>
+<!-- [![Invite to Discord Server](https://img.shields.io/badge/discord-invite%20to%20server-5865F2?logo=discord&logoColor=white)](https://discord.com/api/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands) -->
+<!-- [![Open Trello board](https://img.shields.io/badge/trello-open_roadmap-026AA7?logo=Trello&logoColor=white)](https://trello.com/b/pm9X3ZfI) -->
 
-<p align="center">
-    <a href="https://status.powercord.gg/"><img src="https://uptime.betterstack.com/status-badges/v3/monitor/26gjw.svg" alt="Better Stack Uptime Monitor" /></a>
-</p>
+**[Add to Discord] &nbsp;&nbsp;&bull;&nbsp;&nbsp;**
+**[Support Server] &nbsp;&nbsp;&bull;&nbsp;&nbsp;**
+**[Roadmap]**
+
+[Add to Discord]: https://discord.com/oauth2/authorize?client_id=1306740469484486697&permissions=0&scope=bot%20applications.commands
+[Support Server]: https://discord.com/invite/MZfchrRah4
+[Roadmap]: https://trello.com/b/pm9X3ZfI
+
+[![Better Stack Uptime Monitor](https://uptime.betterstack.com/status-badges/v3/monitor/26gjw.svg)](https://status.powercord.gg/)
+
+</div>
+
+> [!CAUTION]
+> Resource usage issues in fetching data from OPL. Bot will not be usable until fixes are complete.
+>
+> _- Dec 22 '25_
 
 > [!IMPORTANT]
 > Branding refresh! Now with our own original logo. Version 1.0 is in the final stages of development. Check the <a href="https://trello.com/b/pm9X3ZfI">roadmap</a> for progress and remaining issues.
-
-<p align="center">
-    View meet data from <a href="https://www.openpowerlifting.org/">OpenPowerlifting.org</a> in Discord.
-</p>
+>
+> _- Nov 22 '25_
 
 ## 🚀 Setup
 
