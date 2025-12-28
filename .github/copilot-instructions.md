@@ -26,7 +26,6 @@
 ## Testing & Coverage
 
 - Write unit tests for core logic using Vitest. Place all tests in the `/test` directory of each project.
-- Do not aggregate or run tests from the root.
 - Code coverage is combined in CI for Codecov.
 
 ## Security & Environment
@@ -36,7 +35,9 @@
 ## CI/CD & Deployment
 
 - CI runs Prettier, ESLint, tests, and builds for both projects. All PRs are checked against this workflow.
-- Web is deployed by Vercel on `/web` changes to master. Bot is deployed manually to Digital Ocean and managed with pm2. Logs go to Better Stack.
+- Web is deployed by Vercel on `/web` changes to master.
+- Bot infrastructure is managed via Terraform with ECS cluster using private EC2 instances.
+- Bot is containerized and deployed to AWS ECS on EC2 via Docker push workflow. On master push to `/bot`, the image is pushed to ECR and ECS service is force-updated to deploy the latest container.
 
 ## General Guidance
 
