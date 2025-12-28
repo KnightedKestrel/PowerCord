@@ -109,20 +109,15 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-# Launch Template for ECS EC2 Instances
-resource "aws_launch_template" "ecs_lt" {
-  name_prefix   = "powercord-bot-"
-  image_id      = data.aws_ami.ecs_optimized.id
-  instance_type = var.instance_type
-
-  iam_instance_profile {
-    name = aws_iam_instance_profile.ecs_instance_profile.name
-  }
-
-  network_interfaces {
-    associate_public_ip_address = false
-    security_groups             = [data.terraform_remote_state.shared.outputs.internal_sg_id]
-  }
+# Single EC2 instance for ECS capacity
+resource "aws_instance" "ecs_instance" {
+  ami                         = data.aws_ami.ecs_optimized.id
+  instance_type               = var.instance_type
+  key_name                    = "powercord-bot-key"
+  subnet_id                   = element(data.terraform_remote_state.shared.outputs.public_subnet_ids, 0)
+  associate_public_ip_address = true
+  iam_instance_profile        = aws_iam_instance_profile.ecs_instance_profile.name
+  vpc_security_group_ids      = [data.terraform_remote_state.shared.outputs.internal_sg_id]
 
   metadata_options {
     http_endpoint               = "enabled"
@@ -135,43 +130,10 @@ resource "aws_launch_template" "ecs_lt" {
     echo ECS_CLUSTER=${aws_ecs_cluster.bot_cluster.name} >> /etc/ecs/ecs.config
   EOF
   )
-}
 
-# Auto Scaling Group for ECS Capacity
-resource "aws_autoscaling_group" "ecs_asg" {
-  name                  = "powercord-bot-asg"
-  min_size              = 1
-  max_size              = 1
-  desired_capacity      = 1
-  vpc_zone_identifier   = data.terraform_remote_state.shared.outputs.public_subnet_ids
-  protect_from_scale_in = true
-
-  launch_template {
-    id      = aws_launch_template.ecs_lt.id
-    version = "$Latest"
+  tags = {
+    Name = var.instance_name
   }
-
-  tag {
-    key                 = "Name"
-    value               = var.instance_name
-    propagate_at_launch = true
-  }
-}
-
-# ECS Capacity Provider
-resource "aws_ecs_capacity_provider" "ec2_provider" {
-  name = "powercord-bot-ec2-provider"
-
-  auto_scaling_group_provider {
-    auto_scaling_group_arn         = aws_autoscaling_group.ecs_asg.arn
-    managed_termination_protection = "ENABLED"
-  }
-}
-
-# Attach Capacity Provider to Cluster
-resource "aws_ecs_cluster_capacity_providers" "main" {
-  cluster_name       = aws_ecs_cluster.bot_cluster.name
-  capacity_providers = [aws_ecs_capacity_provider.ec2_provider.name]
 }
 
 # ECS Task Definition
@@ -190,10 +152,18 @@ resource "aws_ecs_task_definition" "bot_task" {
       containerPort = 3000
       hostPort      = 3000
     }]
+    healthCheck = {
+      command     = ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      interval    = 30
+      timeout     = 5
+      retries     = 3
+      startPeriod = 60
+    }
     environment = [
       { name = "CLIENT_ID", value = var.client_id },
       { name = "DISCORD_TOKEN", value = var.discord_token },
-      { name = "API_BASE_URL", value = "http://${data.terraform_remote_state.api.outputs.instance_private_ip}:8080" },
+      { name = "API_BASE_URL", value = "http://powercord-api.powercord.internal:8080" },
+      { name = "API_SRV_DOMAIN", value = var.api_srv_domain },
       { name = "ENABLE_MOCK_API", value = var.enable_mock_api },
       { name = "LOGTAIL_SOURCE_TOKEN", value = var.logtail_source_token },
       { name = "LOGTAIL_INGESTING_HOST", value = var.logtail_ingesting_host }

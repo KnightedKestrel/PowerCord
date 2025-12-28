@@ -34,6 +34,12 @@ variable "discord_token" {
   sensitive   = true
 }
 
+variable "api_srv_domain" {
+  description = "SRV domain for API discovery"
+  type        = string
+  default     = "powercord-api.powercord.internal"
+}
+
 variable "enable_mock_api" {
   description = "Enable mock API mode"
   type        = string
