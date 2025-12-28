@@ -2,12 +2,24 @@ import axios from 'axios';
 import { Lifter, Meet, TopLifter } from '../types/types';
 import { config } from '../utils/config';
 import logger from '../utils/logger';
+import { resolveSrv } from '../utils/srvResolver';
 
-const api = axios.create({
+let api = axios.create({
     baseURL: config.API_BASE_URL,
     timeout: 20000,
     headers: { 'Content-Type': 'application/json' },
 });
+
+(async () => {
+    try {
+        if (config.API_SRV_DOMAIN) {
+            const { host, port } = await resolveSrv(config.API_SRV_DOMAIN);
+            api.defaults.baseURL = `http://${host}:${port}`;
+        }
+    } catch (error) {
+        logger.error('Failed to resolve SRV; using fallback baseURL');
+    }
+})();
 
 export async function getLifter(name: string): Promise<Lifter | undefined> {
     try {
