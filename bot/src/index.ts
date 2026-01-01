@@ -6,6 +6,7 @@ import './deploy-commands';
 import { config } from './utils/config';
 import logger from './utils/logger';
 import './utils/health';
+import { startHeartbeat } from './utils/heartbeat';
 
 const token = config.DISCORD_TOKEN;
 
@@ -62,6 +63,7 @@ async function initializeBot() {
     }
 
     client.login(token);
+    startHeartbeat();
 }
 
 initializeBot();
