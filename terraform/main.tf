@@ -166,7 +166,8 @@ resource "aws_ecs_task_definition" "bot_task" {
       { name = "API_SRV_DOMAIN", value = var.api_srv_domain },
       { name = "ENABLE_MOCK_API", value = var.enable_mock_api },
       { name = "LOGTAIL_SOURCE_TOKEN", value = var.logtail_source_token },
-      { name = "LOGTAIL_INGESTING_HOST", value = var.logtail_ingesting_host }
+      { name = "LOGTAIL_INGESTING_HOST", value = var.logtail_ingesting_host },
+      { name = "BETTERSTACK_HEARTBEAT_URL", value = var.betterstack_heartbeat_url }
     ]
   }])
 }

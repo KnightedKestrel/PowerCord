@@ -8,6 +8,7 @@ interface Config {
     ENABLE_MOCK_API?: boolean;
     LOGTAIL_SOURCE_TOKEN?: string;
     LOGTAIL_INGESTING_HOST?: string;
+    BETTERSTACK_HEARTBEAT_URL?: string;
 }
 
 export const config: Config = {
@@ -18,6 +19,7 @@ export const config: Config = {
     ENABLE_MOCK_API: process.env.ENABLE_MOCK_API === 'true',
     LOGTAIL_SOURCE_TOKEN: process.env.LOGTAIL_SOURCE_TOKEN,
     LOGTAIL_INGESTING_HOST: process.env.LOGTAIL_INGESTING_HOST,
+    BETTERSTACK_HEARTBEAT_URL: process.env.BETTERSTACK_HEARTBEAT_URL,
 };
 
 export default config;

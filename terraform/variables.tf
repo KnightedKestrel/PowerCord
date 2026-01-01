@@ -58,3 +58,10 @@ variable "logtail_ingesting_host" {
   type        = string
   default     = ""
 }
+
+variable "betterstack_heartbeat_url" {
+  description = "BetterStack Heartbeat URL (sensitive)"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
