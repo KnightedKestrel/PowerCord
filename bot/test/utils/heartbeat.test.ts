@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { config } from '../../src/utils/config';
-import logger from '../../src/utils/logger';
 import { startHeartbeat } from '../../src/utils/heartbeat';
+import logger from '../../src/utils/logger';
 
 vi.mock('axios');
 vi.mock('../../src/utils/logger', () => ({
@@ -44,12 +44,15 @@ describe('heartbeat', () => {
     });
 
     it('should start heartbeat when URL is configured', () => {
-        (config as any).BETTERSTACK_HEARTBEAT_URL = 'https://heartbeat.betterstack.com/test';
+        (config as any).BETTERSTACK_HEARTBEAT_URL =
+            'https://heartbeat.betterstack.com/test';
         mockAxios.get.mockResolvedValue({ data: 'ok' });
 
         startHeartbeat();
 
-        expect(logger.info).toHaveBeenCalledWith('Starting BetterStack heartbeat monitor');
+        expect(logger.info).toHaveBeenCalledWith(
+            'Starting BetterStack heartbeat monitor',
+        );
         expect(mockAxios.get).toHaveBeenCalledWith(
             'https://heartbeat.betterstack.com/test',
             { timeout: 5000 },
@@ -57,7 +60,8 @@ describe('heartbeat', () => {
     });
 
     it('should send heartbeat at regular intervals', async () => {
-        (config as any).BETTERSTACK_HEARTBEAT_URL = 'https://heartbeat.betterstack.com/test';
+        (config as any).BETTERSTACK_HEARTBEAT_URL =
+            'https://heartbeat.betterstack.com/test';
         mockAxios.get.mockResolvedValue({ data: 'ok' });
 
         startHeartbeat();
@@ -72,7 +76,8 @@ describe('heartbeat', () => {
     });
 
     it('should log error when heartbeat fails', async () => {
-        (config as any).BETTERSTACK_HEARTBEAT_URL = 'https://heartbeat.betterstack.com/test';
+        (config as any).BETTERSTACK_HEARTBEAT_URL =
+            'https://heartbeat.betterstack.com/test';
         const error = new Error('Network error');
         mockAxios.get.mockRejectedValue(error);
 

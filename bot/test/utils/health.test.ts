@@ -35,9 +35,14 @@ describe('health', () => {
 
         await import('../../src/utils/health');
 
-        expect(mockApp.get).toHaveBeenCalledWith('/health', expect.any(Function));
+        expect(mockApp.get).toHaveBeenCalledWith(
+            '/health',
+            expect.any(Function),
+        );
         expect(mockApp.listen).toHaveBeenCalledWith(3000, expect.any(Function));
-        expect(logger.info).toHaveBeenCalledWith('Health check is running on port 3000');
+        expect(logger.info).toHaveBeenCalledWith(
+            'Health check is running on port 3000',
+        );
     });
 
     it('should return status ok from health endpoint handler', () => {

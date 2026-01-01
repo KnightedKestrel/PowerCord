@@ -6,7 +6,9 @@ const HEARTBEAT_INTERVAL = 60000; // 60 seconds
 
 export function startHeartbeat() {
     if (!config.BETTERSTACK_HEARTBEAT_URL) {
-        logger.warn('BetterStack heartbeat URL not configured, skipping heartbeat');
+        logger.warn(
+            'BetterStack heartbeat URL not configured, skipping heartbeat',
+        );
         return;
     }
 
