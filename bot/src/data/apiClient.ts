@@ -22,12 +22,12 @@ let api = axios.create({
 })();
 
 export async function getLifter(name: string): Promise<Lifter | undefined> {
-    logger.debug(
+    logger.info(
         `Making request to: ${api?.defaults?.baseURL}/lifters?name=${name}`,
     );
     try {
         const response = await api.get('/lifters', { params: { name } });
-        logger.debug('Response data:', response.data);
+        logger.info('Response data:', response.data);
         return response.data as Lifter;
     } catch (error) {
         logger.error('Error fetching lifter:', error);
@@ -36,12 +36,12 @@ export async function getLifter(name: string): Promise<Lifter | undefined> {
 }
 
 export async function getMeet(name: string): Promise<Meet | undefined> {
-    logger.debug(
+    logger.info(
         `Making request to: ${api?.defaults?.baseURL}/meets?name=${name}`,
     );
     try {
         const response = await api.get('/meets', { params: { name } });
-        logger.debug('Response data:', response.data);
+        logger.info('Response data:', response.data);
         return response.data as Meet;
     } catch (error) {
         logger.error('Error fetching meet:', error);
@@ -52,12 +52,12 @@ export async function getMeet(name: string): Promise<Meet | undefined> {
 export async function getTopLifters(
     page: number = 1,
 ): Promise<TopLifter[] | undefined> {
-    logger.debug(
+    logger.info(
         `Making request to: ${api?.defaults?.baseURL}/top?page=${page}`,
     );
     try {
         const response = await api.get('/top', { params: { page } });
-        logger.debug('Response data:', response.data);
+        logger.info('Response data:', response.data);
         return response.data as TopLifter[];
     } catch (error) {
         logger.error('Error fetching top lifters:', error);
