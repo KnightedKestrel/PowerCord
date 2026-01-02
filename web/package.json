@@ -10,7 +10,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:update": "vitest run -u"
   },
   "dependencies": {
     "@nuxt/fonts": "^0.12.1",
