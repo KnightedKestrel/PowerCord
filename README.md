@@ -26,15 +26,10 @@
 
 </div>
 
-> [!CAUTION]
-> Resource usage issues in fetching data from OPL. Bot will not be usable until fixes are complete.
->
-> _- Dec 22 '25_
-
 > [!IMPORTANT]
-> Branding refresh! Now with our own original logo. Version 1.0 is in the final stages of development. Check the <a href="https://trello.com/b/pm9X3ZfI">roadmap</a> for progress and remaining issues.
+> Migration complete and services back online. Database contains incomplete entries until refactor is finished.
 >
-> _- Nov 22 '25_
+> _- Jan 1 '26_
 
 ## 🚀 Setup
 
