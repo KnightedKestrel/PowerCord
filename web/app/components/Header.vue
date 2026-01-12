@@ -5,7 +5,7 @@
                 <ULink to="/">
                     <div class="flex items-center gap-2">
                         <img
-                            src="/assets/img/logo.png"
+                            src="~/assets/img/logo.png"
                             class="size-12 shrink-0 rounded-md"
                             alt="PowerCord logo"
                         />

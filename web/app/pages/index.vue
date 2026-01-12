@@ -9,7 +9,7 @@
                         Powerlifting competition results in
                         <img
                             class="my-1 h-12"
-                            src="/assets/img/discord-logo.svg"
+                            src="~/assets/img/discord-logo.svg"
                             alt="Discord"
                         />
                     </h1>
@@ -62,7 +62,7 @@
                 <div class="relative max-h-80 overflow-y-hidden md:max-h-120">
                     <img
                         class="h-full max-h-240 w-full object-cover"
-                        src="/assets/img/preview-showcase.png"
+                        src="~/assets/img/preview-showcase.png"
                         alt="Screenshot preview showcase for couple commands in Discord"
                     />
                     <div
