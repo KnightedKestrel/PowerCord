@@ -1,0 +1,173 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import * as lifterCommand from '../../src/commands/opl/lifter';
+import {
+    createAutocompleteInteraction,
+    createChatInputInteraction,
+} from '../helpers/interactions';
+
+const { mockGetLifter, mockGetLifterAutocomplete } = vi.hoisted(() => ({
+    mockGetLifter: vi.fn(),
+    mockGetLifterAutocomplete: vi.fn(),
+}));
+
+vi.mock('../../src/utils/logger', () => ({
+    default: {
+        info: vi.fn(),
+        error: vi.fn(),
+    },
+}));
+
+vi.mock('discord.js');
+
+vi.mock('../../src/data/api', () => ({
+    api: {
+        getLifter: mockGetLifter,
+        getLifterAutocomplete: mockGetLifterAutocomplete,
+    },
+}));
+
+const mockLifter = {
+    name: 'Heracles',
+    sex: 'M',
+    url: 'https://www.openpowerlifting.org/u/heracles',
+    meets: [
+        {
+            place: 1,
+            federation: 'IPF',
+            date: '2025-06-15',
+            country: 'Greece',
+            state: 'Attica',
+            name: 'Labors of Strength',
+            age: 39,
+            equipment: 'Raw',
+            weightClass: 100,
+            bodyWeight: 98.6,
+            squat: 1018,
+            bench: 758,
+            deadlift: 729,
+            total: 2505,
+            dots: 1551.41,
+        },
+    ],
+    personalBests: [
+        {
+            equipment: 'Raw',
+            squat: '1018',
+            bench: '758',
+            deadlift: '729',
+            total: '2505',
+            dots: '1551.41',
+        },
+    ],
+};
+
+describe('Lifter command', () => {
+    const execute = lifterCommand['execute'];
+    const autocomplete = lifterCommand['autocomplete'];
+
+    beforeEach(() => {
+        mockGetLifter.mockReset();
+        mockGetLifterAutocomplete.mockReset();
+    });
+
+    describe('execute', () => {
+        it('generates an embed with lifter data', async () => {
+            mockGetLifter.mockResolvedValue(mockLifter);
+            const interaction = createChatInputInteraction({
+                name: 'Heracles',
+            });
+            await execute(interaction);
+
+            expect(interaction.deferReply).toHaveBeenCalled();
+            expect(interaction.editReply).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    embeds: [
+                        expect.objectContaining({
+                            title: 'Heracles',
+                            fields: expect.any(Array),
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        it('handles no name provided', async () => {
+            const interaction = createChatInputInteraction({ name: null });
+            await execute(interaction);
+
+            expect(interaction.deferReply).toHaveBeenCalled();
+            expect(interaction.editReply).toHaveBeenCalledWith(
+                'You need to specify a lifter name.',
+            );
+        });
+
+        it('handles lifter not found', async () => {
+            mockGetLifter.mockResolvedValue(undefined);
+            const interaction = createChatInputInteraction({
+                name: 'UnknownLifter',
+            });
+            await execute(interaction);
+
+            expect(interaction.deferReply).toHaveBeenCalled();
+            expect(interaction.editReply).toHaveBeenCalledWith(
+                'No data found for lifter: UnknownLifter.',
+            );
+        });
+
+        it('handles lifter with no meets', async () => {
+            mockGetLifter.mockResolvedValue({ ...mockLifter, meets: [] });
+            const interaction = createChatInputInteraction({
+                name: 'Heracles',
+            });
+            await execute(interaction);
+
+            expect(interaction.editReply).toHaveBeenCalledWith(
+                'No data found for lifter: Heracles.',
+            );
+        });
+
+        it('handles API error gracefully', async () => {
+            mockGetLifter.mockRejectedValue(new Error('API failure'));
+            const interaction = createChatInputInteraction({
+                name: 'Heracles',
+                deferred: true,
+            });
+            await execute(interaction);
+
+            expect(interaction.editReply).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    content:
+                        'An error occurred while fetching the lifter data.',
+                }),
+            );
+        });
+    });
+
+    describe('autocomplete', () => {
+        it('responds with empty array for short queries', async () => {
+            const interaction = createAutocompleteInteraction('H');
+            await autocomplete(interaction);
+
+            expect(interaction.respond).toHaveBeenCalledWith([]);
+        });
+
+        it('responds with matching lifter names', async () => {
+            mockGetLifterAutocomplete.mockResolvedValue(['Heracles', 'Hades']);
+            const interaction = createAutocompleteInteraction('He');
+            await autocomplete(interaction);
+
+            expect(interaction.respond).toHaveBeenCalledWith([
+                { name: 'Heracles', value: 'Heracles' },
+                { name: 'Hades', value: 'Hades' },
+            ]);
+        });
+
+        it('responds with empty array when API returns no results', async () => {
+            mockGetLifterAutocomplete.mockResolvedValue(undefined);
+            const interaction = createAutocompleteInteraction('He');
+            await autocomplete(interaction);
+
+            expect(interaction.respond).toHaveBeenCalledWith([]);
+        });
+    });
+});
