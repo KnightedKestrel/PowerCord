@@ -1,7 +1,7 @@
 <div class="title-block" style="text-align: center;" align="center">
 
 <p>
-    <img width="300" height="300" alt="PowerCord logo" src="PowerCord.png">
+    <img width="300" height="300" alt="PowerCord logo" src=".github/assets/powercord.png">
     <h1 align="center">PowerCord — OpenPowerlifting in Discord</h1>
 </p>
 
