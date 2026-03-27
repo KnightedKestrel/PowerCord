@@ -1,88 +1,17 @@
-import { ChatInputCommandInteraction } from 'discord.js';
 import { describe, expect, it, vi } from 'vitest';
 import * as meetCommand from '../../src/commands/opl/meet';
+import { createChatInputInteraction } from '../helpers/interactions';
 
-vi.mock('../src/utils/logger', () => ({
+vi.mock('../../src/utils/logger', () => ({
     default: {
         info: vi.fn(),
         error: vi.fn(),
     },
 }));
 
-vi.mock('discord.js', () => ({
-    SlashCommandBuilder: class {
-        setName() {
-            return this;
-        }
-        setDescription() {
-            return this;
-        }
-        addStringOption() {
-            return this;
-        }
-    },
-    EmbedBuilder: class {
-        setColor(color) {
-            // @ts-ignore
-            this.color = color;
-            return this;
-        }
-        setTitle(title) {
-            // @ts-ignore
-            this.title = title;
-            return this;
-        }
-        setDescription(description) {
-            // @ts-ignore
-            this.description = description;
-            return this;
-        }
-        setFooter(footer) {
-            // @ts-ignore
-            this.footer = footer;
-            return this;
-        }
-        setFields(fields) {
-            // @ts-ignore
-            this.fields = fields;
-            return this;
-        }
-    },
-    ActionRowBuilder: class {
-        addComponents(...components) {
-            // @ts-ignore
-            this.components = [...(this.components || []), ...components];
-            return this;
-        }
-    },
-    ButtonBuilder: class {
-        setCustomId(id) {
-            // @ts-ignore
-            this.customId = id;
-            return this;
-        }
-        setLabel(label) {
-            // @ts-ignore
-            this.label = label;
-            return this;
-        }
-        setStyle(style) {
-            // @ts-ignore
-            this.style = style;
-            return this;
-        }
-        setDisabled(disabled) {
-            // @ts-ignore
-            this.disabled = disabled;
-            return this;
-        }
-    },
-    ButtonStyle: {
-        Primary: 1,
-    },
-}));
+vi.mock('discord.js');
 
-vi.mock('../src/data/api', () => ({
+vi.mock('../../src/data/api', () => ({
     api: {
         getMeet: vi.fn((name: string) => {
             const mockData = [
@@ -121,33 +50,13 @@ vi.mock('../src/data/api', () => ({
     },
 }));
 
-const mockInteraction = (name: string) => {
-    const interaction = {
-        options: {
-            getString: vi.fn().mockReturnValue(name),
-        },
-        deferReply: vi.fn().mockResolvedValue(undefined),
-        editReply: vi.fn().mockResolvedValue(undefined),
-        reply: vi.fn().mockResolvedValue(undefined),
-        fetchReply: vi.fn().mockResolvedValue({
-            createMessageComponentCollector: vi.fn().mockReturnValue({
-                on: vi.fn(),
-            }),
-        }),
-        user: { id: '12345' },
-        channel: { id: 'test-channel' },
-        guild: { id: 'test-guild' },
-        client: {},
-    };
-
-    return interaction as unknown as ChatInputCommandInteraction;
-};
-
 describe('Meet command', () => {
     const execute = meetCommand['execute'];
 
     it('generates an embed with meet data', async () => {
-        const interaction = mockInteraction('Labors of Strength');
+        const interaction = createChatInputInteraction({
+            name: 'Labors of Strength',
+        });
         await execute(interaction);
 
         expect(interaction.deferReply).toHaveBeenCalled();
@@ -167,7 +76,9 @@ describe('Meet command', () => {
     });
 
     it('handles no data found for meet', async () => {
-        const interaction = mockInteraction('NonExistentMeet');
+        const interaction = createChatInputInteraction({
+            name: 'NonExistentMeet',
+        });
 
         await execute(interaction);
 
