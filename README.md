@@ -5,9 +5,9 @@
     <h1 align="center">PowerCord — OpenPowerlifting in Discord</h1>
 </p>
 
-[![CI Status](https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml/badge.svg)](https://github.com/KnightedKestrel/PowerCord/actions/workflows/ci.yml)
-[![Web Deployment Status](https://vercelbadge.vercel.app/api/KnightedKestrel/PowerCord)](https://powercord-gilt.vercel.app/)
-[![Codecov Coverage](https://codecov.io/gh/KnightedKestrel/PowerCord/graph/badge.svg?token=04DYKZJMH3)](https://codecov.io/gh/KnightedKestrel/PowerCord)
+[![CI Status](https://github.com/kystrel/powercord/actions/workflows/ci.yml/badge.svg)](https://github.com/kystrel/powercord/actions/workflows/ci.yml)
+[![Web Deployment Status](https://vercelbadge.vercel.app/api/kystrel/powercord)](https://powercord-gilt.vercel.app/)
+[![Codecov Coverage](https://codecov.io/gh/kystrel/powercord/graph/badge.svg?token=04DYKZJMH3)](https://codecov.io/gh/kystrel/powercord)
 [![Discord JS](https://img.shields.io/badge/discord.js-14.23.x-orange.svg)](https://discord.js.org/)
 [![Code style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4)](https://github.com/prettier/prettier)
 
