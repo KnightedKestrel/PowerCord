@@ -73,7 +73,7 @@ jobs:
               working-directory: bot
 
             - name: Upload bot coverage
-              uses: codecov/codecov-action@v5
+              uses: codecov/codecov-action@v6
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   files: ./bot/coverage/lcov.info
@@ -101,7 +101,7 @@ jobs:
               working-directory: web
 
             - name: Upload web coverage
-              uses: codecov/codecov-action@v5
+              uses: codecov/codecov-action@v6
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   files: ./web/coverage/lcov.info
