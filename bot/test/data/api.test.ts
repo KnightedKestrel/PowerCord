@@ -1,26 +1,23 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const mockConfig = {
-    API_BASE_URL: undefined as string | undefined,
-    ENABLE_MOCK_API: false,
-};
-
-vi.mock('../../src/utils/config', () => ({
-    config: mockConfig,
+const { mockConfig, mockApiClient, mockMockClient } = vi.hoisted(() => ({
+    mockConfig: {
+        API_BASE_URL: undefined as string | undefined,
+        ENABLE_MOCK_API: false,
+    },
+    mockApiClient: {
+        getLifter: vi.fn(),
+        getMeet: vi.fn(),
+        getTopLifters: vi.fn(),
+    },
+    mockMockClient: {
+        getLifter: vi.fn(),
+        getMeet: vi.fn(),
+        getTopLifters: vi.fn(),
+    },
 }));
 
-const mockApiClient = {
-    getLifter: vi.fn(),
-    getMeet: vi.fn(),
-    getTopLifters: vi.fn(),
-};
-
-const mockMockClient = {
-    getLifter: vi.fn(),
-    getMeet: vi.fn(),
-    getTopLifters: vi.fn(),
-};
-
+vi.mock('../../src/utils/config', () => ({ config: mockConfig }));
 vi.mock('../../src/data/apiClient', () => mockApiClient);
 vi.mock('../../src/data/mockClient', () => mockMockClient);
 
@@ -30,7 +27,7 @@ describe('api', () => {
         vi.resetModules();
     });
 
-    it('calls mockClient getLifter when using mock', async () => {
+    it('routes getLifter to mockClient when ENABLE_MOCK_API is true', async () => {
         mockConfig.ENABLE_MOCK_API = true;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
@@ -41,7 +38,7 @@ describe('api', () => {
         expect(mockApiClient.getLifter).not.toHaveBeenCalled();
     });
 
-    it('calls apiClient getLifter when using API', async () => {
+    it('routes getLifter to apiClient when ENABLE_MOCK_API is false', async () => {
         mockConfig.ENABLE_MOCK_API = false;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
@@ -52,7 +49,7 @@ describe('api', () => {
         expect(mockMockClient.getLifter).not.toHaveBeenCalled();
     });
 
-    it('calls mockClient getMeet when using mock', async () => {
+    it('routes getMeet to mockClient when ENABLE_MOCK_API is true', async () => {
         mockConfig.ENABLE_MOCK_API = true;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
@@ -63,7 +60,7 @@ describe('api', () => {
         expect(mockApiClient.getMeet).not.toHaveBeenCalled();
     });
 
-    it('calls apiClient getMeet when using API', async () => {
+    it('routes getMeet to apiClient when ENABLE_MOCK_API is false', async () => {
         mockConfig.ENABLE_MOCK_API = false;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
@@ -74,7 +71,7 @@ describe('api', () => {
         expect(mockMockClient.getMeet).not.toHaveBeenCalled();
     });
 
-    it('calls mockClient getTopLifters when using mock', async () => {
+    it('routes getTopLifters to mockClient when ENABLE_MOCK_API is true', async () => {
         mockConfig.ENABLE_MOCK_API = true;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
@@ -85,7 +82,7 @@ describe('api', () => {
         expect(mockApiClient.getTopLifters).not.toHaveBeenCalled();
     });
 
-    it('calls apiClient getTopLifters when using API', async () => {
+    it('routes getTopLifters to apiClient when ENABLE_MOCK_API is false', async () => {
         mockConfig.ENABLE_MOCK_API = false;
         mockConfig.API_BASE_URL = 'http://localhost:3000/api';
 
