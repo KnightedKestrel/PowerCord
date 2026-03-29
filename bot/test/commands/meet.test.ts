@@ -137,7 +137,8 @@ describe('Meet command', () => {
         expect(buttonInteraction.update).toHaveBeenCalledWith(
             expect.objectContaining({ embeds: expect.any(Array) }),
         );
-        const { embeds } = vi.mocked(buttonInteraction.update).mock.calls[0][0] as any;
+        const { embeds } = vi.mocked(buttonInteraction.update).mock
+            .calls[0][0] as any;
         expect(embeds[0].description).toContain('page 2');
     });
 
@@ -167,7 +168,9 @@ describe('Meet command', () => {
 
         handlers['end']();
 
-        const lastCall = vi.mocked(interaction.editReply).mock.calls.at(-1)![0] as any;
+        const lastCall = vi
+            .mocked(interaction.editReply)
+            .mock.calls.at(-1)![0] as any;
         expect(lastCall.components[0].components[0].disabled).toBe(true);
         expect(lastCall.components[0].components[1].disabled).toBe(true);
     });

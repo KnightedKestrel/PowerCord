@@ -8,7 +8,9 @@ describe('mockClient', () => {
     describe('getLifter', () => {
         it('returns the lifter with an exact match', async () => {
             const result = await getLifter('Heracles');
-            expect(result).toEqual(lifterData.find((l) => l.name === 'Heracles'));
+            expect(result).toEqual(
+                lifterData.find((l) => l.name === 'Heracles'),
+            );
         });
 
         it('returns the closest matching lifter with fuzzy search', async () => {

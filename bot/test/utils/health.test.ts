@@ -19,7 +19,10 @@ vi.mock('../../src/utils/logger', () => ({
 }));
 
 describe('health', () => {
-    let mockApp: { get: ReturnType<typeof vi.fn>; listen: ReturnType<typeof vi.fn> };
+    let mockApp: {
+        get: ReturnType<typeof vi.fn>;
+        listen: ReturnType<typeof vi.fn>;
+    };
 
     beforeAll(async () => {
         mockApp = {
@@ -34,7 +37,10 @@ describe('health', () => {
     });
 
     it('registers GET /health route', () => {
-        expect(mockApp.get).toHaveBeenCalledWith('/health', expect.any(Function));
+        expect(mockApp.get).toHaveBeenCalledWith(
+            '/health',
+            expect.any(Function),
+        );
     });
 
     it('GET /health handler responds with { status: "ok" }', () => {

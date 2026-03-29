@@ -25,7 +25,9 @@ describe('embed constants', () => {
         it('returns real data text when mock API is disabled and base URL is set', () => {
             (config as any).ENABLE_MOCK_API = false;
             (config as any).API_BASE_URL = 'http://localhost';
-            expect(getEmbedFooter()).toBe('Data retrieved from OpenPowerlifting');
+            expect(getEmbedFooter()).toBe(
+                'Data retrieved from OpenPowerlifting',
+            );
         });
 
         it('returns mock warning when ENABLE_MOCK_API is true', () => {

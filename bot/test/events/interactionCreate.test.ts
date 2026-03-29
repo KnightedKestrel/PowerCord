@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MessageFlags } from 'discord.js';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import interactionCreate from '../../src/events/interactionCreate';
 import logger from '../../src/utils/logger';
 
@@ -21,7 +21,10 @@ const makeCommandsMap = (command?: object) => {
     return map;
 };
 
-const makeAutocompleteInteraction = (commandName = 'testCmd', commands?: Map<string, any>) =>
+const makeAutocompleteInteraction = (
+    commandName = 'testCmd',
+    commands?: Map<string, any>,
+) =>
     ({
         isAutocomplete: vi.fn().mockReturnValue(true),
         isChatInputCommand: vi.fn().mockReturnValue(false),
@@ -63,15 +66,23 @@ describe('interactionCreate event', () => {
 
         it('returns silently when command has no autocomplete handler', async () => {
             const command = { execute: vi.fn() };
-            const interaction = makeAutocompleteInteraction('testCmd', makeCommandsMap(command));
+            const interaction = makeAutocompleteInteraction(
+                'testCmd',
+                makeCommandsMap(command),
+            );
             await execute(interaction);
 
             expect(command.execute).not.toHaveBeenCalled();
         });
 
         it('calls command.autocomplete with the interaction', async () => {
-            const command = { autocomplete: vi.fn().mockResolvedValue(undefined) };
-            const interaction = makeAutocompleteInteraction('testCmd', makeCommandsMap(command));
+            const command = {
+                autocomplete: vi.fn().mockResolvedValue(undefined),
+            };
+            const interaction = makeAutocompleteInteraction(
+                'testCmd',
+                makeCommandsMap(command),
+            );
             await execute(interaction);
 
             expect(command.autocomplete).toHaveBeenCalledWith(interaction);
@@ -81,7 +92,10 @@ describe('interactionCreate event', () => {
             const command = {
                 autocomplete: vi.fn().mockRejectedValue(new Error('ac error')),
             };
-            const interaction = makeAutocompleteInteraction('testCmd', makeCommandsMap(command));
+            const interaction = makeAutocompleteInteraction(
+                'testCmd',
+                makeCommandsMap(command),
+            );
             await execute(interaction);
 
             expect(logger.error).toHaveBeenCalledWith(
@@ -117,7 +131,10 @@ describe('interactionCreate event', () => {
 
         it('calls command.execute with the interaction', async () => {
             const command = { execute: vi.fn().mockResolvedValue(undefined) };
-            const interaction = makeChatInteraction({}, makeCommandsMap(command));
+            const interaction = makeChatInteraction(
+                {},
+                makeCommandsMap(command),
+            );
             await execute(interaction);
 
             expect(command.execute).toHaveBeenCalledWith(interaction);
@@ -127,7 +144,10 @@ describe('interactionCreate event', () => {
             const command = {
                 execute: vi.fn().mockRejectedValue(new Error('boom')),
             };
-            const interaction = makeChatInteraction({ replied: true }, makeCommandsMap(command));
+            const interaction = makeChatInteraction(
+                { replied: true },
+                makeCommandsMap(command),
+            );
             await execute(interaction);
 
             expect(interaction.followUp).toHaveBeenCalledWith(
@@ -142,7 +162,10 @@ describe('interactionCreate event', () => {
             const command = {
                 execute: vi.fn().mockRejectedValue(new Error('boom')),
             };
-            const interaction = makeChatInteraction({ replied: false, deferred: false }, makeCommandsMap(command));
+            const interaction = makeChatInteraction(
+                { replied: false, deferred: false },
+                makeCommandsMap(command),
+            );
             await execute(interaction);
 
             expect(interaction.reply).toHaveBeenCalledWith(
@@ -157,7 +180,10 @@ describe('interactionCreate event', () => {
             const command = {
                 execute: vi.fn().mockRejectedValue(new Error('boom')),
             };
-            const interaction = makeChatInteraction({ replied: false, deferred: true }, makeCommandsMap(command));
+            const interaction = makeChatInteraction(
+                { replied: false, deferred: true },
+                makeCommandsMap(command),
+            );
             await execute(interaction);
 
             expect(interaction.followUp).toHaveBeenCalled();
