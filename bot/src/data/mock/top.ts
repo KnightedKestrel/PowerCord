@@ -4,6 +4,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Zeus',
         sex: 'M',
+        url: '',
         squat: 1500,
         bench: 1000,
         deadlift: 1500,
@@ -13,6 +14,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Hades',
         sex: 'M',
+        url: '',
         squat: 1089,
         bench: 333,
         deadlift: 952,
@@ -22,6 +24,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Apollo',
         sex: 'M',
+        url: '',
         squat: 797,
         bench: 270,
         deadlift: 1078,
@@ -31,6 +34,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Thor',
         sex: 'M',
+        url: '',
         squat: 950,
         bench: 450,
         deadlift: 1100,
@@ -40,6 +44,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Loki',
         sex: 'M',
+        url: '',
         squat: 516,
         bench: 780,
         deadlift: 1197,
@@ -49,6 +54,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Odin',
         sex: 'M',
+        url: '',
         squat: 463,
         bench: 632,
         deadlift: 910,
@@ -58,6 +64,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Hercules',
         sex: 'M',
+        url: '',
         squat: 900,
         bench: 500,
         deadlift: 1000,
@@ -67,6 +74,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Atlas',
         sex: 'M',
+        url: '',
         squat: 1200,
         bench: 400,
         deadlift: 800,
@@ -76,6 +84,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Frigg',
         sex: 'F',
+        url: '',
         squat: 475,
         bench: 167,
         deadlift: 499,
@@ -85,6 +94,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Tyr',
         sex: 'M',
+        url: '',
         squat: 900,
         bench: 450,
         deadlift: 800,
@@ -94,6 +104,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Hel',
         sex: 'F',
+        url: '',
         squat: 376,
         bench: 254,
         deadlift: 335,
@@ -103,6 +114,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Poseidon',
         sex: 'M',
+        url: '',
         squat: 705,
         bench: 669,
         deadlift: 446,
@@ -112,6 +124,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Artemis',
         sex: 'F',
+        url: '',
         squat: 300,
         bench: 250,
         deadlift: 450,
@@ -121,6 +134,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Athena',
         sex: 'F',
+        url: '',
         squat: 400,
         bench: 300,
         deadlift: 450,
@@ -130,6 +144,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Persephone',
         sex: 'F',
+        url: '',
         squat: 311,
         bench: 114,
         deadlift: 496,
@@ -139,6 +154,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Freyja',
         sex: 'F',
+        url: '',
         squat: 450,
         bench: 250,
         deadlift: 500,
@@ -148,6 +164,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Demeter',
         sex: 'F',
+        url: '',
         squat: 321,
         bench: 142,
         deadlift: 408,
@@ -157,6 +174,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Hera',
         sex: 'F',
+        url: '',
         squat: 373,
         bench: 127,
         deadlift: 327,
@@ -166,6 +184,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Skadi',
         sex: 'F',
+        url: '',
         squat: 400,
         bench: 220,
         deadlift: 450,
@@ -175,6 +194,7 @@ export const topLifterData: TopLifter[] = [
     {
         name: 'Aphrodite',
         sex: 'F',
+        url: '',
         squat: 406,
         bench: 130,
         deadlift: 491,

@@ -31,14 +31,25 @@ vi.mock('axios', () => ({
 
 const mockLifter: Lifter = {
     name: 'Jane Doe',
+    url: 'https://www.openpowerlifting.org/u/janedoe',
     meets: [
         {
             place: 1,
             federation: 'USAPL',
             date: '2025-07-30',
             country: 'USA',
+            state: null,
             name: 'Mock Meet',
+            division: null,
+            age: null,
             equipment: 'Raw',
+            weightClass: null,
+            bodyWeight: null,
+            squat: null,
+            bench: null,
+            deadlift: null,
+            total: null,
+            dots: null,
         },
     ],
     personalBests: [
@@ -57,13 +68,24 @@ const mockMeet: Meet = {
     name: 'Mock Meet',
     federation: 'USAPL',
     date: '2025-07-30',
+    year: '2025',
     country: 'USA',
+    state: null,
+    town: null,
     entries: [
         {
             place: 1,
             name: 'Jane Doe',
             sex: 'F',
+            age: null,
             equipment: 'Raw',
+            weightClass: null,
+            bodyWeight: null,
+            squat: null,
+            bench: null,
+            deadlift: null,
+            total: null,
+            dots: null,
         },
     ],
 };
@@ -72,6 +94,7 @@ const mockTopLifters: TopLifter[] = [
     {
         name: 'Jane Doe',
         sex: 'F',
+        url: 'https://www.openpowerlifting.org/u/janedoe',
         squat: 150,
         bench: 100,
         deadlift: 180,
@@ -81,6 +104,7 @@ const mockTopLifters: TopLifter[] = [
     {
         name: 'John Smith',
         sex: 'M',
+        url: 'https://www.openpowerlifting.org/u/johnsmith',
         squat: 200,
         bench: 120,
         deadlift: 220,
