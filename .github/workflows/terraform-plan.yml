@@ -8,7 +8,6 @@ on:
 
 env:
     TF_CLOUD_ORGANIZATION: 'PowerCord'
-    TF_API_TOKEN: '${{ secrets.TF_API_TOKEN }}'
     TF_WORKSPACE: 'powercord-bot'
     CONFIG_DIRECTORY: './terraform'
 
@@ -36,48 +35,11 @@ jobs:
               with:
                   sarif_file: checkov.sarif
 
-    infracost-report:
-        name: Infracost Report
-        runs-on: ubuntu-latest
-        permissions:
-            contents: read
-            pull-requests: write
-        steps:
-            - name: Set up Infracost
-              uses: infracost/actions/setup@v3
-              with:
-                  api-key: ${{ secrets.INFRACOST_API_KEY }}
-            - name: Check out base branch
-              uses: actions/checkout@v6
-              with:
-                  ref: '${{ github.event.pull_request.base.ref }}'
-            - name: Generate Infracost cost estimate baseline
-              run: |
-                  infracost breakdown --path=. \
-                                      --format=json \
-                                      --out-file=/tmp/infracost-base.json
-            - name: Check out current branch
-              uses: actions/checkout@v6
-            - name: Generate Infracost diff
-              run: |
-                  infracost diff --path=. \
-                                 --format=json \
-                                 --compare-to=/tmp/infracost-base.json \
-                                 --out-file=/tmp/infracost.json
-            - name: Post/update Infracost comment
-              run: |
-                  infracost comment github --path=/tmp/infracost.json \
-                                           --repo=$GITHUB_REPOSITORY \
-                                           --github-token=${{ github.token }} \
-                                           --pull-request=${{ github.event.pull_request.number }} \
-                                           --behavior=update
-
     terraform-plan:
         name: 'Terraform Plan'
         runs-on: ubuntu-latest
         permissions:
             contents: read
-            pull-requests: write
         steps:
             - name: Checkout
               uses: actions/checkout@v6
@@ -85,6 +47,8 @@ jobs:
             - name: Upload Configuration
               uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.2
               id: plan-upload
+              env:
+                  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
               with:
                   workspace: ${{ env.TF_WORKSPACE }}
                   directory: ${{ env.CONFIG_DIRECTORY }}
@@ -93,6 +57,8 @@ jobs:
             - name: Create Plan Run
               uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.2
               id: plan-run
+              env:
+                  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
               with:
                   workspace: ${{ env.TF_WORKSPACE }}
                   configuration_version: ${{ steps.plan-upload.outputs.configuration_version_id }}

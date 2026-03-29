@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getLifter, getMeet, getTopLifters } from '../../src/data/apiClient';
 import { Lifter, Meet, TopLifter } from '../../src/types/types';
 import logger from '../../src/utils/logger';
@@ -12,9 +11,28 @@ vi.mock('../../src/utils/logger', () => ({
     },
 }));
 
-vi.mock('axios');
+vi.mock('../../src/utils/config', () => ({
+    config: {
+        API_BASE_URL: 'http://localhost:8080',
+        API_SRV_DOMAIN: undefined,
+        ENABLE_MOCK_API: false,
+    },
+}));
 
-const mockAxios = vi.mocked(axios, true);
+vi.mock('../../src/utils/srvResolver', () => ({
+    resolveSrv: vi.fn().mockResolvedValue({ host: 'localhost', port: 8080 }),
+}));
+
+const mockGet = vi.hoisted(() => vi.fn());
+
+vi.mock('axios', () => ({
+    default: {
+        create: vi.fn(() => ({
+            get: mockGet,
+            defaults: { baseURL: 'http://localhost:8080' },
+        })),
+    },
+}));
 
 const mockLifter: Lifter = {
     name: 'Jane Doe',
@@ -77,73 +95,65 @@ const mockTopLifters: TopLifter[] = [
 ];
 
 describe('apiClient', () => {
-    let mockGet: ReturnType<typeof vi.fn>;
-
     beforeEach(() => {
-        mockGet = vi.fn();
-        mockAxios.create.mockReturnValue({
-            get: mockGet,
-        } as any);
+        mockGet.mockReset();
+        vi.mocked(logger.error).mockClear();
     });
 
-    afterEach(() => {
-        vi.restoreAllMocks();
+    it('getLifter returns lifter data from the API', async () => {
+        mockGet.mockResolvedValueOnce({ data: mockLifter });
+        const result = await getLifter('Jane Doe');
+
+        expect(result).toEqual(mockLifter);
+        expect(logger.error).not.toHaveBeenCalled();
     });
 
-    // it('getLifter returns lifter from API', async () => {
-    //     mockGet.mockResolvedValueOnce({ data: mockLifter });
-    //     const result = await getLifter('Jane Doe');
+    it('getMeet returns meet data from the API', async () => {
+        mockGet.mockResolvedValueOnce({ data: mockMeet });
+        const result = await getMeet('Mock Meet');
 
-    //     expect(logger.error).not.toHaveBeenCalled();
-    //     expect(result).toEqual(mockLifter);
-    // });
+        expect(result).toEqual(mockMeet);
+        expect(logger.error).not.toHaveBeenCalled();
+    });
 
-    // it('getMeet returns meet from API', async () => {
-    //     mockGet.mockResolvedValueOnce({ data: mockMeet });
-    //     const result = await getMeet('Mock Meet');
+    it('getTopLifters returns top lifter data from the API', async () => {
+        mockGet.mockResolvedValueOnce({ data: mockTopLifters });
+        const result = await getTopLifters(1);
 
-    //     expect(logger.error).not.toHaveBeenCalled();
-    //     expect(result).toEqual(mockMeet);
-    // });
+        expect(result).toEqual(mockTopLifters);
+        expect(logger.error).not.toHaveBeenCalled();
+    });
 
-    // it('getTopLifters returns top lifters from API', async () => {
-    //     mockGet.mockResolvedValueOnce({ data: mockTopLifters });
-    //     const result = await getTopLifters(1);
-
-    //     expect(logger.error).not.toHaveBeenCalled();
-    //     expect(result).toEqual(mockTopLifters);
-    // });
-
-    it('getLifter returns undefined on error', async () => {
+    it('getLifter returns undefined and logs error on network failure', async () => {
         mockGet.mockRejectedValueOnce(new Error('Network error'));
         const result = await getLifter('Jane Doe');
 
+        expect(result).toBeUndefined();
         expect(logger.error).toHaveBeenCalledWith(
             'Error fetching lifter:',
             expect.any(Error),
         );
-        expect(result).toBeUndefined();
     });
 
-    it('getMeet returns undefined on error', async () => {
+    it('getMeet returns undefined and logs error on network failure', async () => {
         mockGet.mockRejectedValueOnce(new Error('Network error'));
         const result = await getMeet('Mock Meet');
 
+        expect(result).toBeUndefined();
         expect(logger.error).toHaveBeenCalledWith(
             'Error fetching meet:',
             expect.any(Error),
         );
-        expect(result).toBeUndefined();
     });
 
-    it('getTopLifters returns undefined on error', async () => {
+    it('getTopLifters returns undefined and logs error on network failure', async () => {
         mockGet.mockRejectedValueOnce(new Error('Network error'));
         const result = await getTopLifters(1);
 
+        expect(result).toBeUndefined();
         expect(logger.error).toHaveBeenCalledWith(
             'Error fetching top lifters:',
             expect.any(Error),
         );
-        expect(result).toBeUndefined();
     });
 });

@@ -91,7 +91,7 @@ describe('Lifter command', () => {
             );
         });
 
-        it('handles no name provided', async () => {
+        it('replies with error when no name is provided', async () => {
             const interaction = createChatInputInteraction({ name: null });
             await execute(interaction);
 
@@ -101,7 +101,7 @@ describe('Lifter command', () => {
             );
         });
 
-        it('handles lifter not found', async () => {
+        it('replies with not-found message when lifter does not exist', async () => {
             mockGetLifter.mockResolvedValue(undefined);
             const interaction = createChatInputInteraction({
                 name: 'UnknownLifter',
@@ -114,7 +114,7 @@ describe('Lifter command', () => {
             );
         });
 
-        it('handles lifter with no meets', async () => {
+        it('replies with not-found message when lifter has no meets', async () => {
             mockGetLifter.mockResolvedValue({ ...mockLifter, meets: [] });
             const interaction = createChatInputInteraction({
                 name: 'Heracles',
@@ -126,7 +126,7 @@ describe('Lifter command', () => {
             );
         });
 
-        it('handles API error gracefully', async () => {
+        it('replies with error message when the API throws', async () => {
             mockGetLifter.mockRejectedValue(new Error('API failure'));
             const interaction = createChatInputInteraction({
                 name: 'Heracles',

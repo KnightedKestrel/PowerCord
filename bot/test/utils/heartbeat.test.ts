@@ -28,11 +28,10 @@ describe('heartbeat', () => {
     });
 
     afterEach(() => {
-        vi.restoreAllMocks();
         vi.useRealTimers();
     });
 
-    it('should skip heartbeat when URL is not configured', () => {
+    it('skips heartbeat when URL is not configured', () => {
         (config as any).BETTERSTACK_HEARTBEAT_URL = undefined;
 
         startHeartbeat();
@@ -43,7 +42,7 @@ describe('heartbeat', () => {
         expect(mockAxios.get).not.toHaveBeenCalled();
     });
 
-    it('should start heartbeat when URL is configured', () => {
+    it('starts heartbeat when URL is configured', () => {
         (config as any).BETTERSTACK_HEARTBEAT_URL =
             'https://heartbeat.betterstack.com/test';
         mockAxios.get.mockResolvedValue({ data: 'ok' });
@@ -59,7 +58,7 @@ describe('heartbeat', () => {
         );
     });
 
-    it('should send heartbeat at regular intervals', async () => {
+    it('sends heartbeat at 60-second intervals', async () => {
         (config as any).BETTERSTACK_HEARTBEAT_URL =
             'https://heartbeat.betterstack.com/test';
         mockAxios.get.mockResolvedValue({ data: 'ok' });
@@ -75,7 +74,7 @@ describe('heartbeat', () => {
         expect(mockAxios.get).toHaveBeenCalledTimes(3);
     });
 
-    it('should log error when heartbeat fails', async () => {
+    it('logs error when heartbeat request fails', async () => {
         (config as any).BETTERSTACK_HEARTBEAT_URL =
             'https://heartbeat.betterstack.com/test';
         const error = new Error('Network error');

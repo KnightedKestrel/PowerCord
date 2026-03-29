@@ -11,6 +11,7 @@ export class SlashCommandBuilder {
 }
 
 export class EmbedBuilder {
+    author: unknown;
     color: unknown;
     title: unknown;
     description: unknown;
@@ -18,6 +19,10 @@ export class EmbedBuilder {
     url: unknown;
     fields: unknown[] = [];
 
+    setAuthor(author: unknown): this {
+        this.author = author;
+        return this;
+    }
     setColor(color: unknown): this {
         this.color = color;
         return this;
