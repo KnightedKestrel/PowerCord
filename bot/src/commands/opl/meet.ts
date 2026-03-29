@@ -69,12 +69,12 @@ module.exports = {
                 const fields = pageEntries.flatMap((entry, index) => [
                     {
                         name: `\`${offset + index + 1}.\` ${entry.name}`,
-                        value: `Squat: ${entry.squat} | Bench: ${entry.bench} | Deadlift: ${entry.deadlift}`,
+                        value: `Squat: ${entry.squat ?? '—'} | Bench: ${entry.bench ?? '—'} | Deadlift: ${entry.deadlift ?? '—'}`,
                         inline: true,
                     },
                     {
                         name: `\u200B`,
-                        value: `Total: ${entry.total} | Dots: ${entry.dots ? entry.dots.toFixed(2) : '—'}`,
+                        value: `Total: ${entry.total ?? '—'} | Dots: ${entry.dots != null ? entry.dots.toFixed(2) : '—'}`,
                         inline: true,
                     },
                     {

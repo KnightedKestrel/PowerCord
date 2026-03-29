@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "module": "commonjs",
+        "module": "node16",
         "rootDir": "./src/",
         "outDir": "./dist/",
         "strict": true,
-        "moduleResolution": "node",
+        "moduleResolution": "node16",
         "importHelpers": true,
         "experimentalDecorators": true,
         "esModuleInterop": true,
@@ -15,8 +15,7 @@
         "forceConsistentCasingInFileNames": true,
         "removeComments": true,
         "typeRoots": ["node_modules/@types"],
-        "sourceMap": false,
-        "baseUrl": "./"
+        "sourceMap": false
     },
     "files": ["src/index.ts"],
     "include": ["src/**/*", "src/types/**/*"],

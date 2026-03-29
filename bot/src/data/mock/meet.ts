@@ -5,8 +5,10 @@ export const meetData: Meet[] = [
         name: 'Labors of Strength',
         federation: 'IPF',
         date: '2025-06-15',
+        year: '2025',
         country: 'Greece',
         state: '',
+        town: null,
         entries: [
             {
                 place: 1,
@@ -154,8 +156,10 @@ export const meetData: Meet[] = [
         name: 'Thunder Hammer Meet',
         federation: 'WRPF',
         date: '2025-07-10',
+        year: '2025',
         country: 'Norway',
         state: '',
+        town: null,
         entries: [
             {
                 place: 1,
@@ -303,8 +307,10 @@ export const meetData: Meet[] = [
         name: 'Celestial Burden',
         federation: 'GSF',
         date: '2025-04-22',
+        year: '2025',
         country: 'Greece',
         state: '',
+        town: null,
         entries: [
             {
                 place: 1,
@@ -452,8 +458,10 @@ export const meetData: Meet[] = [
         name: 'Wisdom Warriors',
         federation: 'IPF',
         date: '2025-05-08',
+        year: '2025',
         country: 'Greece',
         state: '',
+        town: null,
         entries: [
             {
                 place: 1,
@@ -601,8 +609,10 @@ export const meetData: Meet[] = [
         name: 'Valkyrie Valor',
         federation: 'GSF',
         date: '2025-02-14',
+        year: '2025',
         country: 'Sweden',
         state: '',
+        town: null,
         entries: [
             {
                 place: 1,

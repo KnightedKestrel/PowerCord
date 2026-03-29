@@ -45,8 +45,10 @@ const mockSinglePageMeet = {
     name: 'Labors of Strength',
     federation: 'IPF',
     date: '2025-06-15',
+    year: '2025',
     country: 'Greece',
-    state: '',
+    state: null,
+    town: null,
     entries: [makeEntry('Hercules', 1551.41)],
 };
 
@@ -54,8 +56,10 @@ const mockMultiPageMeet = {
     name: 'Multi Page Meet',
     federation: 'IPF',
     date: '2025-06-15',
+    year: '2025',
     country: 'Greece',
-    state: '',
+    state: null,
+    town: null,
     entries: [
         makeEntry('A', 600),
         makeEntry('B', 590),

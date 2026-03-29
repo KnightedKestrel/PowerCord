@@ -6,66 +6,68 @@
 
 export interface Lifter {
     name: string;
-    sex?: string;
-    url?: string;
+    url: string;
     meets: {
         place: number;
         federation: string;
         date: string;
         country: string;
-        state?: string;
+        state: string | null;
         name: string;
-        division?: string;
-        age?: number;
+        division: string | null;
+        age: number | null;
         equipment: string;
-        weightClass?: number;
-        bodyWeight?: number;
-        squat?: number;
-        bench?: number;
-        deadlift?: number;
-        total?: number;
-        dots?: number;
+        weightClass: number | null;
+        bodyWeight: number | null;
+        squat: number | null;
+        bench: number | null;
+        deadlift: number | null;
+        total: number | null;
+        dots: number | null;
     }[];
-    personalBests?: {
-        equipment: string;
-        squat?: string;
-        bench?: string;
-        deadlift?: string;
-        total: string;
-        dots: string;
-    }[];
+    personalBests:
+        | {
+              equipment: string;
+              squat: string | null;
+              bench: string | null;
+              deadlift: string | null;
+              total: string;
+              dots: string;
+          }[]
+        | null;
 }
 
 export interface Meet {
     name: string;
     federation: string;
     date: string;
+    year: string;
     country: string;
-    state?: string;
-    town?: string;
+    state: string | null;
+    town: string | null;
     entries: {
         place: number;
         name: string;
         sex: string;
-        age?: number;
+        age: number | null;
         equipment: string;
-        weightClass?: number;
-        bodyWeight?: number;
-        squat?: number;
-        bench?: number;
-        deadlift?: number;
-        total?: number;
-        dots?: number;
+        weightClass: number | null;
+        bodyWeight: number | null;
+        squat: number | null;
+        bench: number | null;
+        deadlift: number | null;
+        total: number | null;
+        dots: number | null;
     }[];
 }
 
 export interface TopLifter {
     name: string;
     sex: string;
-    url?: string;
-    squat: number;
-    bench: number;
-    deadlift: number;
-    total: number;
+    url: string;
+    squat: number | null;
+    bench: number | null;
+    deadlift: number | null;
+    total: number | null;
     dots: number;
 }

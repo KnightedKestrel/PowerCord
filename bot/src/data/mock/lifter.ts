@@ -3,7 +3,6 @@ import { Lifter } from '../../types/types';
 export const lifterData: Lifter[] = [
     {
         name: 'Heracles',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Heracles',
         meets: [
             {
@@ -109,6 +108,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '950',
+                bench: null,
+                deadlift: null,
                 total: '2300',
                 dots: '1341.14',
             },
@@ -116,7 +117,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Thor',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Thor',
         meets: [
             {
@@ -222,6 +222,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '1000',
+                bench: null,
+                deadlift: null,
                 total: '2400',
                 dots: '1385.36',
             },
@@ -229,7 +231,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Atlas',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Atlas_(mythology)',
         meets: [
             {
@@ -335,6 +336,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '1250',
+                bench: null,
+                deadlift: null,
                 total: '2300',
                 dots: '1292.41',
             },
@@ -342,7 +345,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Athena',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Athena',
         meets: [
             {
@@ -448,6 +450,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '450',
+                bench: null,
+                deadlift: null,
                 total: '1120',
                 dots: '1124.57',
             },
@@ -455,7 +459,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Freyja',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Freyja',
         meets: [
             {
@@ -561,6 +564,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '500',
+                bench: null,
+                deadlift: null,
                 total: '1170',
                 dots: '1127.8',
             },
@@ -568,7 +573,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Zeus',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Zeus',
         meets: [
             {
@@ -674,6 +678,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '1550',
+                bench: null,
+                deadlift: null,
                 total: '3850',
                 dots: '2117.59',
             },
@@ -681,7 +687,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Loki',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Loki',
         meets: [
             {
@@ -787,6 +792,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '1081',
+                bench: null,
+                deadlift: null,
                 total: '2877',
                 dots: '1650.45',
             },
@@ -794,7 +801,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Hel',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Hel_(mythological_being)',
         meets: [
             {
@@ -900,6 +906,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '432',
+                bench: null,
+                deadlift: null,
                 total: '1021',
                 dots: '1204.02',
             },
@@ -907,7 +915,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Hades',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Hades',
         meets: [
             {
@@ -1013,6 +1020,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '1089',
+                bench: null,
+                deadlift: null,
                 total: '2374',
                 dots: '1760.88',
             },
@@ -1020,7 +1029,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Demeter',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Demeter',
         meets: [
             {
@@ -1126,6 +1134,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '371',
+                bench: null,
+                deadlift: null,
                 total: '913',
                 dots: '841.53',
             },
@@ -1133,7 +1143,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Odin',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Odin',
         meets: [
             {
@@ -1239,6 +1248,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '912',
+                bench: null,
+                deadlift: null,
                 total: '2072',
                 dots: '1355.24',
             },
@@ -1246,7 +1257,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Frigg',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Frigg',
         meets: [
             {
@@ -1352,6 +1362,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '525',
+                bench: null,
+                deadlift: null,
                 total: '1185',
                 dots: '1373.56',
             },
@@ -1359,7 +1371,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Poseidon',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Poseidon',
         meets: [
             {
@@ -1465,6 +1476,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '787',
+                bench: null,
+                deadlift: null,
                 total: '1902',
                 dots: '1179.54',
             },
@@ -1472,7 +1485,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Artemis',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Artemis',
         meets: [
             {
@@ -1578,6 +1590,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '350',
+                bench: null,
+                deadlift: null,
                 total: '1032',
                 dots: '1138.06',
             },
@@ -1585,7 +1599,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Apollo',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/Apollo',
         meets: [
             {
@@ -1691,6 +1704,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '850',
+                bench: null,
+                deadlift: null,
                 total: '2210',
                 dots: '1535.33',
             },
@@ -1698,7 +1713,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Tyr',
-        sex: 'M',
         url: 'https://en.wikipedia.org/wiki/T%C3%BDr',
         meets: [
             {
@@ -1804,6 +1818,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '1034',
+                bench: null,
+                deadlift: null,
                 total: '2120',
                 dots: '1288.65',
             },
@@ -1811,7 +1827,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Persephone',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Persephone',
         meets: [
             {
@@ -1917,6 +1932,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '484',
+                bench: null,
+                deadlift: null,
                 total: '1094',
                 dots: '1288.11',
             },
@@ -1924,7 +1941,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Hera',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Hera',
         meets: [
             {
@@ -2030,6 +2046,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '470',
+                bench: null,
+                deadlift: null,
                 total: '1055',
                 dots: '1046.74',
             },
@@ -2037,7 +2055,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Aphrodite',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Aphrodite',
         meets: [
             {
@@ -2143,6 +2160,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '456',
+                bench: null,
+                deadlift: null,
                 total: '1026',
                 dots: '975.34',
             },
@@ -2150,7 +2169,6 @@ export const lifterData: Lifter[] = [
     },
     {
         name: 'Skadi',
-        sex: 'F',
         url: 'https://en.wikipedia.org/wiki/Ska%C3%B0i',
         meets: [
             {
@@ -2256,6 +2274,8 @@ export const lifterData: Lifter[] = [
             {
                 equipment: 'Wraps',
                 squat: '476',
+                bench: null,
+                deadlift: null,
                 total: '1106',
                 dots: '998.56',
             },

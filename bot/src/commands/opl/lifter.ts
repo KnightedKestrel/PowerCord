@@ -72,17 +72,17 @@ module.exports = {
                 {
                     name: `\`${index + 1}.\` ${meet.federation} ${meet.name}`,
                     value: `
-                    ${meet.place}st Place, ${meet.state}
+                    ${meet.place}st Place${meet.state ? `, ${meet.state}` : ''}
                     Date: ${meet.date}
-                    Age: ${meet.age}
+                    Age: ${meet.age ?? '—'}
                     Equip: ${meet.equipment}
-                    Class: ${meet.weightClass}
-                    Weight: ${meet.bodyWeight}`,
+                    Class: ${meet.weightClass ?? '—'}
+                    Weight: ${meet.bodyWeight ?? '—'}`,
                     inline: true,
                 },
                 {
                     name: `\u200B`,
-                    value: `\`\`\`Squat: ${meet.squat}\nBench: ${meet.bench}\nDead: ${meet.deadlift}\n\nTotal: ${meet.total}\nDOTS: ${meet.dots}\`\`\``,
+                    value: `\`\`\`Squat: ${meet.squat ?? '—'}\nBench: ${meet.bench ?? '—'}\nDead: ${meet.deadlift ?? '—'}\n\nTotal: ${meet.total ?? '—'}\nDOTS: ${meet.dots ?? '—'}\`\`\``,
                     inline: true,
                 },
                 {

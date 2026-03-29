@@ -24,6 +24,7 @@ vi.mock('../../src/data/api', () => ({
 const makeLifter = (name: string, dots: number) => ({
     name,
     sex: 'M' as const,
+    url: '',
     squat: 300,
     bench: 200,
     deadlift: 400,

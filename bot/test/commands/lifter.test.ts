@@ -28,7 +28,6 @@ vi.mock('../../src/data/api', () => ({
 
 const mockLifter = {
     name: 'Heracles',
-    sex: 'M',
     url: 'https://www.openpowerlifting.org/u/heracles',
     meets: [
         {
@@ -38,6 +37,7 @@ const mockLifter = {
             country: 'Greece',
             state: 'Attica',
             name: 'Labors of Strength',
+            division: 'Open',
             age: 39,
             equipment: 'Raw',
             weightClass: 100,

@@ -80,12 +80,12 @@ module.exports = {
                 const fields = pageLifters.flatMap((lifter, index) => [
                     {
                         name: `\`${startIndex + index + 1}.\` ${lifter.name} (${lifter.sex})`,
-                        value: `squat: ${lifter.squat} | bench : ${lifter.bench} | deadlift: ${lifter.deadlift}`,
+                        value: `squat: ${lifter.squat ?? '—'} | bench: ${lifter.bench ?? '—'} | deadlift: ${lifter.deadlift ?? '—'}`,
                         inline: true,
                     },
                     {
                         name: `\u200B`,
-                        value: `total: ${lifter.total} | dots: ${(lifter.dots || 0).toFixed(2)}`,
+                        value: `total: ${lifter.total ?? '—'} | dots: ${lifter.dots.toFixed(2)}`,
                         inline: true,
                     },
                     {
