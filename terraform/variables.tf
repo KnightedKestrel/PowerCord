@@ -34,10 +34,9 @@ variable "discord_token" {
   sensitive   = true
 }
 
-variable "api_srv_domain" {
-  description = "SRV domain for API discovery"
+variable "api_base_url" {
+  description = "CloudFront URL for the PowerCord data API"
   type        = string
-  default     = "powercord-api.powercord.internal"
 }
 
 variable "enable_mock_api" {

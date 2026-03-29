@@ -14,13 +14,8 @@ vi.mock('../../src/utils/logger', () => ({
 vi.mock('../../src/utils/config', () => ({
     config: {
         API_BASE_URL: 'http://localhost:8080',
-        API_SRV_DOMAIN: undefined,
         ENABLE_MOCK_API: false,
     },
-}));
-
-vi.mock('../../src/utils/srvResolver', () => ({
-    resolveSrv: vi.fn().mockResolvedValue({ host: 'localhost', port: 8080 }),
 }));
 
 const mockGet = vi.hoisted(() => vi.fn());

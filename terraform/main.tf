@@ -13,17 +13,6 @@ data "terraform_remote_state" "shared" {
   }
 }
 
-# Reference API state for private IP
-data "terraform_remote_state" "api" {
-  backend = "remote"
-  config = {
-    organization = "PowerCord"
-    workspaces = {
-      name = "powercord-api"
-    }
-  }
-}
-
 # ECR Repository for Node.js bot Docker image
 resource "aws_ecr_repository" "bot_repo" {
   name                 = "powercord-bot"
@@ -162,8 +151,7 @@ resource "aws_ecs_task_definition" "bot_task" {
     environment = [
       { name = "CLIENT_ID", value = var.client_id },
       { name = "DISCORD_TOKEN", value = var.discord_token },
-      { name = "API_BASE_URL", value = "http://powercord-api.powercord.internal:8080" },
-      { name = "API_SRV_DOMAIN", value = var.api_srv_domain },
+      { name = "API_BASE_URL", value = var.api_base_url },
       { name = "ENABLE_MOCK_API", value = var.enable_mock_api },
       { name = "LOGTAIL_SOURCE_TOKEN", value = var.logtail_source_token },
       { name = "LOGTAIL_INGESTING_HOST", value = var.logtail_ingesting_host },
