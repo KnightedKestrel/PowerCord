@@ -1,29 +1,33 @@
 import dns from 'dns/promises';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import logger from '../../src/utils/logger';
 import { resolveSrv, SrvRecord } from '../../src/utils/srvResolver';
 
 vi.mock('dns/promises');
 
-const infoSpy = vi
-    .spyOn(logger, 'info')
-    .mockImplementation((..._args: any[]) => logger);
-const errorSpy = vi
-    .spyOn(logger, 'error')
-    .mockImplementation((..._args: any[]) => logger);
+vi.mock('../../src/utils/logger', () => ({
+    default: {
+        info: vi.fn(),
+        error: vi.fn(),
+    },
+}));
 
 describe('srvResolver', () => {
-    it('should resolve and return the top SRV record', async () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
+    it('resolves and returns the highest-priority SRV record', async () => {
         const mockRecords: SrvRecord[] = [
             { name: 'host1.example.com', port: 8080, priority: 10, weight: 1 },
             { name: 'host2.example.com', port: 8081, priority: 5, weight: 2 },
         ];
-        (dns.resolveSrv as any).mockResolvedValue(mockRecords);
+        vi.mocked(dns.resolveSrv).mockResolvedValue(mockRecords);
 
         const result = await resolveSrv('powercord-api.powercord.internal');
 
         expect(result).toEqual({ host: 'host2.example.com', port: 8081 });
-        expect(infoSpy).toHaveBeenCalledWith(
+        expect(logger.info).toHaveBeenCalledWith(
             expect.stringContaining('Resolved SRV'),
         );
         expect(dns.resolveSrv).toHaveBeenCalledWith(
@@ -31,25 +35,25 @@ describe('srvResolver', () => {
         );
     });
 
-    it('should throw if no SRV records found', async () => {
-        (dns.resolveSrv as any).mockResolvedValue([]);
+    it('throws when no SRV records are found', async () => {
+        vi.mocked(dns.resolveSrv).mockResolvedValue([]);
 
         await expect(resolveSrv('invalid.domain')).rejects.toThrow(
             'No SRV records found for invalid.domain',
         );
-        expect(errorSpy).toHaveBeenCalledWith(
+        expect(logger.error).toHaveBeenCalledWith(
             expect.stringContaining('Error resolving SRV'),
             expect.any(Error),
         );
     });
 
-    it('should throw on DNS resolution error', async () => {
-        (dns.resolveSrv as any).mockRejectedValue(new Error('DNS error'));
+    it('throws on DNS resolution error', async () => {
+        vi.mocked(dns.resolveSrv).mockRejectedValue(new Error('DNS error'));
 
         await expect(
             resolveSrv('powercord-api.powercord.internal'),
         ).rejects.toThrow('DNS error');
-        expect(errorSpy).toHaveBeenCalledWith(
+        expect(logger.error).toHaveBeenCalledWith(
             expect.stringContaining('Error resolving SRV'),
             expect.any(Error),
         );

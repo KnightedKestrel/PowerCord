@@ -1,5 +1,5 @@
 import express from 'express';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import logger from '../../src/utils/logger';
 
 vi.mock('express', () => ({
@@ -19,12 +19,10 @@ vi.mock('../../src/utils/logger', () => ({
 }));
 
 describe('health', () => {
-    afterEach(() => {
-        vi.clearAllMocks();
-    });
+    let mockApp: { get: ReturnType<typeof vi.fn>; listen: ReturnType<typeof vi.fn> };
 
-    it('should set up health endpoint and start server on port 3000', async () => {
-        const mockApp = {
+    beforeAll(async () => {
+        mockApp = {
             get: vi.fn(),
             listen: vi.fn((port: number, callback: () => void) => {
                 callback();
@@ -32,31 +30,29 @@ describe('health', () => {
             }),
         };
         (express as any).mockReturnValue(mockApp);
-
         await import('../../src/utils/health');
+    });
 
-        expect(mockApp.get).toHaveBeenCalledWith(
-            '/health',
-            expect.any(Function),
-        );
+    it('registers GET /health route', () => {
+        expect(mockApp.get).toHaveBeenCalledWith('/health', expect.any(Function));
+    });
+
+    it('GET /health handler responds with { status: "ok" }', () => {
+        const handler = (mockApp.get.mock.calls as any[]).find(
+            ([path]) => path === '/health',
+        )?.[1];
+        const res = { send: vi.fn() };
+        handler({}, res);
+        expect(res.send).toHaveBeenCalledWith({ status: 'ok' });
+    });
+
+    it('listens on port 3000', () => {
         expect(mockApp.listen).toHaveBeenCalledWith(3000, expect.any(Function));
+    });
+
+    it('logs startup message', () => {
         expect(logger.info).toHaveBeenCalledWith(
             'Health check is running on port 3000',
         );
-    });
-
-    it('should return status ok from health endpoint handler', () => {
-        const mockReq = {};
-        const mockRes = {
-            send: vi.fn(),
-        };
-
-        const healthHandler = (req: any, res: any) => {
-            res.send({ status: 'ok' });
-        };
-
-        healthHandler(mockReq, mockRes);
-
-        expect(mockRes.send).toHaveBeenCalledWith({ status: 'ok' });
     });
 });
