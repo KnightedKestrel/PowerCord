@@ -28,7 +28,7 @@
                             >Add to Discord</UButton
                         >
                         <UButton
-                            to="https://github.com/KnightedKestrel/PowerCord"
+                            to="https://github.com/kystrel/powercord"
                             target="_blank"
                             size="xl"
                             icon="line-md:github-twotone"

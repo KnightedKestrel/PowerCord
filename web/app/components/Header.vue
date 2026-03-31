@@ -61,7 +61,7 @@ const navItems = ref<NavigationMenuItem[][]>([
         },
         {
             label: 'Source',
-            to: 'https://github.com/KnightedKestrel/PowerCord',
+            to: 'https://github.com/kystrel/powercord',
             target: '_blank',
             class: 'text-md',
         },
