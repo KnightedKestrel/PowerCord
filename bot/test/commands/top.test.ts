@@ -1,4 +1,5 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import * as topCommand from '../../src/commands/opl/top';
 import {
     createChatInputInteraction,
     createPaginationInteraction,
@@ -48,19 +49,10 @@ const mockTopLiftersMultiPage = [
 ];
 
 describe('Top command', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let execute: (interaction: any) => Promise<void>;
+    const execute = topCommand['execute'];
 
-    beforeEach(async () => {
-        vi.resetModules();
-        vi.useFakeTimers();
+    beforeEach(() => {
         mockGetTopLifters.mockReset();
-        const topModule = await import('../../src/commands/opl/top');
-        execute = topModule['execute'];
-    });
-
-    afterEach(() => {
-        vi.useRealTimers();
     });
 
     it('replies with not-found message when no data exists', async () => {
