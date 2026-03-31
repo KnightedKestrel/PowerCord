@@ -5,7 +5,7 @@
                 <p class="text-muted">
                     Copyright &copy; 2024-{{ currentYear }} |
                     <ULink
-                        to="https://github.com/KnightedKestrel/PowerCord/blob/master/LICENSE"
+                        to="https://github.com/kystrel/powercord/blob/master/LICENSE"
                         target="_blank"
                         class="hover:text-primary text-white"
                         external
