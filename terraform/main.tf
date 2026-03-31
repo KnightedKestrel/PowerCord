@@ -2,14 +2,32 @@ provider "aws" {
   region = var.aws_region
 }
 
-# Reference shared VPC state
-data "terraform_remote_state" "shared" {
-  backend = "remote"
-  config = {
-    organization = "PowerCord"
-    workspaces = {
-      name = "powercord-shared-vpc"
-    }
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.19.0"
+
+  name = "powercord-bot-vpc"
+  cidr = "10.1.0.0/16"
+
+  azs            = ["us-east-2a"]
+  public_subnets = ["10.1.1.0/24"]
+
+  enable_dns_hostnames = true
+}
+
+resource "aws_security_group" "bot" {
+  name   = "powercord-bot-sg"
+  vpc_id = module.vpc.vpc_id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "powercord-bot-sg"
   }
 }
 
@@ -103,10 +121,10 @@ resource "aws_instance" "ecs_instance" {
   ami                         = data.aws_ami.ecs_optimized.id
   instance_type               = var.instance_type
   key_name                    = "powercord-bot-key"
-  subnet_id                   = element(data.terraform_remote_state.shared.outputs.public_subnet_ids, 0)
+  subnet_id                   = module.vpc.public_subnets[0]
   associate_public_ip_address = true
   iam_instance_profile        = aws_iam_instance_profile.ecs_instance_profile.name
-  vpc_security_group_ids      = [data.terraform_remote_state.shared.outputs.internal_sg_id]
+  vpc_security_group_ids      = [aws_security_group.bot.id]
 
   metadata_options {
     http_endpoint               = "enabled"
