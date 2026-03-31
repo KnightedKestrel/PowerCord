@@ -11,39 +11,6 @@ import { api } from '../../data/api';
 import { TopLifter } from '../../types/types';
 import logger from '../../utils/logger';
 
-let cachedTopLifters: TopLifter[] | null = null;
-let cacheInterval: NodeJS.Timeout | null = null;
-
-async function updateTopLiftersCache(): Promise<void> {
-    try {
-        const freshData = await api.getTopLifters();
-
-        if (freshData) {
-            cachedTopLifters = freshData;
-            logger.info('Top lifters cache updated successfully');
-        }
-    } catch (error) {
-        logger.error('Error updating top lifters cache:', error);
-    }
-}
-
-async function initializeCache(): Promise<void> {
-    if (cacheInterval) return;
-
-    await updateTopLiftersCache();
-
-    cacheInterval = setInterval(updateTopLiftersCache, 12 * 60 * 60 * 1000);
-    logger.info('Top lifters cache initialized with 12-hour refresh interval');
-}
-
-async function getTopLifters(): Promise<TopLifter[] | undefined> {
-    if (!cachedTopLifters && !cacheInterval) {
-        await initializeCache();
-    }
-
-    return cachedTopLifters || undefined;
-}
-
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('top')
@@ -53,7 +20,7 @@ module.exports = {
             await interaction.deferReply();
 
             const allTopLifters: TopLifter[] | undefined =
-                await getTopLifters();
+                await api.getTopLifters();
 
             if (!allTopLifters || allTopLifters.length === 0) {
                 await interaction.editReply('No data found for top lifters.');
