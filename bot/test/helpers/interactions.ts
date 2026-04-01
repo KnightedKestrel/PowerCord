@@ -43,6 +43,7 @@ export const createPaginationInteraction = (
                 },
             ),
     };
+    let capturedFilter: ((i: any) => boolean) | undefined;
     const interaction = {
         options: { getString: vi.fn().mockReturnValue(opts.name ?? null) },
         deferReply: vi.fn().mockResolvedValue(undefined),
@@ -51,11 +52,21 @@ export const createPaginationInteraction = (
         fetchReply: vi.fn().mockResolvedValue({
             createMessageComponentCollector: vi
                 .fn()
-                .mockReturnValue(mockCollector),
+                .mockImplementation(
+                    (options?: { filter?: (i: any) => boolean }) => {
+                        capturedFilter = options?.filter;
+                        return mockCollector;
+                    },
+                ),
         }),
         user: { id: '12345' },
         deferred: false,
         replied: false,
     };
-    return { interaction, handlers, mockCollector };
+    return {
+        interaction,
+        handlers,
+        mockCollector,
+        getFilter: () => capturedFilter,
+    };
 };

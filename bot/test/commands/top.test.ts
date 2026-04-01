@@ -4,6 +4,7 @@ import {
     createChatInputInteraction,
     createPaginationInteraction,
 } from '../helpers/interactions';
+import logger from '../../src/utils/logger';
 
 const mockGetTopLifters = vi.hoisted(() => vi.fn());
 
@@ -66,6 +67,43 @@ describe('Top command', () => {
         );
     });
 
+    it('replies with not-found message when API returns an empty array', async () => {
+        mockGetTopLifters.mockResolvedValue([]);
+        const interaction = createChatInputInteraction();
+        await execute(interaction);
+
+        expect(interaction.editReply).toHaveBeenCalledWith(
+            'No data found for top lifters.',
+        );
+    });
+
+    it('replies ephemerally when API throws and interaction is not deferred', async () => {
+        mockGetTopLifters.mockRejectedValue(new Error('API failure'));
+        const interaction = createChatInputInteraction();
+        await execute(interaction);
+
+        expect(interaction.reply).toHaveBeenCalledWith(
+            expect.objectContaining({
+                content:
+                    'An error occurred while fetching the top lifters.',
+                ephemeral: true,
+            }),
+        );
+    });
+
+    it('edits reply with error when API throws and interaction is already deferred', async () => {
+        mockGetTopLifters.mockRejectedValue(new Error('API failure'));
+        const interaction = createChatInputInteraction({ deferred: true });
+        await execute(interaction);
+
+        expect(interaction.editReply).toHaveBeenCalledWith(
+            expect.objectContaining({
+                content:
+                    'An error occurred while fetching the top lifters.',
+            }),
+        );
+    });
+
     it('generates an embed with top lifters', async () => {
         mockGetTopLifters.mockResolvedValue(mockTopLifters);
         const interaction = createChatInputInteraction();
@@ -92,6 +130,16 @@ describe('Top command', () => {
         expect(interaction.fetchReply).toHaveBeenCalled();
     });
 
+    it('collector filter accepts only the command user', async () => {
+        mockGetTopLifters.mockResolvedValue(mockTopLifters);
+        const { interaction, getFilter } = createPaginationInteraction();
+        await execute(interaction as any);
+
+        const filter = getFilter()!;
+        expect(filter({ user: { id: '12345' } })).toBe(true);
+        expect(filter({ user: { id: 'other' } })).toBe(false);
+    });
+
     it('advances to next page when next button is clicked', async () => {
         mockGetTopLifters.mockResolvedValue(mockTopLiftersMultiPage);
         const { interaction, handlers } = createPaginationInteraction();
@@ -112,6 +160,30 @@ describe('Top command', () => {
         expect(embeds[0].description).toContain('Page 2');
     });
 
+    it('decrements page when prev is clicked from page 2', async () => {
+        mockGetTopLifters.mockResolvedValue(mockTopLiftersMultiPage);
+        const { interaction, handlers } = createPaginationInteraction();
+        await execute(interaction as any);
+
+        await handlers['collect']({
+            customId: 'next',
+            user: { id: '12345' },
+            update: vi.fn().mockResolvedValue(undefined),
+        });
+
+        const prevInteraction = {
+            customId: 'prev',
+            user: { id: '12345' },
+            update: vi.fn().mockResolvedValue(undefined),
+        };
+        await handlers['collect'](prevInteraction);
+
+        expect(prevInteraction.update).toHaveBeenCalled();
+        const { embeds } = vi.mocked(prevInteraction.update).mock
+            .calls[0][0] as any;
+        expect(embeds[0].description).toContain('Page 1');
+    });
+
     it('does not decrement page when prev is clicked on the first page', async () => {
         mockGetTopLifters.mockResolvedValue(mockTopLiftersMultiPage);
         const { interaction, handlers } = createPaginationInteraction();
@@ -125,6 +197,40 @@ describe('Top command', () => {
         await handlers['collect'](buttonInteraction);
 
         expect(buttonInteraction.update).not.toHaveBeenCalled();
+    });
+
+    it('logs error when collect handler throws', async () => {
+        mockGetTopLifters.mockResolvedValue(mockTopLiftersMultiPage);
+        const { interaction, handlers } = createPaginationInteraction();
+        await execute(interaction as any);
+
+        const buttonInteraction = {
+            customId: 'next',
+            user: { id: '12345' },
+            update: vi.fn().mockRejectedValue(new Error('update failed')),
+        };
+        await handlers['collect'](buttonInteraction);
+
+        expect(vi.mocked(logger.error)).toHaveBeenCalledWith(
+            'Error handling pagination interaction:',
+            expect.any(Error),
+        );
+    });
+
+    it('logs error when end handler throws', async () => {
+        mockGetTopLifters.mockResolvedValue(mockTopLiftersMultiPage);
+        const { interaction, handlers } = createPaginationInteraction();
+        await execute(interaction as any);
+
+        vi.mocked(interaction.editReply).mockImplementationOnce(() => {
+            throw new Error('edit failed');
+        });
+        handlers['end']();
+
+        expect(vi.mocked(logger.error)).toHaveBeenCalledWith(
+            'Error disabling buttons on collector end:',
+            expect.any(Error),
+        );
     });
 
     it('disables all buttons when the collector ends', async () => {

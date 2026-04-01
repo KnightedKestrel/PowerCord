@@ -1,3 +1,18 @@
+export class SlashCommandStringOption {
+    setName(): this {
+        return this;
+    }
+    setDescription(): this {
+        return this;
+    }
+    setRequired(): this {
+        return this;
+    }
+    setAutocomplete(): this {
+        return this;
+    }
+}
+
 export class SlashCommandBuilder {
     setName(): this {
         return this;
@@ -5,7 +20,10 @@ export class SlashCommandBuilder {
     setDescription(): this {
         return this;
     }
-    addStringOption(): this {
+    addStringOption(
+        fn: (option: SlashCommandStringOption) => SlashCommandStringOption,
+    ): this {
+        fn(new SlashCommandStringOption());
         return this;
     }
 }
