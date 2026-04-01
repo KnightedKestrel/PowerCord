@@ -9,11 +9,15 @@ const { mockConfig, mockApiClient, mockMockClient } = vi.hoisted(() => ({
         getLifter: vi.fn(),
         getMeet: vi.fn(),
         getTopLifters: vi.fn(),
+        getLifterAutocomplete: vi.fn(),
+        getMeetAutocomplete: vi.fn(),
     },
     mockMockClient: {
         getLifter: vi.fn(),
         getMeet: vi.fn(),
         getTopLifters: vi.fn(),
+        getLifterAutocomplete: vi.fn(),
+        getMeetAutocomplete: vi.fn(),
     },
 }));
 
@@ -91,5 +95,61 @@ describe('api', () => {
 
         expect(mockApiClient.getTopLifters).toHaveBeenCalledWith(2);
         expect(mockMockClient.getTopLifters).not.toHaveBeenCalled();
+    });
+
+    it('routes getLifterAutocomplete to mockClient when ENABLE_MOCK_API is true', async () => {
+        mockConfig.ENABLE_MOCK_API = true;
+        mockConfig.API_BASE_URL = 'http://localhost:3000/api';
+
+        const { api } = await import('../../src/data/api');
+        await api.getLifterAutocomplete('Jane', 5);
+
+        expect(mockMockClient.getLifterAutocomplete).toHaveBeenCalledWith(
+            'Jane',
+            5,
+        );
+        expect(mockApiClient.getLifterAutocomplete).not.toHaveBeenCalled();
+    });
+
+    it('routes getLifterAutocomplete to apiClient when ENABLE_MOCK_API is false', async () => {
+        mockConfig.ENABLE_MOCK_API = false;
+        mockConfig.API_BASE_URL = 'http://localhost:3000/api';
+
+        const { api } = await import('../../src/data/api');
+        await api.getLifterAutocomplete('Jane', 5);
+
+        expect(mockApiClient.getLifterAutocomplete).toHaveBeenCalledWith(
+            'Jane',
+            5,
+        );
+        expect(mockMockClient.getLifterAutocomplete).not.toHaveBeenCalled();
+    });
+
+    it('routes getMeetAutocomplete to mockClient when ENABLE_MOCK_API is true', async () => {
+        mockConfig.ENABLE_MOCK_API = true;
+        mockConfig.API_BASE_URL = 'http://localhost:3000/api';
+
+        const { api } = await import('../../src/data/api');
+        await api.getMeetAutocomplete('Labor', 5);
+
+        expect(mockMockClient.getMeetAutocomplete).toHaveBeenCalledWith(
+            'Labor',
+            5,
+        );
+        expect(mockApiClient.getMeetAutocomplete).not.toHaveBeenCalled();
+    });
+
+    it('routes getMeetAutocomplete to apiClient when ENABLE_MOCK_API is false', async () => {
+        mockConfig.ENABLE_MOCK_API = false;
+        mockConfig.API_BASE_URL = 'http://localhost:3000/api';
+
+        const { api } = await import('../../src/data/api');
+        await api.getMeetAutocomplete('Labor', 5);
+
+        expect(mockApiClient.getMeetAutocomplete).toHaveBeenCalledWith(
+            'Labor',
+            5,
+        );
+        expect(mockMockClient.getMeetAutocomplete).not.toHaveBeenCalled();
     });
 });
