@@ -144,16 +144,21 @@ describe('Lifter command', () => {
 
         it('does not set embed URL when lifter url is empty', async () => {
             mockGetLifter.mockResolvedValue({ ...mockLifter, url: '' });
-            const interaction = createChatInputInteraction({ name: 'Heracles' });
+            const interaction = createChatInputInteraction({
+                name: 'Heracles',
+            });
             await execute(interaction);
 
-            const call = vi.mocked(interaction.editReply).mock.calls[0][0] as any;
+            const call = vi.mocked(interaction.editReply).mock
+                .calls[0][0] as any;
             expect(call.embeds[0].url).toBeUndefined();
         });
 
         it('replies ephemerally when API throws and interaction is not deferred', async () => {
             mockGetLifter.mockRejectedValue(new Error('API failure'));
-            const interaction = createChatInputInteraction({ name: 'Heracles' });
+            const interaction = createChatInputInteraction({
+                name: 'Heracles',
+            });
             await execute(interaction);
 
             expect(interaction.reply).toHaveBeenCalledWith(

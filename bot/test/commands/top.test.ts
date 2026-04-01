@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import * as topCommand from '../../src/commands/opl/top';
+import logger from '../../src/utils/logger';
 import {
     createChatInputInteraction,
     createPaginationInteraction,
 } from '../helpers/interactions';
-import logger from '../../src/utils/logger';
 
 const mockGetTopLifters = vi.hoisted(() => vi.fn());
 
@@ -84,8 +84,7 @@ describe('Top command', () => {
 
         expect(interaction.reply).toHaveBeenCalledWith(
             expect.objectContaining({
-                content:
-                    'An error occurred while fetching the top lifters.',
+                content: 'An error occurred while fetching the top lifters.',
                 ephemeral: true,
             }),
         );
@@ -98,8 +97,7 @@ describe('Top command', () => {
 
         expect(interaction.editReply).toHaveBeenCalledWith(
             expect.objectContaining({
-                content:
-                    'An error occurred while fetching the top lifters.',
+                content: 'An error occurred while fetching the top lifters.',
             }),
         );
     });
