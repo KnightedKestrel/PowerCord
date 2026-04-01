@@ -1,5 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { getLifter, getMeet, getTopLifters } from '../../src/data/apiClient';
+import {
+    getLifter,
+    getLifterAutocomplete,
+    getMeet,
+    getMeetAutocomplete,
+    getTopLifters,
+} from '../../src/data/apiClient';
 import { Lifter, Meet, TopLifter } from '../../src/types/types';
 import logger from '../../src/utils/logger';
 
@@ -172,6 +178,46 @@ describe('apiClient', () => {
         expect(result).toBeUndefined();
         expect(logger.error).toHaveBeenCalledWith(
             'Error fetching top lifters:',
+            expect.any(Error),
+        );
+    });
+
+    it('getLifterAutocomplete returns name suggestions from the API', async () => {
+        mockGet.mockResolvedValueOnce({ data: ['Jane Doe', 'Jane Smith'] });
+        const result = await getLifterAutocomplete('Jane');
+
+        expect(result).toEqual(['Jane Doe', 'Jane Smith']);
+        expect(logger.error).not.toHaveBeenCalled();
+    });
+
+    it('getLifterAutocomplete returns undefined and logs error on network failure', async () => {
+        mockGet.mockRejectedValueOnce(new Error('Network error'));
+        const result = await getLifterAutocomplete('Jane');
+
+        expect(result).toBeUndefined();
+        expect(logger.error).toHaveBeenCalledWith(
+            'Error fetching lifter autocomplete:',
+            expect.any(Error),
+        );
+    });
+
+    it('getMeetAutocomplete returns meet name suggestions from the API', async () => {
+        mockGet.mockResolvedValueOnce({
+            data: ['Mock Meet', 'Mock Meet 2'],
+        });
+        const result = await getMeetAutocomplete('Mock');
+
+        expect(result).toEqual(['Mock Meet', 'Mock Meet 2']);
+        expect(logger.error).not.toHaveBeenCalled();
+    });
+
+    it('getMeetAutocomplete returns undefined and logs error on network failure', async () => {
+        mockGet.mockRejectedValueOnce(new Error('Network error'));
+        const result = await getMeetAutocomplete('Mock');
+
+        expect(result).toBeUndefined();
+        expect(logger.error).toHaveBeenCalledWith(
+            'Error fetching meet autocomplete:',
             expect.any(Error),
         );
     });

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import * as meetCommand from '../../src/commands/opl/meet';
 import {
+    createAutocompleteInteraction,
     createChatInputInteraction,
     createPaginationInteraction,
 } from '../helpers/interactions';
@@ -72,6 +73,7 @@ const mockMultiPageMeet = {
 
 describe('Meet command', () => {
     const execute = meetCommand['execute'];
+    const autocomplete = meetCommand['autocomplete'];
 
     beforeEach(() => {
         mockGetMeet.mockReset();
@@ -161,6 +163,48 @@ describe('Meet command', () => {
         await handlers['collect'](buttonInteraction);
 
         expect(buttonInteraction.update).not.toHaveBeenCalled();
+    });
+
+    describe('autocomplete', () => {
+        it('responds with empty array for short queries', async () => {
+            const interaction = createAutocompleteInteraction('L');
+            await autocomplete(interaction);
+
+            expect(interaction.respond).toHaveBeenCalledWith([]);
+            expect(mockGetMeetAutocomplete).not.toHaveBeenCalled();
+        });
+
+        it('responds with matching meet names', async () => {
+            mockGetMeetAutocomplete.mockResolvedValue([
+                'Labors of Strength',
+                'Labors of Speed',
+            ]);
+            const interaction = createAutocompleteInteraction('La');
+            await autocomplete(interaction);
+
+            expect(interaction.respond).toHaveBeenCalledWith([
+                { name: 'Labors of Strength', value: 'Labors of Strength' },
+                { name: 'Labors of Speed', value: 'Labors of Speed' },
+            ]);
+        });
+
+        it('responds with empty array when API returns no results', async () => {
+            mockGetMeetAutocomplete.mockResolvedValue(undefined);
+            const interaction = createAutocompleteInteraction('La');
+            await autocomplete(interaction);
+
+            expect(interaction.respond).toHaveBeenCalledWith([]);
+        });
+
+        it('responds with empty array when API throws', async () => {
+            mockGetMeetAutocomplete.mockRejectedValue(
+                new Error('Network error'),
+            );
+            const interaction = createAutocompleteInteraction('La');
+            await autocomplete(interaction);
+
+            expect(interaction.respond).toHaveBeenCalledWith([]);
+        });
     });
 
     it('disables all buttons when the collector ends', async () => {
