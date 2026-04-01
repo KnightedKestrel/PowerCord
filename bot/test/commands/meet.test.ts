@@ -103,6 +103,16 @@ describe('Meet command', () => {
         );
     });
 
+    it('replies with error when no name is provided', async () => {
+        const interaction = createChatInputInteraction({ name: null });
+        await execute(interaction);
+
+        expect(interaction.deferReply).toHaveBeenCalled();
+        expect(interaction.editReply).toHaveBeenCalledWith(
+            'You need to specify a meet.',
+        );
+    });
+
     it('replies with not-found message when meet does not exist', async () => {
         mockGetMeet.mockResolvedValue(undefined);
         const interaction = createChatInputInteraction({
@@ -116,6 +126,18 @@ describe('Meet command', () => {
         );
     });
 
+    it('replies with not-found message when meet has no entries', async () => {
+        mockGetMeet.mockResolvedValue({ ...mockSinglePageMeet, entries: [] });
+        const interaction = createChatInputInteraction({
+            name: 'Labors of Strength',
+        });
+        await execute(interaction);
+
+        expect(interaction.editReply).toHaveBeenCalledWith(
+            'No data found for meet: Labors of Strength.',
+        );
+    });
+
     it('sets up a message component collector after replying', async () => {
         mockGetMeet.mockResolvedValue(mockSinglePageMeet);
         const { interaction } = createPaginationInteraction({
@@ -124,6 +146,18 @@ describe('Meet command', () => {
         await execute(interaction as any);
 
         expect(interaction.fetchReply).toHaveBeenCalled();
+    });
+
+    it('collector filter accepts only the command user', async () => {
+        mockGetMeet.mockResolvedValue(mockSinglePageMeet);
+        const { interaction, getFilter } = createPaginationInteraction({
+            name: 'Labors of Strength',
+        });
+        await execute(interaction as any);
+
+        const filter = getFilter()!;
+        expect(filter({ user: { id: '12345' } })).toBe(true);
+        expect(filter({ user: { id: 'other' } })).toBe(false);
     });
 
     it('advances to next page when next button is clicked', async () => {
@@ -146,6 +180,62 @@ describe('Meet command', () => {
         const { embeds } = vi.mocked(buttonInteraction.update).mock
             .calls[0][0] as any;
         expect(embeds[0].description).toContain('page 2');
+    });
+
+    it('replies ephemerally when API throws and interaction is not deferred', async () => {
+        mockGetMeet.mockRejectedValue(new Error('API failure'));
+        const interaction = createChatInputInteraction({
+            name: 'Labors of Strength',
+        });
+        await execute(interaction);
+
+        expect(interaction.reply).toHaveBeenCalledWith(
+            expect.objectContaining({
+                content: 'An error occurred while fetching the meet data.',
+                ephemeral: true,
+            }),
+        );
+    });
+
+    it('edits reply with error when API throws and interaction is already deferred', async () => {
+        mockGetMeet.mockRejectedValue(new Error('API failure'));
+        const interaction = createChatInputInteraction({
+            name: 'Labors of Strength',
+            deferred: true,
+        });
+        await execute(interaction);
+
+        expect(interaction.editReply).toHaveBeenCalledWith(
+            expect.objectContaining({
+                content: 'An error occurred while fetching the meet data.',
+            }),
+        );
+    });
+
+    it('decrements page when prev is clicked from page 2', async () => {
+        mockGetMeet.mockResolvedValue(mockMultiPageMeet);
+        const { interaction, handlers } = createPaginationInteraction({
+            name: 'Multi Page Meet',
+        });
+        await execute(interaction as any);
+
+        await handlers['collect']({
+            customId: 'next',
+            user: { id: '12345' },
+            update: vi.fn().mockResolvedValue(undefined),
+        });
+
+        const prevInteraction = {
+            customId: 'prev',
+            user: { id: '12345' },
+            update: vi.fn().mockResolvedValue(undefined),
+        };
+        await handlers['collect'](prevInteraction);
+
+        expect(prevInteraction.update).toHaveBeenCalled();
+        const { embeds } = vi.mocked(prevInteraction.update).mock
+            .calls[0][0] as any;
+        expect(embeds[0].description).toContain('page 1');
     });
 
     it('does not decrement page when prev is clicked on the first page', async () => {
