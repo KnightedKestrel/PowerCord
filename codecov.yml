@@ -10,3 +10,7 @@ coverage:
                 informational: true
                 target: 80%
                 threshold: 10%
+
+flag_management:
+    default_rules:
+        carryforward: true
