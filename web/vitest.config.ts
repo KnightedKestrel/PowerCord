@@ -1,6 +1,14 @@
 import { defineVitestConfig } from '@nuxt/test-utils/config';
 
 export default defineVitestConfig({
+    resolve: {
+        dedupe: [
+            'vue',
+            '@vue/runtime-core',
+            '@vue/runtime-dom',
+            '@vue/reactivity',
+        ],
+    },
     test: {
         environment: 'nuxt',
         environmentOptions: {

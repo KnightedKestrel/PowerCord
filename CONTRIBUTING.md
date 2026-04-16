@@ -16,7 +16,7 @@ To get started with repo setup, follow these steps:
 
 This repo contains the contents for both the Discord bot and its website.
 
-- `/`: Root directory that contains many helpful npm commands for formatting, tests, and running both applications in a dev environment.
+- `/`: Root directory that contains many helpful pnpm commands for formatting, tests, and running both applications in a dev environment.
 - `/bot`: Source code for the bot and all utilities it needs.
 - `/web`: Source code for the website.
 
@@ -37,13 +37,14 @@ If you encounter a bug or have a feature request, you can open a new issue. To b
 2. **Follow Code Style**: Prettier and ESLint is configured for this project. Run the following from root to quickly format all your changes made.
 
     ```bash
-    npm run format
+    pnpm run format
     ```
 
 3. **Run Tests**: Writing new tests is not required/expected. Run existing tests to ensure existing features have not been impacted.
 
     ```bash
-    npm test
+    pnpm run test:bot
+    pnpm run test:web
     ```
 
 4. **Open a Merge Request (MR)**: Provide info on your changes and feel free to reference any related issues.

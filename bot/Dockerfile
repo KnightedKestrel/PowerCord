@@ -4,14 +4,23 @@
 
 ARG NODE_VERSION=24.2.0
 FROM node:${NODE_VERSION}-alpine
+
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
+
 WORKDIR /app
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci
+
+# hadolint ignore=DL3059
+RUN --mount=type=bind,source=bot/package.json,target=package.json \
+    --mount=type=bind,source=pnpm-lock.yaml,target=pnpm-lock.yaml \
+    --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile
+
 # Delayed prod env to ensure ts-node is installed from dev
 ENV NODE_ENV=production
-COPY . .
+COPY bot/ .
 USER node
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["pnpm", "start"]

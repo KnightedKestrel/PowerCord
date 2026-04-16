@@ -24,10 +24,12 @@ jobs:
                       bot:
                           - 'bot/**'
                           - 'package.json'
+                          - 'pnpm-lock.yaml'
                           - 'tsconfig.json'
                       web:
                           - 'web/**'
                           - 'package.json'
+                          - 'pnpm-lock.yaml'
                           - 'tsconfig.json'
 
     lint-format:
@@ -36,20 +38,23 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v6
 
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
+
             - name: Set up Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: '24'
-                  cache: 'npm'
+                  cache: 'pnpm'
 
-            - name: Install root dependencies
-              run: npm ci
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
 
             - name: Run ESLint
-              run: npm run lint
+              run: pnpm run lint
 
             - name: Run Prettier
-              run: npm run prettier
+              run: pnpm run prettier
 
     bot-test:
         needs: check-changes
@@ -59,17 +64,20 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v6
 
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
+
             - name: Set up Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: '24'
-                  cache: 'npm'
+                  cache: 'pnpm'
 
             - name: Install bot dependencies
-              run: npm ci --prefix bot
+              run: pnpm install --frozen-lockfile --filter powercord-bot
 
             - name: Run bot tests with coverage
-              run: npx vitest run --coverage
+              run: pnpm vitest run --coverage
               working-directory: bot
 
             - name: Upload bot coverage
@@ -87,17 +95,20 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v6
 
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
+
             - name: Set up Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: '24'
-                  cache: 'npm'
+                  cache: 'pnpm'
 
             - name: Install web dependencies
-              run: npm ci --prefix web
+              run: pnpm install --frozen-lockfile --filter powercord-web
 
             - name: Run web tests with coverage
-              run: npx vitest run --coverage
+              run: pnpm vitest run --coverage
               working-directory: web
 
             - name: Upload web coverage

@@ -23,7 +23,7 @@ jobs:
                   dockerfile: ./bot/Dockerfile
 
             - name: Build Docker image
-              run: docker build -t powercord-bot-validate -f bot/Dockerfile bot
+              run: docker build -t powercord-bot-validate -f bot/Dockerfile .
 
             - name: Run Docker container
               run: |

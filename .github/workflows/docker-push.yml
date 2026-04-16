@@ -31,8 +31,7 @@ jobs:
                   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
                   ECR_REPOSITORY: 'powercord-bot'
               run: |
-                  cd bot
-                  docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }} .
+                  docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }} -f bot/Dockerfile .
                   docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
                   docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
 
