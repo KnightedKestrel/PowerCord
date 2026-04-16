@@ -33,7 +33,7 @@
 
 ## 🚀 Setup
 
-Project requires [Node.js](https://nodejs.org/) to run. After installing, it is recommended to use [NVM](https://github.com/nvm-sh/nvm) ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)) to manage Node versions. To set the Node version used by the project, run `nvm use` from root and follow the prompts, especially if that version has not been installed yet.
+Project requires [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/installation) to run. After installing Node, it is recommended to use [NVM](https://github.com/nvm-sh/nvm) ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)) to manage Node versions. To set the Node version used by the project, run `nvm use` from root and follow the prompts, especially if that version has not been installed yet.
 
 No other system level dependencies are needed.
 
@@ -49,15 +49,15 @@ This project uses [dotenv](https://github.com/motdotla/dotenv#readme) to manage 
 In the root directory of the project enter the following commands. This will install all dependencies and begin the dev instance.
 
 ```sh
-npm run install:all
-npm run dev
+pnpm install
+pnpm dev
 ```
 
-To run the Discord bot or web client individually, enter either the `bot` or `web` directory and run:
+To run the Discord bot or web client individually, run from the root:
 
 ```sh
-npm install
-npm run dev
+pnpm dev:bot
+pnpm dev:web
 ```
 
 ## 🌱 Contribute

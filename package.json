@@ -1,21 +1,28 @@
 {
   "name": "powercord",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "dev:bot": "npm run dev --prefix bot",
-    "dev:web": "npm run dev --prefix web",
-    "dev": "concurrently \"npm run dev:bot\" \"npm run dev:web\"",
-    "format": "npm run prettier:fix && npm run lint:fix",
-    "install:bot": "npm install --prefix bot",
-    "install:web": "npm install --prefix web",
-    "install:all": "npm install && npm install --prefix bot && npm install --prefix web",
+    "dev:bot": "pnpm --filter powercord-bot dev",
+    "dev:web": "pnpm --filter powercord-web dev",
+    "dev": "concurrently \"pnpm run dev:bot\" \"pnpm run dev:web\"",
+    "format": "pnpm run prettier:fix && pnpm run lint:fix",
     "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "pnpm run lint -- --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "test:bot": "npm run test --prefix bot",
-    "test:web": "npm run test --prefix web",
-    "clean": "rm -rf node_modules package-lock.json bot/node_modules bot/package-lock.json web/node_modules web/package-lock.json web/.nuxt web/.output web/dist"
+    "test:bot": "pnpm --filter powercord-bot test",
+    "test:web": "pnpm --filter powercord-web test",
+    "clean": "rm -rf node_modules pnpm-lock.yaml bot/node_modules web/node_modules web/.nuxt web/.output web/dist"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "sharp",
+      "unrs-resolver",
+      "vue-demi"
+    ]
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",

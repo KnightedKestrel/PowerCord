@@ -19,6 +19,7 @@
 **/Dockerfile*
 **/node_modules
 **/npm-debug.log
+**/pnpm-debug.log
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
@@ -26,3 +27,10 @@
 **/dist
 LICENSE
 README.md
+
+# Not needed for bot image — but package.json is required for workspace lockfile validation
+web
+!web/package.json
+terraform
+.claude
+.github

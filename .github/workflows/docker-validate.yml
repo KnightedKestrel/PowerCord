@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
     pull_request:
         branches: [master]
-        paths: ['bot/**']
+        paths: ['bot/**', 'pnpm-lock.yaml']
 
 concurrency:
     group: docker-validate-${{ github.ref }}
@@ -23,7 +23,9 @@ jobs:
                   dockerfile: ./bot/Dockerfile
 
             - name: Build Docker image
-              run: docker build -t powercord-bot-validate -f bot/Dockerfile bot
+              run: |
+                  PNPM_VERSION=$(jq -r '.packageManager | ltrimstr("pnpm@")' package.json)
+                  docker build --build-arg PNPM_VERSION="$PNPM_VERSION" -t powercord-bot-validate -f bot/Dockerfile .
 
             - name: Run Docker container
               run: |
