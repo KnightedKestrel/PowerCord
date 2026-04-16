@@ -28,13 +28,13 @@
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "@vue/compiler-sfc": "^3.5.31",
+    "@vue/compiler-sfc": "^3.5.32",
     "concurrently": "^9.2.1",
-    "eslint": "^10.1.0",
+    "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
-    "globals": "^17.4.0",
-    "prettier": "3.8.1",
+    "globals": "^17.5.0",
+    "prettier": "3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "typescript-eslint": "^8.57.2"
+    "typescript-eslint": "^8.58.2"
   }
 }
