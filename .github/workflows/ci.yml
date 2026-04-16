@@ -25,12 +25,10 @@ jobs:
                           - 'bot/**'
                           - 'package.json'
                           - 'pnpm-lock.yaml'
-                          - 'tsconfig.json'
                       web:
                           - 'web/**'
                           - 'package.json'
                           - 'pnpm-lock.yaml'
-                          - 'tsconfig.json'
 
     lint-format:
         runs-on: ubuntu-latest

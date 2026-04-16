@@ -28,8 +28,9 @@
 LICENSE
 README.md
 
-# Not needed for bot image
+# Not needed for bot image — but package.json is required for workspace lockfile validation
 web
+!web/package.json
 terraform
 .claude
 .github

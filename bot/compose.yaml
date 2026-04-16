@@ -1,7 +1,8 @@
 services:
     server:
         build:
-            context: .
+            context: ..
+            dockerfile: bot/Dockerfile
         environment:
             - CLIENT_ID=${CLIENT_ID}
             - DISCORD_TOKEN=${DISCORD_TOKEN}

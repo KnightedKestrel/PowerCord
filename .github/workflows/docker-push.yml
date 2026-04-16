@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
     push:
         branches: [master]
-        paths: ['bot/**']
+        paths: ['bot/**', 'pnpm-lock.yaml']
 
 jobs:
     docker-push:
