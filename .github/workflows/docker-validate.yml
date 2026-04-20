@@ -29,7 +29,7 @@ jobs:
 
             - name: Run Docker container
               run: |
-                  docker run -d --name bot-validate -p 3000:3000 powercord-bot-validate
+                  docker run -d --name bot-validate -p 3000:3000 -e DISCORD_TOKEN=placeholder powercord-bot-validate
                   echo "Waiting for health endpoint..."
                   for i in {1..30}; do
                     if curl -sf http://localhost:3000/health > /dev/null; then
