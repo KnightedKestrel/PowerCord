@@ -4,7 +4,6 @@ declare namespace NodeJS {
         DISCORD_TOKEN?: string;
         API_BASE_URL?: string;
         ENABLE_MOCK_API?: string;
-        LOGTAIL_SOURCE_TOKEN?: string;
-        LOGTAIL_INGESTING_HOST?: string;
+        BETTERSTACK_HEARTBEAT_URL?: string;
     }
 }
