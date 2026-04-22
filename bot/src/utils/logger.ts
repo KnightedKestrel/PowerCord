@@ -1,8 +1,5 @@
-import { Logtail } from '@logtail/node';
-import { LogtailTransport } from '@logtail/winston';
 import { createLogger, format, transports } from 'winston';
 import { consoleFormat } from 'winston-console-format';
-import { config } from './config';
 
 const consoleTransport = new transports.Console({
     format: format.combine(
@@ -31,17 +28,5 @@ const logger = createLogger({
     transports: [consoleTransport],
     exceptionHandlers: [consoleTransport],
 });
-
-if (config.LOGTAIL_SOURCE_TOKEN && config.LOGTAIL_INGESTING_HOST) {
-    const logtail = new Logtail(config.LOGTAIL_SOURCE_TOKEN, {
-        endpoint: `https://${config.LOGTAIL_INGESTING_HOST}`,
-    });
-
-    const logtailTransport = createLogger({
-        transports: [new LogtailTransport(logtail)],
-    });
-
-    logger.add(logtailTransport);
-}
 
 export default logger;
