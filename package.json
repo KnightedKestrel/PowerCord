@@ -1,7 +1,7 @@
 {
   "name": "powercord",
   "version": "0.0.1",
-  "packageManager": "pnpm@10.33.1",
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "dev:bot": "pnpm --filter powercord-bot dev",
     "dev:web": "pnpm --filter powercord-web dev",
